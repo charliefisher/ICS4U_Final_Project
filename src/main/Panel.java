@@ -26,7 +26,7 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	
 	// create our states
 	public static enum GameState {
-		MAIN_MENU, STONES, TICTACTOE, RESET
+		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTON
 	}
 
 	// instantiate our state
@@ -37,7 +37,8 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 
 	public Panel() throws IOException, FontFormatException {
 		// we are in the main menu
-		state = GameState.MAIN_MENU;		
+		
+		//state = GameState.MAIN_MENU;		
 
 		// load tictactoe font
 		InputStream is = getClass().getResourceAsStream("/general_resources/tictactoe_font.ttf");
@@ -56,7 +57,7 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	}
 
 	public void paint(Graphics g) {
-		switch (state) {
+	/*	switch (state) {
 		case MAIN_MENU:
 			
 			break;
@@ -71,7 +72,7 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 		case RESET:
 
 			break;
-		}
+		} */
 	}
 
 
