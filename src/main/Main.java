@@ -15,7 +15,7 @@ public class Main {
 		public static void main(String[] args) throws IOException, InterruptedException, FontFormatException {
 			
 			// create a GamePanel (class that extends JPanel)
-			GamePanel panel = new GamePanel();
+			Panel panel = new Panel();
 
 			// create a standard cursor
 			Cursor jFrameCursor = new Cursor(0);

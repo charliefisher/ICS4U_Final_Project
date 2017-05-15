@@ -14,14 +14,15 @@ import java.io.InputStream;
 import javax.swing.JPanel;
 
 
-public final class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
+public final class Panel extends JPanel implements MouseListener, MouseMotionListener {
 
 	// fixes an error with JPanel
 	private static final long serialVersionUID = 1L;
 
 	// declare our objects of each game
-	TicTacToePanel ttt;
-	StonesPanel stones;
+	
+	//TicTacToePanel ttt;
+	//StonesPanel stones;
 	
 	// create our states
 	public static enum GameState {
@@ -34,7 +35,7 @@ public final class GamePanel extends JPanel implements MouseListener, MouseMotio
 
 	private static Font tttFont, StonesFont;
 
-	public GamePanel() throws IOException, FontFormatException {
+	public Panel() throws IOException, FontFormatException {
 		// we are in the main menu
 		state = GameState.MAIN_MENU;		
 
@@ -48,8 +49,9 @@ public final class GamePanel extends JPanel implements MouseListener, MouseMotio
 
 		// instantiate our objects 
 		// (better to do one of each than instantiate one every time we start a new game)
-		ttt = new TicTacToePanel();
-		stones = new StonesPanel();
+		
+	//	ttt = new TicTacToePanel();
+	//	stones = new StonesPanel();
 
 	}
 
@@ -94,12 +96,12 @@ public final class GamePanel extends JPanel implements MouseListener, MouseMotio
 	
 	// accessor for state
 	public static GameState getGameState() {
-		return GamePanel.state;
+		return Panel.state;
 	}
 	
 	// mutator for state
 	public static void setGameState(GameState newState) {
-		GamePanel.state = newState;
+		Panel.state = newState;
 	}
 
 	// accessor for tic tac toe font
