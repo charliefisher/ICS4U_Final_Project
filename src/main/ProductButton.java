@@ -3,16 +3,22 @@ package main;
 public class ProductButton extends Button {
 
 	private double price;
+	private static final int size = 150;
+	private int xCord, yCord;
 
-	public ProductButton(String name){
+	public ProductButton(String name, int x, int y, double price){
 		super(name);
 		
-		price = 0.0; // do a text input here
+		this.xCord = x;
+		this.yCord = y;	
+		this.price = price;
 	}
 	
 	@Override
-	public boolean clicked() {
-		// TODO Auto-generated method stub
+	public boolean clicked(int x, int y) {
+		if ((x > xCord && x < xCord + size) && (y > yCord && y < yCord + size)) {
+			return true;
+		}
 		return false;
 	}
 	

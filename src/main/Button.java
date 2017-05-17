@@ -16,5 +16,5 @@ public abstract class Button {
 		return this.name = name;
 	}
 	
-	public abstract boolean clicked();
+	public abstract boolean clicked(int x, int y);
 }
