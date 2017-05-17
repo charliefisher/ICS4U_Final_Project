@@ -7,6 +7,7 @@ public class CashMachine {
 	private int state = 1; // 1-9 menus states
 	
 	
+	
 	public CashMachine(){
 		configure();
 	}
@@ -23,8 +24,8 @@ public class CashMachine {
 		
 	}
 	
-	public void getReceipt(){ // idk what type we should make this method to return receipt
-		
+	public String getReceipt(){ // idk what type we should make this method to return receipt
+		return" ";
 	}
 	
 	public int getState(){
