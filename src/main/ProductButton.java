@@ -3,17 +3,11 @@ package main;
 public class ProductButton extends Button {
 
 	private double price;
+	private static final int size = 150;
 
-	public ProductButton(String name){
-		super(name);
-		
-		price = 0.0; // do a text input here
-	}
-	
-	@Override
-	public boolean clicked() {
-		// TODO Auto-generated method stub
-		return false;
+	public ProductButton(String name, int x, int y, double price){
+		super(name, x, y, size, size);
+		this.price = price;
 	}
 	
 	public double getPrice(){
