@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,48 +20,39 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	// fixes an error with JPanel
 	private static final long serialVersionUID = 1L;
 
-	// declare our objects of each game
-	
-	//TicTacToePanel ttt;
-	//StonesPanel stones;
 	
 	// create our states
-	public static enum GameState {
+	public static enum State {
 		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
 	}
 
 	// instantiate our state
-	private static GameState state;
+	private static State state;
 	
 	private static File productButtonSettings;
 
 
 	private static Font tttFont, StonesFont;
+	
+	private static BufferedImage edit1, edit2, setup1, setup2, setup3, start, use2, use3, use4;
 
 	public Panel() throws IOException, FontFormatException {
-		Scanner sc = new Scanner(System.in);
-		// we are in the main menu
+		Panel.productButtonSettings = new File("src/main/ProductButtonSettings");
 		
-		state = GameState.StartSCREEN;
+		Scanner sc = new Scanner(productButtonSettings);
+	
+		if(sc.hasNextLine()) {
+			state = State.StartSCREEN;
+		}
+		else {
+			state = State.SetupNAME;
+		}
 		
-		this.productButtonSettings = new File("src/main/ProductButtonSettings");
-
-		// load tictactoe font
-		InputStream is = getClass().getResourceAsStream("/general_resources/tictactoe_font.ttf");
+		// load our font
+		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		tttFont = Font.createFont(Font.TRUETYPE_FONT, is);
-
-		// load stones font
-		is = getClass().getResourceAsStream("/general_resources/tictactoe_font.ttf");
-		StonesFont = Font.createFont(Font.TRUETYPE_FONT, is);
-
-		// instantiate our objects 
-		// (better to do one of each than instantiate one every time we start a new game)
-		
-	//	ttt = new TicTacToePanel();
-	//	stones = new StonesPanel();
 		
 		sc.close();
-
 	}
 
 	public void paint(Graphics g) {
@@ -76,7 +68,7 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 			break;
 		// input button info
 		case SetupBUTTON:
-			if (this.productButtonSettings)
+			
 			
 			
 			break;
