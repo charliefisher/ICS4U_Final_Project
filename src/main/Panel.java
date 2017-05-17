@@ -26,7 +26,7 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	
 	// create our states
 	public static enum GameState {
-		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTON
+		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
 	}
 
 	// instantiate our state
@@ -57,22 +57,45 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	}
 
 	public void paint(Graphics g) {
-	/*	switch (state) {
-		case MAIN_MENU:
+		switch (state) {
+		// company name
+		case SetupNAME:
 			
 			break;
-		case STONES:
-			
-			
-			break;
-		case TICTACTOE:
+		// how many buttons
+		case SetupSIZE:
 			
 			
 			break;
-		case RESET:
+		// input button info
+		case SetupBUTTON:
+			
+			
+			break;
+		case StartSCREEN:
 
 			break;
-		} */
+		case StartORDER:
+			
+			
+			break;
+		case ORDER:
+			
+			
+			break;
+		case OrderSUMMARY:
+				
+				
+			break;
+		case EditSELECT:
+			
+			
+			break;
+		case EditBUTTON:
+			
+			
+			break;
+		}
 	}
 
 
