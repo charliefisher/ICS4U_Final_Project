@@ -10,8 +10,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
@@ -52,6 +54,36 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		tttFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		
+		URL fileURL;
+		
+		fileURL = getClass().getResource("/Screens/EDIT1.png");
+		edit1 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/EDIT2.png");
+		edit2 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/SETUP1.png");
+		setup1 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/SETUP2.png");
+		setup2 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/setup3.png");
+		setup3 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/START.png");
+		start = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/use2.png");
+		use2 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/USE3.png");
+		use3 = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("/Screens/use4.png");
+		use4 = ImageIO.read(fileURL);
+		
+		
 		sc.close();
 	}
 
@@ -59,41 +91,39 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 		switch (state) {
 		// company name
 		case SetupNAME:
-			
+			g.drawImage(setup1, 0, 0, null);
 			break;
 		// how many buttons
 		case SetupSIZE:
-			
-			
+			g.drawImage(setup2, 0, 0, null);
 			break;
 		// input button info
 		case SetupBUTTON:
-			
-			
-			
+			g.drawImage(setup3, 0, 0, null);
 			break;
+		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
-
+			g.drawImage(start, 0, 0, null);
 			break;
+		// input customer name and number
 		case StartORDER:
-			
-			
+			g.drawImage(use2, 0, 0, null);
 			break;
+		// screen with buttons to start order
 		case ORDER:
-			
-			
+			g.drawImage(use3, 0, 0, null);
 			break;
+		// screen showing total of order transaction
 		case OrderSUMMARY:
-				
-				
+			g.drawImage(use4, 0, 0, null);
 			break;
+		// click which product button you want to edit
 		case EditSELECT:
-			
-			
+			g.drawImage(edit1, 0, 0, null);
 			break;
+		// change name and price of particular button selected
 		case EditBUTTON:
-			
-			
+			g.drawImage(edit2, 0, 0, null);
 			break;
 		}
 	}
@@ -119,12 +149,12 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	}	
 	
 	// accessor for state
-	public static GameState getGameState() {
+	public static State getGameState() {
 		return Panel.state;
 	}
 	
 	// mutator for state
-	public static void setGameState(GameState newState) {
+	public static void setGameState(State newState) {
 		Panel.state = newState;
 	}
 

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class Main {
 		// declare and instantiate a JFrame
 		static JFrame window = new JFrame("Name");
-		private static short WINDOW_WIDTH = 600, WINDOW_HEIGHT = 600;	
+		private static short WINDOW_WIDTH = 800, WINDOW_HEIGHT = 800;	
 		
 		public static void main(String[] args) throws IOException, InterruptedException, FontFormatException {
 			
