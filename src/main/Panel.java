@@ -1,15 +1,15 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 
@@ -31,14 +31,19 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 
 	// instantiate our state
 	private static GameState state;
+	
+	private static File productButtonSettings;
 
 
 	private static Font tttFont, StonesFont;
 
 	public Panel() throws IOException, FontFormatException {
+		Scanner sc = new Scanner(System.in);
 		// we are in the main menu
 		
-		//state = GameState.MAIN_MENU;		
+		state = GameState.StartSCREEN;
+		
+		this.productButtonSettings = new File("src/main/ProductButtonSettings");
 
 		// load tictactoe font
 		InputStream is = getClass().getResourceAsStream("/general_resources/tictactoe_font.ttf");
@@ -53,6 +58,8 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 		
 	//	ttt = new TicTacToePanel();
 	//	stones = new StonesPanel();
+		
+		sc.close();
 
 	}
 
@@ -69,6 +76,7 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 			break;
 		// input button info
 		case SetupBUTTON:
+			if (this.productButtonSettings)
 			
 			
 			break;
