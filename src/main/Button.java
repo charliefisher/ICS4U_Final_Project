@@ -1,6 +1,6 @@
 package main;
 
-public abstract class Button {
+public class Button {
 	
 	private String name = "";
 	protected int xCord, yCord;

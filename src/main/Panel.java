@@ -37,6 +37,8 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	private static Font tttFont, StonesFont;
 	
 	private static BufferedImage edit1, edit2, setup1, setup2, setup3, start, use2, use3, use4;
+	private static Button startScreenOpenButton, startScreenEditButton;
+	
 
 	public Panel() throws IOException, FontFormatException {
 		Panel.productButtonSettings = new File("src/main/ProductButtonSettings");
@@ -45,9 +47,11 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	
 		if(sc.hasNextLine()) {
 			state = State.StartSCREEN;
+			this.startScreenOpenButton = new Button("Open", 268, 401, 100, 250);
 		}
 		else {
 			state = State.SetupNAME;
+			this.startScreenEditButton = new Button("Edit", 268, 517, 100, 400);
 		}
 		
 		// load our font
@@ -130,12 +134,54 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 
 
 	public void run() {
-	
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		switch (state) {
+		// 
+		case SetupNAME:
+			
+			break;
+		// how many buttons
+		case SetupSIZE:
+			
+			break;
+		// input button info
+		case SetupBUTTON:
+			
+			break;
+		// select to open cash machine or edit the cash machine
+		case StartSCREEN:
+			if(Panel.startScreenOpenButton.clicked(e.getX(), e.getY())) {
+				Panel.state = State.StartORDER;
+			}
+			else if (Panel.startScreenEditButton.clicked(e.getX(), e.getY())) {
+				Panel.state = State.EditSELECT;
+			}
+			break;
+		// input customer name and number
+		case StartORDER:
+			
+			break;
+		// screen with buttons to start order
+		case ORDER:
+			
+			break;
+		// screen showing total of order transaction
+		case OrderSUMMARY:
+			
+			break;
+		// click which product button you want to edit
+		case EditSELECT:
+			
+			break;
+		// change name and price of particular button selected
+		case EditBUTTON:
+			
+			break;
+		}
 	}
 
 	@Override
