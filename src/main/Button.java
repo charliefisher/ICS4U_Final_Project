@@ -24,7 +24,7 @@ public class Button {
 	}
 	
 	public boolean clicked(int x, int y) {
-		if ((x > xCord && x < xCord + xSize) && (y > yCord && y < yCord + ySize)) {
+		if ((x > xCord && x < (xCord + xSize)) && (y > yCord && y < (yCord + ySize))) {
 			return true;
 		}
 		return false;
