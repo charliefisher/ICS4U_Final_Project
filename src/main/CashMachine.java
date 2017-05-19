@@ -101,9 +101,9 @@ public class CashMachine {
 			break;
 		// input customer name and number
 		case StartORDER:
-			g.setFont(CashMachine.MCFont);
+			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
-			g.drawString(this.typed, 150, 450);
+			g.drawString(this.typed, 215, 330);
 			break;
 		// screen with buttons to start order
 		case ORDER:
@@ -213,10 +213,7 @@ public class CashMachine {
 	}
 	
 
-	
-	public void keyTyped(KeyEvent e) {
-		typed += e.getKeyChar();
-		
+	public void keyTyped(KeyEvent e) {			
 		switch (this.state) {
 		// 
 		case SetupNAME:
@@ -231,7 +228,16 @@ public class CashMachine {
 			
 			break;
 		case StartORDER:
+			char temp = e.getKeyChar();
 			
+			if (temp == KeyEvent.VK_BACK_SPACE && typed.length() > 0) {
+				typed = typed.substring(0, typed.length()-1);
+			}
+			else if (temp != KeyEvent.VK_BACK_SPACE) {
+				typed += temp;
+			}
+			
+			typed.toUpperCase();
 			break;
 		// screen with buttons to start order
 		case ORDER:
@@ -249,6 +255,6 @@ public class CashMachine {
 		case EditBUTTON:
 			
 			break;
-		}
+		}		
 	}
 }

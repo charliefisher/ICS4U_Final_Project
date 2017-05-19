@@ -3,6 +3,8 @@ package main;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FontFormatException;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -26,14 +28,14 @@ public class Main {
 		
 			// set GamePanel as the content pane
 			window.setContentPane(panel);
-			
+			// make the window visible to the user
+			window.setVisible(true);
+
 			// add listeners (so we can get input)
 			panel.addMouseListener(panel);
-			panel.addKeyListener(panel);
+			panel.addKeyListener(panel);	
 			panel.requestFocus();
-			
-			// make the window visible to the user
-			window.setVisible(true);			
+						
 			
 			while (true) {					
 				// get time before running our logic

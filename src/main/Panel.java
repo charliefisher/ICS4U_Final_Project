@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -96,6 +95,8 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 			g.drawImage(edit2, 0, 0, null);
 			break;
 		}
+		
+		this.mc.paint(g);
 	}
 
 
@@ -107,13 +108,11 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 	public void mouseClicked(MouseEvent e) {
 		mc.mouseClicked(e);
 	}
-
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		mc.keyTyped(e);
-		System.out.println("Typed");
 	}
-
 
 
 	// UNUSED METHODS
