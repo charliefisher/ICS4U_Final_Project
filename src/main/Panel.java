@@ -47,11 +47,11 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	
 		if(sc.hasNextLine()) {
 			state = State.StartSCREEN;
-			this.startScreenOpenButton = new Button("Open", 268, 401, 100, 250);
+			this.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
 		}
 		else {
-			state = State.SetupNAME;
-			this.startScreenEditButton = new Button("Edit", 268, 517, 100, 400);
+			state = State.StartSCREEN;
+			this.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
 		}
 		
 		// load our font
