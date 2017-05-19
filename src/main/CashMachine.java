@@ -25,7 +25,8 @@ public class CashMachine {
 	private ArrayList<ProductButton> productButtons = new ArrayList<ProductButton>();
 	
 	
-	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow;
+	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
+						  startExitButton;
 	
 	private String typed = "";
 	
@@ -44,8 +45,9 @@ public class CashMachine {
 			
 			this.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
 			this.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
-			this.startReturnToStartButton = new Button("Start", 268, 401, 250, 100); // need to update cordinates
-			this.startFinishButton = new Button("Finish", 268, 401, 250, 100); // need to update cordinates
+			this.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
+			this.startFinishButton = new Button("Finish", 656, 695, 67, 77); // need to update cordinates
+			this.startExitButton = new Button("Exit", 750, 12, 35, 32);
 			
 			this.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
 			this.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
@@ -185,7 +187,7 @@ public class CashMachine {
 				this.state = State.OrderSUMMARY;
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				this.state = State.StartSCREEN;
+				this.state = State.StartORDER;
 			}
 			break;
 		// screen showing total of order transaction
@@ -193,10 +195,15 @@ public class CashMachine {
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
 				this.state = State.StartSCREEN;
 			}
+			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
+				this.state = State.StartSCREEN;
+			}
 			break;
 		// click which product button you want to edit
 		case EditSELECT:
-			
+			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
+				this.state = State.StartSCREEN;
+			}
 			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
