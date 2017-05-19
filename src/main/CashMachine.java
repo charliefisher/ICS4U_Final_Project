@@ -233,7 +233,7 @@ public class CashMachine {
 			if (temp == KeyEvent.VK_BACK_SPACE && typed.length() > 0) {
 				typed = typed.substring(0, typed.length()-1);
 			}
-			else if (temp != KeyEvent.VK_BACK_SPACE) {
+			else if (temp != KeyEvent.VK_BACK_SPACE && typed.length() < 17) {
 				typed += temp;
 			}
 			
