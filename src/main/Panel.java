@@ -1,46 +1,31 @@
 package main;
 
-import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
-public final class Panel extends JPanel implements MouseListener, MouseMotionListener {
+public final class Panel extends JPanel implements MouseListener, KeyListener {
 
 	// fixes an error with JPanel
 	private static final long serialVersionUID = 1L;
-
-	
-	// create our states
-	public static enum State {
-		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
-	}
-
-	// instantiate our state
-	private static State state;
-	
-	private static File productButtonSettings;
-
-
-	private static Font tttFont, StonesFont;
 	
 	private static BufferedImage edit1, edit2, setup1, setup2, setup3, start, use2, use3, use4;
-	private static Button startScreenOpenButton, startScreenEditButton;
 	
+	private CashMachine mc;
 
 	public Panel() throws IOException, FontFormatException {
+<<<<<<< HEAD
 		Panel.productButtonSettings = new File("src/main/ProductButtonSettings");
 		
 		Scanner sc = new Scanner(productButtonSettings);
@@ -57,6 +42,9 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 		// load our font
 		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		tttFont = Font.createFont(Font.TRUETYPE_FONT, is);
+=======
+		this.mc = new CashMachine();
+>>>>>>> 3d622c0c9fdf803a4423b90d003e403a244f89fc
 		
 		URL fileURL;
 		
@@ -86,13 +74,10 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 		
 		fileURL = getClass().getResource("/Screens/use4.png");
 		use4 = ImageIO.read(fileURL);
-		
-		
-		sc.close();
 	}
 
 	public void paint(Graphics g) {
-		switch (state) {
+		switch (mc.getState()) {
 		// company name
 		case SetupNAME:
 			g.drawImage(setup1, 0, 0, null);
@@ -139,83 +124,19 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		switch (state) {
-		// 
-		case SetupNAME:
-			
-			break;
-		// how many buttons
-		case SetupSIZE:
-			
-			break;
-		// input button info
-		case SetupBUTTON:
-			
-			break;
-		// select to open cash machine or edit the cash machine
-		case StartSCREEN:
-			if(Panel.startScreenOpenButton.clicked(e.getX(), e.getY())) {
-				Panel.state = State.StartORDER;
-			}
-			else if (Panel.startScreenEditButton.clicked(e.getX(), e.getY())) {
-				Panel.state = State.EditSELECT;
-			}
-			break;
-		// input customer name and number
-		case StartORDER:
-			
-			break;
-		// screen with buttons to start order
-		case ORDER:
-			
-			break;
-		// screen showing total of order transaction
-		case OrderSUMMARY:
-			
-			break;
-		// click which product button you want to edit
-		case EditSELECT:
-			
-			break;
-		// change name and price of particular button selected
-		case EditBUTTON:
-			
-			break;
-		}
+		mc.mouseClicked(e);
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		
+	public void keyTyped(KeyEvent e) {
+		mc.keyTyped(e);
+		System.out.println("Typed");
 	}
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		
-	}	
-	
-	// accessor for state
-	public static State getGameState() {
-		return Panel.state;
-	}
-	
-	// mutator for state
-	public static void setGameState(State newState) {
-		Panel.state = newState;
-	}
 
-	// accessor for tic tac toe font
-	public static Font getTTTFont() {
-		return tttFont;
-	}
-
-	// accessor for stones font
-	public static Font getStonesFont() {
-		return StonesFont;
-	}
 
 	// UNUSED METHODS
-	// JPanel makes you implement MouseListener and MouseMotionLister in order to get mouse input
+	// JPanel makes you implement MouseListener in order to get mouse input
 	// Cannot just use specific motion events
 	// in other class the do not extend JPanel, you can use listener methods on their own
 	// other classes use a custom interface with only the mouse listener methods it needs
@@ -234,5 +155,13 @@ public final class Panel extends JPanel implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseExited(MouseEvent e) {
 
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 }
