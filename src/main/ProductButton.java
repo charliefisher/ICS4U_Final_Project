@@ -3,7 +3,7 @@ package main;
 public class ProductButton extends Button {
 
 	private double price;
-	private static final int size = 150;
+	private static final int size = 120;
 
 	public ProductButton(String name, double price, int x, int y){
 		super(name, x, y, size, size);
