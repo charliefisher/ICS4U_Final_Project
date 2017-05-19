@@ -25,26 +25,7 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 	private CashMachine mc;
 
 	public Panel() throws IOException, FontFormatException {
-<<<<<<< HEAD
-		Panel.productButtonSettings = new File("src/main/ProductButtonSettings");
-		
-		Scanner sc = new Scanner(productButtonSettings);
-	
-		if(sc.hasNextLine()) {
-			state = State.StartSCREEN;
-			this.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
-		}
-		else {
-			state = State.StartSCREEN;
-			this.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
-		}
-		
-		// load our font
-		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
-		tttFont = Font.createFont(Font.TRUETYPE_FONT, is);
-=======
 		this.mc = new CashMachine();
->>>>>>> 3d622c0c9fdf803a4423b90d003e403a244f89fc
 		
 		URL fileURL;
 		

@@ -19,10 +19,10 @@ public class CashMachine {
 		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
 	}
 
-	private static State state;
+	private State state;
 	private static Font MCFont;
-	private static File productButtonSettings;
-	private static ArrayList<ProductButton> productButtons = new ArrayList<ProductButton>();
+	private File productButtonSettings;
+	private ArrayList<ProductButton> productButtons = new ArrayList<ProductButton>();
 	
 	
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow;
@@ -32,7 +32,7 @@ public class CashMachine {
 	
 	
 	public CashMachine() throws FontFormatException, IOException{
-		CashMachine.productButtonSettings = new File("src/main/ProductButtonSettings");
+		this.productButtonSettings = new File("src/main/ProductButtonSettings");
 		
 		Scanner sc = new Scanner(productButtonSettings);
 	
@@ -80,7 +80,7 @@ public class CashMachine {
 	}
 	
 	public void paint(Graphics g) {
-		switch (CashMachine.state) {
+		switch (this.state) {
 		// company name
 		case SetupNAME:
 
@@ -135,11 +135,11 @@ public class CashMachine {
 	}
 	
 	public State getState(){
-		return CashMachine.state;
+		return this.state;
 	}
 	
 	public void setState(State newState){
-		CashMachine.state = newState;
+		this.state = newState;
 	}
 	
 	public static Font getMCFont() {
@@ -164,34 +164,34 @@ public class CashMachine {
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
 			if(CashMachine.startScreenOpenButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.StartORDER;
+				this.state = State.StartORDER;
 			}
 			else if (CashMachine.startScreenEditButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.EditSELECT;
+				this.state = State.EditSELECT;
 			}
 			break;
 		// input customer name and number
 		case StartORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.ORDER;
+				this.state = State.ORDER;
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.StartSCREEN;
+				this.state = State.StartSCREEN;
 			}
 			break;
 		// screen with buttons to start order
 		case ORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.OrderSUMMARY;
+				this.state = State.OrderSUMMARY;
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.StartSCREEN;
+				this.state = State.StartSCREEN;
 			}
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				CashMachine.state = State.StartSCREEN;
+				this.state = State.StartSCREEN;
 			}
 			break;
 		// click which product button you want to edit
