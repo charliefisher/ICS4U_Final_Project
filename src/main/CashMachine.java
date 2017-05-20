@@ -28,7 +28,8 @@ public class CashMachine {
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
 						  startExitButton;
 	
-	private String typed = "";
+	private String customerName = "", customerNumber = "";
+	private boolean customerNameComplete = false, customerNumberComplete = false;
 	
 	
 	
@@ -103,7 +104,8 @@ public class CashMachine {
 		case StartORDER:
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
-			g.drawString(this.typed, 215, 330);
+			g.drawString(this.customerName, 215, 330);
+			g.drawString(this.customerNumber, 215, 500);
 			break;
 		// screen with buttons to start order
 		case ORDER:
@@ -230,14 +232,38 @@ public class CashMachine {
 		case StartORDER:
 			char temp = e.getKeyChar();
 			
-			if (temp == KeyEvent.VK_BACK_SPACE && typed.length() > 0) {
-				typed = typed.substring(0, typed.length()-1);
-			}
-			else if (temp != KeyEvent.VK_BACK_SPACE && typed.length() < 17) {
-				typed += temp;
+			if (temp == KeyEvent.VK_ENTER) {
+				if (!customerNameComplete) {
+					customerNameComplete = true;
+				}
+				else if (!customerNumberComplete) {
+					customerNumberComplete = true;
+				}
 			}
 			
-			typed.toUpperCase();
+			if (!customerNameComplete) {
+				if (temp == KeyEvent.VK_BACK_SPACE && customerName.length() > 0) {
+					customerName = customerName.substring(0, customerName.length()-1);
+				}
+				else if (temp != KeyEvent.VK_BACK_SPACE && customerName.length() < 17) {
+					customerName += temp;
+				}
+				
+				customerName.toUpperCase();
+			}
+			else if (!customerNumberComplete) {
+				if (temp == KeyEvent.VK_BACK_SPACE && customerNumber.length() > 0) {
+					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
+				}
+				else if (temp != KeyEvent.VK_BACK_SPACE && customerNumber.length() < 16) {
+					customerNumber += temp;
+				}
+			}
+			else {
+				this.state = State.ORDER;
+			}
+			
+			
 			break;
 		// screen with buttons to start order
 		case ORDER:
