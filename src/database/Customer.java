@@ -15,6 +15,10 @@ public class Customer extends DatabaseElement{
 	
 	private String phoneNum;
 	
+	public Customer() {
+		
+	}
+	
 	public Customer(String fileName) {
 		this.load(fileName);
 	}
@@ -100,16 +104,5 @@ public class Customer extends DatabaseElement{
 	
 	public String getUserName() {
 		return this.userName;
-	}
-	
-	public static void main(String args[]) throws IOException {
-		Customer c = new Customer("frankgrimes");
-		
-		c.load("frankgrimes");
-		
-		c.create("Frank", "Grimes", "6475343474");
-
-		
-		System.out.println(c);
 	}
 }

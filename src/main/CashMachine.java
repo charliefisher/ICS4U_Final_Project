@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import database.Customer;
+import database.Transaction;
+
 public class CashMachine {
 	
 	public static enum State {
@@ -26,10 +29,13 @@ public class CashMachine {
 	
 	
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
-						  startExitButton;
+						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds;
 	
 	private String customerName = "", customerNumber = "";
 	private boolean customerNameComplete = false, customerNumberComplete = false;
+	
+	private Customer customer;
+	private Transaction transaction;
 	
 	
 	
@@ -39,19 +45,25 @@ public class CashMachine {
 		Scanner sc = new Scanner(productButtonSettings);
 	
 		if(sc.hasNextLine()) {
+			this.customer = new Customer();
+			this.transaction = new Transaction();
+			
 			state = State.StartSCREEN;
 			configure();
 			
-			this.editConfirmButton = new Button("Confirm Changes", 268, 401, 250, 100); // need to update cordinates
+			CashMachine.editConfirmButton = new Button("Confirm Changes", 268, 401, 250, 100); // need to update cordinates
 			
-			this.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
-			this.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
-			this.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
-			this.startFinishButton = new Button("Finish", 656, 695, 67, 77); // need to update cordinates
-			this.startExitButton = new Button("Exit", 750, 12, 35, 32);
+			CashMachine.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
+			CashMachine.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
+			CashMachine.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
+			CashMachine.startFinishButton = new Button("Finish", 656, 695, 67, 77); // need to update cordinates
+			CashMachine.startExitButton = new Button("Exit", 750, 12, 35, 32);
 			
-			this.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
-			this.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
+			CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 175, 275, 250, 100); // need to update cordinates
+			CashMachine.startCustomerNumberBounds = new Button("Customer Name Bounds", 600, 401, 250, 100); // need to update cordinates
+			
+			CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
+			CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
 		}
 		else {
 			state = State.SetupNAME;
@@ -177,10 +189,21 @@ public class CashMachine {
 		// input customer name and number
 		case StartORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
-				this.state = State.ORDER;
+				if(this.customer.load(this.customerName.toLowerCase())) {
+					this.state = State.ORDER;
+				}
+				else {
+					System.out.println("Customer Not Found!");
+				}
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
 				this.state = State.StartSCREEN;
+			}
+			else if (CashMachine.startCustomerNameBounds.clicked(e.getX(), e.getY())) {
+				this.customerNameComplete = false;
+			}
+			else if (CashMachine.startCustomerNumberBounds.clicked(e.getX(), e.getY())) {
+				this.customerNumberComplete = false;
 			}
 			break;
 		// screen with buttons to start order
@@ -260,7 +283,12 @@ public class CashMachine {
 				}
 			}
 			else {
-				this.state = State.ORDER;
+				if(this.customer.load(this.customerName.toLowerCase())) {
+					this.state = State.ORDER;
+				}
+				else {
+					System.out.println("Customer Not Found!");
+				}
 			}
 			
 			
