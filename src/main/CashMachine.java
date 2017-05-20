@@ -80,12 +80,12 @@ public class CashMachine {
 	public void configure() throws FileNotFoundException{
 		Scanner sc = new Scanner(this.productButtonSettings);
 		
-		for(int i = 0, xCord = 150, yCord = 150; sc.hasNextLine(); i++, xCord += 175, yCord += 175) {
+		for(int i = 0, xCord = 82, yCord = 134; sc.hasNextLine(); i++, xCord += 127) {
 			if(i % 4 == 0) {
-				xCord = 150;
+				xCord = 82;
 			}
 			else if(i % 3 == 0) {
-				yCord = 150;
+				yCord += 128;
 			}
 			
 			productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
@@ -213,6 +213,12 @@ public class CashMachine {
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
 				this.state = State.StartORDER;
+			}
+			else{
+				for(int i = 0; i < this.productButtons.size(); i++){
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) 
+						System.out.println(i);
+				}
 			}
 			break;
 		// screen showing total of order transaction
