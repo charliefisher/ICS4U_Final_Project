@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import main.ProductButton;
+
 public class Transaction extends DatabaseElement{
+	private static final double TAX_RATE = 1.13;
+	
 	private File transaction;
 	private File settings;
 	
@@ -25,18 +29,28 @@ public class Transaction extends DatabaseElement{
 	
 	private static int transactionNum;
 	
-	public Transaction() {
+	public Transaction(String customerName) throws IOException {
+		this.registerOpen();
 		
+		File dir = new File("src/database/transactions/");
+		dir.mkdirs();
+		this.transaction = new File(dir, "T" + this.transactionNum);
+		transaction.createNewFile();
+			
+		this.customer = new Customer(customerName);
+			
+		this.transactionNum++;
+		this.registerClose();
 	}
 	
-	public void registerOpen() throws FileNotFoundException {
+	private void registerOpen() throws FileNotFoundException {
 		this.settings = new File("src/database/transactions/settings");
 		Scanner sc = new Scanner(this.settings);
 		Transaction.transactionNum = sc.nextInt();
 		sc.close();
 	}
 	
-	public void registerClose() throws IOException {
+	private void registerClose() throws IOException {
 		FileWriter wr = new FileWriter(this.settings);
 		wr.write(new Integer(Transaction.transactionNum).toString());
 		wr.close();
@@ -99,13 +113,9 @@ public class Transaction extends DatabaseElement{
 		return this.customer + " bought " + this.numProducts + " products on " + date;
 	}
 	
-	public static void main (String args[]) throws IOException {
-		Transaction t = new Transaction();
-		t.registerOpen();
-		t.registerClose();
-		t.load("T1");
-		
-		System.out.println(t);
-		
+	public void addToSubtotal(ProductButton product) throws IOException {
+		this.subtotal += product.getPrice();
+		this.tax = subtotal * TAX_RATE;
+		this.total = subtotal + tax;
 	}
 }

@@ -46,7 +46,6 @@ public class CashMachine {
 	
 		if(sc.hasNextLine()) {
 			this.customer = new Customer();
-			this.transaction = new Transaction();
 			
 			state = State.StartSCREEN;
 			configure();
@@ -163,7 +162,7 @@ public class CashMachine {
 	}
 
 	
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) throws IOException {
 		switch (this.state) {
 		// 
 		case SetupNAME:
@@ -191,6 +190,7 @@ public class CashMachine {
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
 				if(this.customer.load(this.customerName.toLowerCase())) {
 					this.state = State.ORDER;
+					this.transaction = new Transaction(this.customerName);
 				}
 				else {
 					System.out.println("Customer Not Found!");
@@ -216,8 +216,9 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) 
-						System.out.println(i);
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
+						this.transaction.addToSubtotal(this.productButtons.get(i));
+					}
 				}
 			}
 			break;
@@ -244,7 +245,7 @@ public class CashMachine {
 	}
 	
 
-	public void keyTyped(KeyEvent e) {			
+	public void keyTyped(KeyEvent e) throws IOException {			
 		switch (this.state) {
 		// 
 		case SetupNAME:
@@ -291,6 +292,7 @@ public class CashMachine {
 			else {
 				if(this.customer.load(this.customerName.toLowerCase())) {
 					this.state = State.ORDER;
+					this.transaction = new Transaction(this.customerName);
 				}
 				else {
 					System.out.println("Customer Not Found!");

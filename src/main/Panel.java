@@ -106,12 +106,20 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		mc.mouseClicked(e);
+		try {
+			mc.mouseClicked(e);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		mc.keyTyped(e);
+		try {
+			mc.keyTyped(e);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 
