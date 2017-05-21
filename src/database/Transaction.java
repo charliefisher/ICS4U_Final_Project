@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import main.ProductButton;
@@ -41,6 +43,8 @@ public class Transaction extends DatabaseElement{
 			
 		this.transactionNum++;
 		this.registerClose();
+		
+		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	}
 	
 	private void registerOpen() throws FileNotFoundException {
@@ -121,5 +125,9 @@ public class Transaction extends DatabaseElement{
 	
 	public String getSubTotal(){
 		return "$" + String.format("%.2f", subtotal);
+	}
+	
+	public String getOrderSummary() {
+		return "Date: " + this.date + "\nCustomer: " + this.customer.getFirstName().charAt(0) + this.customer.getFirstName().substring(1) + " " + this.customer.getLastName().charAt(0) + this.customer.getLastName().substring(1) + "\nSubtotal: " + this.subtotal + "\nTax: " + this.tax + "\nTotal: " + this.total;
 	}
 }

@@ -118,4 +118,12 @@ public class Customer extends DatabaseElement{
 	public String getUserName() {
 		return this.userName;
 	}
+	
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	public String getLastName() {
+		return this.lastName;
+	}
 }

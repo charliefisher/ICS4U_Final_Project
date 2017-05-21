@@ -132,7 +132,9 @@ public class CashMachine {
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:
-			
+			g.setFont(CashMachine.MCFont.deriveFont(36f));
+			g.setColor(Color.WHITE);
+			g.drawString(transaction.getOrderSummary(), 100, 250);
 			break;
 		// click which product button you want to edit
 		case EditSELECT:
