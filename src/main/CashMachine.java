@@ -336,13 +336,14 @@ public class CashMachine {
 	}
 	
 	private void loadCustomer() throws IOException {
+		this.transaction = new Transaction(this.customerName);
 		if(this.customer.load(this.customerName) && this.customerNumber.length()-1 == 10) {
 			this.state = State.ORDER;
-			this.transaction = new Transaction(this.customerName);
 		}
-		else if(this.customerNumber.length()-1 == 10) {					
-			this.state = State.ORDER;
+		else if(this.customerNumber.length()-1 == 10) {	
+			this.transaction = new Transaction(this.customerName);
 			this.customer.create(this.customerName, this.customerNumber);
+			this.state = State.ORDER;
 		}
 	}
 }
