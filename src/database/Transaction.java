@@ -31,15 +31,15 @@ public class Transaction extends DatabaseElement{
 	
 	private static int transactionNum;
 	
-	public Transaction(String customerName) throws IOException {
+	public Transaction(Customer customer) throws IOException {
 		this.registerOpen();
 		
 		File dir = new File("src/database/transactions/");
 		dir.mkdirs();
 		this.transaction = new File(dir, "T" + this.transactionNum);
 		transaction.createNewFile();
-			
-		this.customer = new Customer(customerName);
+		
+		this.customer = customer;
 			
 		this.transactionNum++;
 		this.registerClose();
