@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -120,7 +121,14 @@ public class CashMachine {
 			break;
 		// screen with buttons to start order
 		case ORDER:
+			g.setFont(CashMachine.MCFont.deriveFont(36f));
+			g.setColor(new Color(64,227,126));
 			
+			FontMetrics fm = g.getFontMetrics();
+			int widthOfValue = fm.stringWidth(transaction.getSubTotal()); // find length of sub total
+			
+			//draw subtotal right justified
+			g.drawString(transaction.getSubTotal(), 780-widthOfValue, 46);
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:

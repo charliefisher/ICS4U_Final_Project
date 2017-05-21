@@ -118,4 +118,8 @@ public class Transaction extends DatabaseElement{
 		this.tax = subtotal * TAX_RATE;
 		this.total = subtotal + tax;
 	}
+	
+	public String getSubTotal(){
+		return "$" + String.format("%.2f", subtotal);
+	}
 }
