@@ -58,8 +58,8 @@ public class CashMachine {
 			CashMachine.startFinishButton = new Button("Finish", 656, 695, 67, 77); // need to update cordinates
 			CashMachine.startExitButton = new Button("Exit", 750, 12, 35, 32);
 			
-			CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 175, 275, 250, 100); // need to update cordinates
-			CashMachine.startCustomerNumberBounds = new Button("Customer Name Bounds", 600, 401, 250, 100); // need to update cordinates
+			CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); // need to update cordinates
+			CashMachine.startCustomerNumberBounds = new Button("Customer Name Bounds", 146, 450, 524, 120); // need to update cordinates
 			
 			CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
 			CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
