@@ -60,7 +60,7 @@ public class CashMachine {
 			CashMachine.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
 			CashMachine.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
 			CashMachine.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
-			CashMachine.startFinishButton = new Button("Finish", 656, 695, 67, 77); // need to update cordinates
+			CashMachine.startFinishButton = new Button("Finish", 656, 695, 116, 77); // need to update cordinates
 			CashMachine.startExitButton = new Button("Exit", 750, 12, 35, 32);
 			
 			CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); // need to update cordinates
@@ -156,8 +156,14 @@ public class CashMachine {
 				FontMetrics fm2 = g.getFontMetrics();
 				int lengthOfString = fm2.stringWidth(temp.substring(0,temp.indexOf("?")));
 				
-				g.drawString(temp.substring(0,temp.indexOf("?")), 400 -lengthOfString/2, y);
-				temp = temp.substring(temp.indexOf("?")+1);
+				int centerJustify = 400 -lengthOfString/2; //determine where to start x co-ordinate
+				int lengthOfHeader = fm2.stringWidth(temp.substring(0, temp.indexOf(":")+1)); //eg. Total:
+																							  // used as ref where to add next x value
+				g.setColor(new Color(32,106,61)); //darker colour
+				g.drawString(temp.substring(0, temp.indexOf(":")+1),centerJustify, y); //draw sub head
+				g.setColor(new Color(21,134,65)); // lighter colour
+				g.drawString(temp.substring(temp.indexOf(":") + 1, temp.indexOf("?")), centerJustify+lengthOfHeader, y); //draw data
+				temp = temp.substring(temp.indexOf("?")+1); //move on through string to next point of interest
 			
 			}
 			break;
