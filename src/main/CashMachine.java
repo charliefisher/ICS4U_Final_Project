@@ -7,12 +7,16 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 import database.Customer;
 import database.Transaction;
@@ -38,7 +42,7 @@ public class CashMachine {
 	private Customer customer;
 	private Transaction transaction;
 	
-	
+	private BufferedImage highlightName, highlightNumber; // for two highlight fields
 	
 	public CashMachine() throws FontFormatException, IOException{
 		this.productButtonSettings = new File("src/main/ProductButtonSettings");
@@ -69,6 +73,12 @@ public class CashMachine {
 			state = State.SetupNAME;
 			
 		}
+		
+		URL fileURL; // import two click overlays
+		fileURL = getClass().getResource("/Screens/CUSTOMER NAME.png");
+		highlightName = ImageIO.read(fileURL);
+		fileURL = getClass().getResource("/Screens/CUSTOMER NUMBER.png");
+		highlightNumber = ImageIO.read(fileURL);
 		
 		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		MCFont = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -116,6 +126,12 @@ public class CashMachine {
 		case StartORDER:
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
+			
+			if(!customerNameComplete)
+				g.drawImage(this.highlightName, 250, 355, null);
+			else
+				g.drawImage(this.highlightNumber, 235, 524, null);
+			
 			g.drawString(this.customerName, 215, 330);
 			g.drawString(this.customerNumber, 215, 500);
 			break;
