@@ -148,9 +148,18 @@ public class CashMachine {
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:
-			g.setFont(CashMachine.MCFont.deriveFont(36f));
-			g.setColor(Color.WHITE);
-			g.drawString(transaction.getOrderSummary(), 100, 250);
+			g.setFont(CashMachine.MCFont.deriveFont(30f));
+			g.setColor(new Color(21,134,65));
+			String temp = transaction.getOrderSummary();
+			for(int i = 0, y = 400; i < 5;i++, y+=40){
+				
+				FontMetrics fm2 = g.getFontMetrics();
+				int lengthOfString = fm2.stringWidth(temp.substring(0,temp.indexOf("?")));
+				
+				g.drawString(temp.substring(0,temp.indexOf("?")), 400 -lengthOfString/2, y);
+				temp = temp.substring(temp.indexOf("?")+1);
+			
+			}
 			break;
 		// click which product button you want to edit
 		case EditSELECT:
