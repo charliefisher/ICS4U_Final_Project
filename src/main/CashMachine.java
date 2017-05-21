@@ -288,7 +288,8 @@ public class CashMachine {
 		// screen showing total of order transaction
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				this.state = State.StartSCREEN;
+				this.state = State.StartORDER;
+				// RESET CUSTOMER DATA HERE
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
 				this.state = State.StartSCREEN;
