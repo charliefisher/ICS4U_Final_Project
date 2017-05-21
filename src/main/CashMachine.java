@@ -188,12 +188,12 @@ public class CashMachine {
 		// input customer name and number
 		case StartORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
-				if(this.customer.load(this.customerName.toLowerCase())) {
+				if(this.customer.load(this.customerName.substring(0, this.customerName.indexOf(" ")).toLowerCase() + this.customerName.substring(this.customerName.indexOf(" ") + 1).toLowerCase())) {
 					this.state = State.ORDER;
-					this.transaction = new Transaction(this.customerName);
+					this.transaction = new Transaction(this.customerName.substring(0, this.customerName.indexOf(" ")).toLowerCase() + this.customerName.substring(this.customerName.indexOf(" ") + 1).toLowerCase());
 				}
-				else {
-					System.out.println("Customer Not Found!");
+				else {					
+					this.customer.create(this.customerName.substring(0, this.customerName.indexOf(" ")).toLowerCase(), this.customerName.substring(this.customerName.indexOf(" ") + 1).toLowerCase(), this.customerNumber);
 				}
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
@@ -290,12 +290,12 @@ public class CashMachine {
 				}
 			}
 			else {
-				if(this.customer.load(this.customerName.toLowerCase())) {
+				if(this.customer.load(this.customerName.substring(0, this.customerName.indexOf(" ")).toLowerCase() + this.customerName.substring(this.customerName.indexOf(" ") + 1).toLowerCase())) {
 					this.state = State.ORDER;
-					this.transaction = new Transaction(this.customerName);
+					this.transaction = new Transaction(this.customerName.substring(0, this.customerName.indexOf(" ")).toLowerCase() + this.customerName.substring(this.customerName.indexOf(" ") + 1).toLowerCase());
 				}
-				else {
-					System.out.println("Customer Not Found!");
+				else {					
+					this.customer.create(this.customerName.substring(0, this.customerName.indexOf(" ")).toLowerCase(), this.customerName.substring(this.customerName.indexOf(" ") + 1).toLowerCase(), this.customerNumber);
 				}
 			}
 			
