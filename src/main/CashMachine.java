@@ -205,6 +205,7 @@ public class CashMachine {
 				this.customerNameComplete = false;
 			}
 			else if (CashMachine.startCustomerNumberBounds.clicked(e.getX(), e.getY())) {
+				this.customerNameComplete = true;
 				this.customerNumberComplete = false;
 			}
 			break;
