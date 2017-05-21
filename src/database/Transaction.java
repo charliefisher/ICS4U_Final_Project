@@ -128,8 +128,17 @@ public class Transaction extends DatabaseElement{
 	}
 	
 	public String getOrderSummary() {
+		String temp;
+		
+		if (this.customer.getLastName().length() > 1) {
+			temp = this.customer.getLastName().toUpperCase().charAt(0) + this.customer.getLastName().substring(1).toLowerCase();
+		}
+		else {
+			temp = "";
+		}
+		
 		return "Date: " + this.date 
-				+ "?Customer: " + this.customer.getFirstName().toUpperCase().charAt(0) + this.customer.getFirstName().substring(1).toLowerCase() + " " + this.customer.getLastName().toUpperCase().charAt(0)	+ this.customer.getLastName().substring(1).toLowerCase() 
+				+ "?Customer: " + this.customer.getFirstName().toUpperCase().charAt(0) + this.customer.getFirstName().substring(1).toLowerCase() + " " + temp 
 				+ "?Subtotal: $" + String.format("%.2f", this.subtotal) 
 				+ "?Tax: $" + String.format("%.2f", this.tax) 
 				+ "?Total: $" + String.format("%.2f", this.total) +"?"; //? used as reference to program when to draw new line
