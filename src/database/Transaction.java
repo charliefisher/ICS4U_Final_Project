@@ -128,6 +128,10 @@ public class Transaction extends DatabaseElement{
 	}
 	
 	public String getOrderSummary() {
-		return "Date: " + this.date + "\nCustomer: " + this.customer.getFirstName().charAt(0) + this.customer.getFirstName().substring(1) + " " + this.customer.getLastName().charAt(0) + this.customer.getLastName().substring(1) + "\nSubtotal: " + this.subtotal + "\nTax: " + this.tax + "\nTotal: " + this.total;
+		return "Date: " + this.date 
+				+ "?Customer: " + this.customer.getFirstName().charAt(0)+ this.customer.getFirstName().substring(1) + " " + this.customer.getLastName().charAt(0)	+ this.customer.getLastName().substring(1) 
+				+ "?Subtotal: $" + String.format("%.2f", this.subtotal) 
+				+ "?Tax: $" + String.format("%.2f", this.tax) 
+				+ "?Total: $" + String.format("%.2f", this.total) +"?"; //? used as reference to program when to draw new line
 	}
 }
