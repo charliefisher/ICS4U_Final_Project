@@ -24,9 +24,11 @@ public class Customer extends DatabaseElement{
 	}
 	
 	@Override
-	public boolean load(String fileName) {
+	public boolean load(String customerName) {
+		this.formatCustomerName(customerName);
+		
 		try{
-			this.customer = new File("src/database/customers/" + fileName);
+			this.customer = new File("src/database/customers/" + this.userName);
 			this.getInfo();
 		} catch(FileNotFoundException e) {
 			return false;
@@ -35,10 +37,8 @@ public class Customer extends DatabaseElement{
 		return true;
 	}
 	
-	public void create(String firstName, String lastName, String phoneNum) throws IOException {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.updateUserName();
+	public void create(String customerName, String phoneNum) throws IOException {
+		this.formatCustomerName(customerName);
 		this.phoneNum = phoneNum;
 		this.formatPhoneNum();
 		
@@ -79,6 +79,19 @@ public class Customer extends DatabaseElement{
 	
 	private void formatPhoneNum() {
 		this.phoneNum = "(" + this.phoneNum.substring(0, 3) + ") " + this.phoneNum.substring(3, 6) + " " + this.phoneNum.substring(6);
+	}
+	
+	private void formatCustomerName(String customerName) {
+		if(customerName.contains(" ")) {
+			this.firstName = customerName.substring(0, customerName.indexOf(" ")).toLowerCase();
+			this.lastName = customerName.substring(customerName.indexOf(" ") + 1).toLowerCase();
+		}
+		else {
+			this.firstName = customerName.toLowerCase();
+			this.lastName = "";
+		}
+		
+		this.updateUserName();
 	}
 	
 	@Override

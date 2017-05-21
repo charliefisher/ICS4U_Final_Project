@@ -196,13 +196,7 @@ public class CashMachine {
 		// input customer name and number
 		case StartORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
-				if(this.customer.load(this.customerName.toLowerCase())) {
-					this.state = State.ORDER;
-					this.transaction = new Transaction(this.customerName);
-				}
-				else {
-					System.out.println("Customer Not Found!");
-				}
+				this.loadCustomer();
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
 				this.state = State.StartSCREEN;
@@ -298,13 +292,7 @@ public class CashMachine {
 				}
 			}
 			else {
-				if(this.customer.load(this.customerName.toLowerCase())) {
-					this.state = State.ORDER;
-					this.transaction = new Transaction(this.customerName);
-				}
-				else {
-					System.out.println("Customer Not Found!");
-				}
+				this.loadCustomer();
 			}
 			
 			
@@ -326,5 +314,16 @@ public class CashMachine {
 			
 			break;
 		}		
+	}
+	
+	private void loadCustomer() throws IOException {
+		if(this.customer.load(this.customerName) && this.customerNumber.length()-1 == 10) {
+			this.state = State.ORDER;
+			this.transaction = new Transaction(this.customerName);
+		}
+		else if(this.customerNumber.length()-1 == 10) {					
+			this.state = State.ORDER;
+			this.customer.create(this.customerName, this.customerNumber);
+		}
 	}
 }
