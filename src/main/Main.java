@@ -1,10 +1,7 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FontFormatException;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.JFrame;
