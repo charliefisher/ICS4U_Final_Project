@@ -41,6 +41,8 @@ public class CashMachine {
 					productNameComplete = false, productPriceComplete = false;
 	private int productButtonIndex = 0;
 	
+	private static final String UNDEFINIED_BUTTON_NAME = "**********";
+	
 	private Customer customer;
 	private Transaction transaction;
 	
@@ -111,7 +113,7 @@ public class CashMachine {
 				productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
 			}
 			else {
-				productButtons.add(new ProductButton(" ", 0, xCord, yCord));
+				productButtons.add(new ProductButton(UNDEFINIED_BUTTON_NAME, 0, xCord, yCord));
 			}
 			
 			System.out.println(productButtons.get(i).toString());
@@ -321,7 +323,7 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(" ")) {
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(UNDEFINIED_BUTTON_NAME)) {
 						this.transaction.addToSubtotal(this.productButtons.get(i));
 					}
 				}
@@ -347,7 +349,7 @@ public class CashMachine {
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
 						this.productButtonIndex = i;
 						this.productButtonPrice = new Double(this.productButtons.get(this.productButtonIndex).getPrice()).toString();
-						if (!this.productButtons.get(this.productButtonIndex).getName().equals(" ")) {
+						if (!this.productButtons.get(this.productButtonIndex).getName().equals(UNDEFINIED_BUTTON_NAME)) {
 							this.productButtonName = this.productButtons.get(this.productButtonIndex).getName();
 						}
 						else {
@@ -449,7 +451,7 @@ public class CashMachine {
 						this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
 					}
 					else {
-						this.productButtons.get(this.productButtonIndex).setName(" ");
+						this.productButtons.get(this.productButtonIndex).setName(UNDEFINIED_BUTTON_NAME);
 					}
 					this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
 					this.productNameComplete = false;
