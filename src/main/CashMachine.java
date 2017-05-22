@@ -182,8 +182,8 @@ public class CashMachine {
 			else
 				g.drawImage(this.highlightNumber, 235, 524, null);
 			
-			g.drawString(this.customerName.toUpperCase(), 215, 330);
-			g.drawString(this.customerNumber, 215, 500);
+			g.drawString(this.productButtons.get(this.productButtonIndex).getName().toUpperCase(), 215, 330);
+			g.drawString(this.productButtonPrice, 215, 500);
 			break;
 		}
 	}
