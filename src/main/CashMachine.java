@@ -57,7 +57,7 @@ public class CashMachine {
 			state = State.StartSCREEN;
 			configure();
 			
-			CashMachine.editConfirmButton = new Button("Confirm Changes", 268, 401, 250, 100); // need to update cordinates
+			CashMachine.editConfirmButton = new Button("Confirm Changes", 236, 610, 344, 77); // need to update cordinates
 			
 			CashMachine.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
 			CashMachine.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
