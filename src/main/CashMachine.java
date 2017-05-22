@@ -39,6 +39,7 @@ public class CashMachine {
 	private String customerName = "", customerNumber = "";
 	private boolean customerNameComplete = false, customerNumberComplete = false, 
 					productNameComplete = false, productPriceComplete = false;
+	private int productButtonIndex = 0;
 	
 	private Customer customer;
 	private Transaction transaction;
@@ -315,6 +316,7 @@ public class CashMachine {
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
+						this.productButtonIndex = i;
 						this.state = State.EditBUTTON;
 						edit(this.productButtons.get(i), i);
 					}
@@ -389,7 +391,7 @@ public class CashMachine {
 			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
-			char temp = e.getKeyChar();
+			temp = e.getKeyChar();
 			
 			if (temp == KeyEvent.VK_ENTER) {
 				if (!productNameComplete) {
@@ -397,23 +399,27 @@ public class CashMachine {
 				}
 				else {
 					this.loadCustomer();
+					// Move to next state
+					// write the changes to the product button file
 				}
 			}
 			
 			if (!productNameComplete) {
-				if (temp == KeyEvent.VK_BACK_SPACE && customerName.length() > 0) {
-					customerName = customerName.substring(0, customerName.length()-1);
+				if (temp == KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getName().length() > 0) {
+					this.productButtons.get(this.productButtonIndex).setName(this.productButtons.get(this.productButtonIndex).getName().substring(0, this.productButtons.get(this.productButtonIndex).getName().length()-1));
 				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && customerName.length() < 17) {
-					customerName += temp;
+				else if (temp != KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getName().length() < 17) {
+					this.productButtons.get(this.productButtonIndex).setName(this.productButtons.get(this.productButtonIndex).getName()+ temp);
 				}
 			}
 			else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
-				if (temp == KeyEvent.VK_BACK_SPACE && customerNumber.length() > 0) {
-					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
+				if (temp == KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getPrice() > 0) {
+//					this.productButtons.get(this.productButtonIndex).setPrice()
+//					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
+//					
 				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && customerNumber.length() < 16) {
-					customerNumber += temp;
+				else if (temp != KeyEvent.VK_BACK_SPACE && new Double(this.productButtons.get(productButtonIndex).getPrice()).toString().length() < 16) {
+//					this.productButtons.get(productButtonIndex).setPrice(this.productButtons.get(productButtonIndex).getPrice() + ) += temp;
 				}
 			}
 			break;
