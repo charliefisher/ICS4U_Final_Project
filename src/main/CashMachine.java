@@ -101,16 +101,19 @@ public class CashMachine {
 	public void configure() throws FileNotFoundException{
 		Scanner sc = new Scanner(this.productButtonSettings);
 		
-		for(int i = 0, xCord = 82, yCord = 134; sc.hasNextLine(); i++, xCord += 127) {
-			if(i % 4 == 0) {
+		for(int i = 0, xCord = 82, yCord = 134; i < 20; i++, xCord += 127) {
+			if(i % 5 == 0) {
 				xCord = 82;
-			}
-			else if(i % 3 == 0) {
 				yCord += 128;
 			}
 			
-			productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
-			
+			if (sc.hasNextLine()) {
+				productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
+			}
+			else {
+				productButtons.add(new ProductButton("", 0, xCord, yCord));
+			}
+
 			System.out.println(productButtons.get(i).toString());
 		}
 	}
@@ -191,7 +194,7 @@ public class CashMachine {
 			else
 				g.drawImage(this.highlightProductPrice, 262, 515, null);
 			
-			g.drawString(this.productButtons.get(this.productButtonIndex).getName().toUpperCase(), 215, 330);
+			g.drawString(this.productButtonName, 215, 330);
 			g.drawString(this.productButtonPrice, 215, 500);
 			break;
 		}
@@ -301,7 +304,7 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals("")) {
 						this.transaction.addToSubtotal(this.productButtons.get(i));
 					}
 				}
@@ -417,9 +420,9 @@ public class CashMachine {
 					productNameComplete = true;
 				}
 				else {
-					this.loadCustomer();
-					// Move to next state
-					// write the changes to the product button file
+					this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
+					this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+					this.state = State.EditSELECT;
 				}
 			}
 			
