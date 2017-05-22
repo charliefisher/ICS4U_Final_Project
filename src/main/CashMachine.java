@@ -37,7 +37,8 @@ public class CashMachine {
 						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds;
 	
 	private String customerName = "", customerNumber = "";
-	private boolean customerNameComplete = false, customerNumberComplete = false;
+	private boolean customerNameComplete = false, customerNumberComplete = false, 
+					productNameComplete = false, productPriceComplete = false;
 	
 	private Customer customer;
 	private Transaction transaction;
@@ -172,12 +173,21 @@ public class CashMachine {
 			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
+			g.setFont(CashMachine.MCFont.deriveFont(36f));
+			g.setColor(Color.WHITE);
 			
+			if(!customerNameComplete)
+				g.drawImage(this.highlightName, 250, 355, null);
+			else
+				g.drawImage(this.highlightNumber, 235, 524, null);
+			
+			g.drawString(this.customerName.toUpperCase(), 215, 330);
+			g.drawString(this.customerNumber, 215, 500);
 			break;
 		}
 	}
 	
-	public void edit(ProductButton editButton){
+	public void edit(ProductButton editButton, int buttonNumber){
 		
 	}
 	
@@ -306,7 +316,7 @@ public class CashMachine {
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
 						this.state = State.EditBUTTON;
-						edit(this.productButtons.get(i));
+						edit(this.productButtons.get(i), i);
 					}
 				}
 			}
@@ -378,7 +388,33 @@ public class CashMachine {
 			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
+			char temp = e.getKeyChar();
 			
+			if (temp == KeyEvent.VK_ENTER) {
+				if (!productNameComplete) {
+					productNameComplete = true;
+				}
+				else {
+					this.loadCustomer();
+				}
+			}
+			
+			if (!productNameComplete) {
+				if (temp == KeyEvent.VK_BACK_SPACE && customerName.length() > 0) {
+					customerName = customerName.substring(0, customerName.length()-1);
+				}
+				else if (temp != KeyEvent.VK_BACK_SPACE && customerName.length() < 17) {
+					customerName += temp;
+				}
+			}
+			else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
+				if (temp == KeyEvent.VK_BACK_SPACE && customerNumber.length() > 0) {
+					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
+				}
+				else if (temp != KeyEvent.VK_BACK_SPACE && customerNumber.length() < 16) {
+					customerNumber += temp;
+				}
+			}
 			break;
 		}		
 	}
