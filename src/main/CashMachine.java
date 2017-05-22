@@ -344,6 +344,7 @@ public class CashMachine {
 				}
 				else {
 					this.loadCustomer();
+					break;
 				}
 			}
 			
@@ -384,8 +385,11 @@ public class CashMachine {
 	}
 	
 	private void loadCustomer() throws IOException {	
+		System.out.println(customerName);
+		System.out.println(customerNumber);
+		
 		if(this.customerNumber.length() == 10) {	
-			if(this.customer.load(this.customerName.toLowerCase())) {
+			if(this.customer.load(this.customerName)) {
 				this.transaction = new Transaction(this.customer);
 				this.state = State.ORDER;
 			}
@@ -394,8 +398,6 @@ public class CashMachine {
 				this.transaction = new Transaction(this.customer);
 				this.state = State.ORDER;
 			}
-			
-			System.out.println(true);
 		}	
 		
 		//&& this.customerName.contains(" ")

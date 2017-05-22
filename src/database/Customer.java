@@ -15,6 +15,8 @@ public class Customer extends DatabaseElement{
 	
 	private String phoneNum;
 	
+	private static final String FILE_PATH = "src/database/customers/";
+	
 	public Customer() {
 		
 	}
@@ -28,7 +30,7 @@ public class Customer extends DatabaseElement{
 		this.formatCustomerName(customerName);
 		
 		try{
-			this.customer = new File("src/database/customers/" + this.userName);
+			this.customer = new File(FILE_PATH + this.userName);
 			this.getInfo();
 		} catch(FileNotFoundException e) {
 			return false;
@@ -42,7 +44,7 @@ public class Customer extends DatabaseElement{
 		this.phoneNum = phoneNum;
 		this.formatPhoneNum();
 		
-		File dir = new File("src/database/customers/");
+		File dir = new File(FILE_PATH);
 		dir.mkdirs();
 		this.customer = new File(dir, userName);
 		customer.createNewFile();
