@@ -36,7 +36,7 @@ public class CashMachine {
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
 						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds;
 	
-	private String customerName = "", customerNumber = "", productButtonPrice;
+	private String customerName = "", customerNumber = "", productButtonName, productButtonPrice;
 	private boolean customerNameComplete = false, customerNumberComplete = false, 
 					productNameComplete = false, productPriceComplete = false;
 	private int productButtonIndex = 0;
@@ -182,8 +182,8 @@ public class CashMachine {
 			else
 				g.drawImage(this.highlightNumber, 235, 524, null);
 			
-			g.drawString(this.customerName.toUpperCase(), 215, 330);
-			g.drawString(this.customerNumber, 215, 500);
+			g.drawString(this.productButtons.get(this.productButtonIndex).getName().toUpperCase(), 215, 330);
+			g.drawString(this.productButtonPrice, 215, 500);
 			break;
 		}
 	}
@@ -318,6 +318,7 @@ public class CashMachine {
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
 						this.productButtonIndex = i;
 						this.productButtonPrice = new Double(this.productButtons.get(this.productButtonIndex).getPrice()).toString();
+						this.productButtonName = this.productButtons.get(this.productButtonIndex).getName();
 						this.state = State.EditBUTTON;
 						edit(this.productButtons.get(i), i);
 					}
@@ -365,7 +366,7 @@ public class CashMachine {
 				if (temp == KeyEvent.VK_BACK_SPACE && customerName.length() > 0) {
 					customerName = customerName.substring(0, customerName.length()-1);
 				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && customerName.length() < 17) {
+				else if (temp != KeyEvent.VK_BACK_SPACE && customerName.length() < 16) {
 					customerName += temp;
 				}
 			}
@@ -406,18 +407,18 @@ public class CashMachine {
 			}
 			
 			if (!productNameComplete) {
-				if (temp == KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getName().length() > 0) {
-					this.productButtons.get(this.productButtonIndex).setName(this.productButtons.get(this.productButtonIndex).getName().substring(0, this.productButtons.get(this.productButtonIndex).getName().length()-1));
+				if (temp == KeyEvent.VK_BACK_SPACE && productButtonName.length() > 0) {
+					productButtonName = productButtonName.substring(0, productButtonName.length()-1);
 				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getName().length() < 17) {
-					this.productButtons.get(this.productButtonIndex).setName(this.productButtons.get(this.productButtonIndex).getName()+ temp);
+				else if (temp != KeyEvent.VK_BACK_SPACE && productButtonName.length() < 16) {
+					productButtonName += temp;
 				}
 			}
 			else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
-				if (temp == KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getPrice() > 0) {
+				if (temp == KeyEvent.VK_BACK_SPACE && productButtonPrice.length() > 0) {
 					productButtonPrice = productButtonPrice.substring(0, productButtonPrice.length()-1);					
 				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && new Double(this.productButtons.get(productButtonIndex).getPrice()).toString().length() < 16) {
+				else if (temp != KeyEvent.VK_BACK_SPACE && productButtonPrice.length() < 16) {
 					productButtonPrice += temp;
 				}
 			}
