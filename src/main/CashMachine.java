@@ -182,7 +182,7 @@ public class CashMachine {
 			else
 				g.drawImage(this.highlightNumber, 235, 524, null);
 			
-			g.drawString(this.productButtons.get(this.productButtonIndex).getName().toUpperCase(), 215, 330);
+			g.drawString(this.productButtonName, 215, 330);
 			g.drawString(this.productButtonPrice, 215, 500);
 			break;
 		}
@@ -400,9 +400,9 @@ public class CashMachine {
 					productNameComplete = true;
 				}
 				else {
-					this.loadCustomer();
-					// Move to next state
-					// write the changes to the product button file
+					this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
+					this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+					this.state = State.EditSELECT;
 				}
 			}
 			
