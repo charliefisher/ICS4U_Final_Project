@@ -321,7 +321,7 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals("\n")) {
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(" ")) {
 						this.transaction.addToSubtotal(this.productButtons.get(i));
 					}
 				}
