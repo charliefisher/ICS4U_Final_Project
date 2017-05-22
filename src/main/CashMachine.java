@@ -209,6 +209,10 @@ public class CashMachine {
 			
 			g.drawString(this.productButtonName, 215, 330);
 			g.drawString(this.productButtonPrice, 215, 500);
+			
+			g.setColor(new Color(217,234,223));
+			g.setFont(CashMachine.MCFont.deriveFont(58f));
+			g.drawString("" +(this.productButtonIndex+1), 525, 205);
 			break;
 		}
 	}
