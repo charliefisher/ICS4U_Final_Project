@@ -36,7 +36,7 @@ public class CashMachine {
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
 						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds;
 	
-	private String customerName = "", customerNumber = "";
+	private String customerName = "", customerNumber = "", productButtonPrice;
 	private boolean customerNameComplete = false, customerNumberComplete = false, 
 					productNameComplete = false, productPriceComplete = false;
 	private int productButtonIndex = 0;
@@ -317,6 +317,7 @@ public class CashMachine {
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
 						this.productButtonIndex = i;
+						this.productButtonPrice = new Double(this.productButtons.get(this.productButtonIndex).getPrice()).toString();
 						this.state = State.EditBUTTON;
 						edit(this.productButtons.get(i), i);
 					}
@@ -414,12 +415,10 @@ public class CashMachine {
 			}
 			else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
 				if (temp == KeyEvent.VK_BACK_SPACE && this.productButtons.get(productButtonIndex).getPrice() > 0) {
-//					this.productButtons.get(this.productButtonIndex).setPrice()
-//					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
-//					
+					productButtonPrice = productButtonPrice.substring(0, productButtonPrice.length()-1);					
 				}
 				else if (temp != KeyEvent.VK_BACK_SPACE && new Double(this.productButtons.get(productButtonIndex).getPrice()).toString().length() < 16) {
-//					this.productButtons.get(productButtonIndex).setPrice(this.productButtons.get(productButtonIndex).getPrice() + ) += temp;
+					productButtonPrice += temp;
 				}
 			}
 			break;
