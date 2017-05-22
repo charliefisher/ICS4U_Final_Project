@@ -51,9 +51,7 @@ public class Customer extends DatabaseElement{
 	}
 	
 	@Override
-	public void getInfo() throws FileNotFoundException {
-		System.out.println(this.toString());
-		
+	public void getInfo() throws FileNotFoundException {	
 		Scanner sc = new Scanner(this.customer);
 		
 		while(sc.hasNextLine()) {
@@ -65,12 +63,12 @@ public class Customer extends DatabaseElement{
 		}
 		
 		sc.close();	
+		
+		System.out.println("Reading \t" + this.toString());
 	}
 	
 	@Override
-	public void write() throws IOException {
-		System.out.println("Writing");
-		
+	public void write() throws IOException {		
 		FileWriter wr = new FileWriter(this.toString());
 		
 		wr.write(this.firstName + "\n");
@@ -79,6 +77,8 @@ public class Customer extends DatabaseElement{
 		wr.write(phoneNum);
 	
 		wr.close();
+		
+		System.out.println("Writing \t" + this.toString());
 	}
 	
 	private void formatPhoneNum() {

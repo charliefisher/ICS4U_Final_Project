@@ -332,15 +332,9 @@ public class CashMachine {
 				if (!customerNameComplete) {
 					customerNameComplete = true;
 				}
-				else if (!customerNumberComplete) {
-					customerNumberComplete = true;
-				}
 				else {
 					this.loadCustomer();
-					System.out.println("load");
 				}
-				
-				System.out.println("Enter");
 			}
 			
 			if (!customerNameComplete) {
