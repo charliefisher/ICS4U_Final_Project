@@ -71,7 +71,7 @@ public class Customer extends DatabaseElement{
 	
 	@Override
 	public void write() throws IOException {		
-		FileWriter wr = new FileWriter(this.toString());
+		FileWriter wr = new FileWriter(this.customer);
 		
 		wr.write(this.firstName + "\n");
 		wr.write(this.lastName + "\n");
