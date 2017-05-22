@@ -104,7 +104,7 @@ public class CashMachine {
 		FileWriter wr = new FileWriter(this.productButtonSettings);
 		
 		for(int i = 0, xCord = 82, yCord = 134; i < 20; i++, xCord += 127) {
-			if(i % 5 == 0) {
+			if(i % 5 == 0 && i > 0) {
 				xCord = 82;
 				yCord += 128;
 			}
