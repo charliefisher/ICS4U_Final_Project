@@ -182,8 +182,35 @@ public class CashMachine {
 		
 	}
 	
-	public void run(){
-		
+	public void run() throws IOException{
+		switch(this.state) {
+		case SetupNAME:
+			
+			break;
+		case SetupSIZE:
+			
+			break;
+		case SetupBUTTON:
+			
+			break;
+		case StartORDER:
+			break;
+		case StartSCREEN:
+			
+			break;
+		case ORDER:
+			
+			break;
+		case OrderSUMMARY:
+			this.customer.write();
+			break;
+		case EditSELECT:
+			
+			break;
+		case EditBUTTON:
+			
+			break;
+		}
 	}
 	
 	public String getReceipt(){ // idk what type we should make this method to return receipt
