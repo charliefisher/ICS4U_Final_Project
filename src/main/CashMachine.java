@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,7 +100,6 @@ public class CashMachine {
 	
 	public void configure() throws IOException{
 		Scanner sc = new Scanner(this.productButtonSettings);
-		FileWriter wr = new FileWriter(this.productButtonSettings);
 		
 		for(int i = 0, xCord = 82, yCord = 134; i < 20; i++, xCord += 127) {
 			if(i % 5 == 0 && i > 0) {
@@ -116,13 +114,20 @@ public class CashMachine {
 				productButtons.add(new ProductButton("", 0, xCord, yCord));
 			}
 			
-			wr.write(this.productButtons.get(i).getName() + "\n");
-			wr.write(this.productButtons.get(i).getPrice() + "\n");
-
 			System.out.println(productButtons.get(i).toString());
 		}
 		
 		sc.close();
+	}
+	
+	private void writeProductButtons() throws IOException {
+		FileWriter wr = new FileWriter(this.productButtonSettings);
+		
+		for (int i = 0; i < 20; i++) {
+			wr.write(this.productButtons.get(i).getName() + "\n");
+			wr.write(this.productButtons.get(i).getPrice() + "\n");
+		}
+
 		wr.close();
 	}
 	
@@ -432,6 +437,7 @@ public class CashMachine {
 					this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
 					this.productNameComplete = false;
 					this.productPriceComplete = false;
+					this.writeProductButtons();
 					this.state = State.EditSELECT;
 				}
 			}
