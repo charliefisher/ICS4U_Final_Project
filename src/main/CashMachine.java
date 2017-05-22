@@ -92,16 +92,19 @@ public class CashMachine {
 	public void configure() throws FileNotFoundException{
 		Scanner sc = new Scanner(this.productButtonSettings);
 		
-		for(int i = 0, xCord = 82, yCord = 134; sc.hasNextLine(); i++, xCord += 127) {
-			if(i % 4 == 0) {
+		for(int i = 0, xCord = 82, yCord = 134; i < 20; i++, xCord += 127) {
+			if(i % 5 == 0) {
 				xCord = 82;
-			}
-			else if(i % 3 == 0) {
 				yCord += 128;
 			}
 			
-			productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
-			
+			if (sc.hasNextLine()) {
+				productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
+			}
+			else {
+				productButtons.add(new ProductButton("", 0, xCord, yCord));
+			}
+
 			System.out.println(productButtons.get(i).toString());
 		}
 	}
@@ -292,7 +295,7 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals("")) {
 						this.transaction.addToSubtotal(this.productButtons.get(i));
 					}
 				}
