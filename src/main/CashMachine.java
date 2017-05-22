@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -89,8 +90,9 @@ public class CashMachine {
 
 	}
 	
-	public void configure() throws FileNotFoundException{
+	public void configure() throws IOException{
 		Scanner sc = new Scanner(this.productButtonSettings);
+		FileWriter wr = new FileWriter(this.productButtonSettings);
 		
 		for(int i = 0, xCord = 82, yCord = 134; i < 20; i++, xCord += 127) {
 			if(i % 5 == 0) {
@@ -104,9 +106,15 @@ public class CashMachine {
 			else {
 				productButtons.add(new ProductButton("", 0, xCord, yCord));
 			}
+			
+			wr.write(this.productButtons.get(i).getName() + "\n");
+			wr.write(this.productButtons.get(i).getPrice() + "\n");
 
 			System.out.println(productButtons.get(i).toString());
 		}
+		
+		sc.close();
+		wr.close();
 	}
 	
 	public void paint(Graphics g) {
@@ -405,6 +413,8 @@ public class CashMachine {
 				else {
 					this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
 					this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+					this.productNameComplete = false;
+					this.productPriceComplete = false;
 					this.state = State.EditSELECT;
 				}
 			}
