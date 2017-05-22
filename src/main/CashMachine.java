@@ -368,6 +368,9 @@ public class CashMachine {
 				this.productNameComplete = true;
 				this.productPriceComplete = false;
 			}
+			else if(CashMachine.editConfirmButton.clicked(e.getX(), e.getY())){
+				this.state = State.EditSELECT;
+			}
 			break;
 		}
 	}
