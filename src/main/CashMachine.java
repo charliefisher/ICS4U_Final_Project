@@ -34,7 +34,7 @@ public class CashMachine {
 	
 	
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
-						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds;
+						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds;
 	
 	private String customerName = "", customerNumber = "", productButtonName, productButtonPrice;
 	private boolean customerNameComplete = false, customerNumberComplete = false, 
@@ -44,7 +44,7 @@ public class CashMachine {
 	private Customer customer;
 	private Transaction transaction;
 	
-	private BufferedImage highlightName, highlightNumber; // for two highlight fields
+	private BufferedImage highlightName, highlightNumber,highlightProductName,highlightProductPrice; // for two highlight fields in menus
 	
 	public CashMachine() throws FontFormatException, IOException{
 		this.productButtonSettings = new File("src/main/ProductButtonSettings");
@@ -68,6 +68,10 @@ public class CashMachine {
 			CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); // need to update cordinates
 			CashMachine.startCustomerNumberBounds = new Button("Customer Number Bounds", 146, 450, 524, 120); // need to update cordinates
 			
+			CashMachine.editProductNameBounds = new Button("Product Name Bounds", 180, 270, 524, 117); // need to update cordinates
+			CashMachine.editProductPriceBounds = new Button("Product Number Bounds", 180, 433, 524, 117); // need to update cordinates
+			
+			
 			CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
 			CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
 		}
@@ -81,6 +85,11 @@ public class CashMachine {
 		highlightName = ImageIO.read(fileURL);
 		fileURL = getClass().getResource("/Screens/CUSTOMER NUMBER.png");
 		highlightNumber = ImageIO.read(fileURL);
+		fileURL = getClass().getResource("/Screens/product name.png");
+		highlightProductName = ImageIO.read(fileURL);
+		fileURL = getClass().getResource("/Screens/product price.png");
+		highlightProductPrice = ImageIO.read(fileURL);
+		
 		
 		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		MCFont = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -177,10 +186,10 @@ public class CashMachine {
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
 			
-			if(!customerNameComplete)
-				g.drawImage(this.highlightName, 250, 355, null);
+			if(!productNameComplete)
+				g.drawImage(this.highlightProductName, 256, 346, null);
 			else
-				g.drawImage(this.highlightNumber, 235, 524, null);
+				g.drawImage(this.highlightProductPrice, 262, 515, null);
 			
 			g.drawString(this.productButtons.get(this.productButtonIndex).getName().toUpperCase(), 215, 330);
 			g.drawString(this.productButtonPrice, 215, 500);
@@ -329,6 +338,14 @@ public class CashMachine {
 		case EditBUTTON:
 			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
 				this.state = State.EditSELECT;
+			}
+			else if (CashMachine.editProductNameBounds.clicked(e.getX(), e.getY())) {
+				this.productNameComplete = false;
+				this.productPriceComplete = true;
+			}
+			else if (CashMachine.editProductPriceBounds.clicked(e.getX(), e.getY())) {
+				this.productNameComplete = true;
+				this.productPriceComplete = false;
 			}
 			break;
 		}
