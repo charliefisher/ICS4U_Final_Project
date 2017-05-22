@@ -52,6 +52,8 @@ public class Customer extends DatabaseElement{
 	
 	@Override
 	public void getInfo() throws FileNotFoundException {
+		System.out.println(this.toString());
+		
 		Scanner sc = new Scanner(this.customer);
 		
 		while(sc.hasNextLine()) {
@@ -67,7 +69,9 @@ public class Customer extends DatabaseElement{
 	
 	@Override
 	public void write() throws IOException {
-		FileWriter wr = new FileWriter(this.customer);
+		System.out.println("Writing");
+		
+		FileWriter wr = new FileWriter(this.toString());
 		
 		wr.write(this.firstName + "\n");
 		wr.write(this.lastName + "\n");
@@ -111,7 +115,7 @@ public class Customer extends DatabaseElement{
 		this.updateUserName();
 	}
 	
-	protected void updateUserName() {
+	private void updateUserName() {
 		this.userName = (this.firstName + this.lastName).toLowerCase();
 	}
 	

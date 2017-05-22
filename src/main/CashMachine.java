@@ -132,7 +132,7 @@ public class CashMachine {
 			else
 				g.drawImage(this.highlightNumber, 235, 524, null);
 			
-			g.drawString(this.customerName, 215, 330);
+			g.drawString(this.customerName.toUpperCase(), 215, 330);
 			g.drawString(this.customerNumber, 215, 500);
 			break;
 		// screen with buttons to start order
@@ -164,7 +164,6 @@ public class CashMachine {
 				g.setColor(new Color(21,134,65)); // lighter colour
 				g.drawString(temp.substring(temp.indexOf(":") + 1, temp.indexOf("?")), centerJustify+lengthOfHeader, y); //draw data
 				temp = temp.substring(temp.indexOf("?")+1); //move on through string to next point of interest
-			
 			}
 			break;
 		// click which product button you want to edit
@@ -196,16 +195,16 @@ public class CashMachine {
 		case StartORDER:
 			break;
 		case StartSCREEN:
-			
 			break;
 		case ORDER:
 			
 			break;
 		case OrderSUMMARY:
 			this.customer.write();
+			this.transaction.write();
+			System.out.println("WritingFromRun");
 			break;
 		case EditSELECT:
-			
 			break;
 		case EditBUTTON:
 			
@@ -256,6 +255,8 @@ public class CashMachine {
 		// input customer name and number
 		case StartORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
+				customerNameComplete = true;
+				customerNumberComplete = true;
 				this.loadCustomer();
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
@@ -263,6 +264,7 @@ public class CashMachine {
 			}
 			else if (CashMachine.startCustomerNameBounds.clicked(e.getX(), e.getY())) {
 				this.customerNameComplete = false;
+				this.customerNumberComplete = true;
 			}
 			else if (CashMachine.startCustomerNumberBounds.clicked(e.getX(), e.getY())) {
 				this.customerNameComplete = true;
@@ -333,6 +335,12 @@ public class CashMachine {
 				else if (!customerNumberComplete) {
 					customerNumberComplete = true;
 				}
+				else {
+					this.loadCustomer();
+					System.out.println("load");
+				}
+				
+				System.out.println("Enter");
 			}
 			
 			if (!customerNameComplete) {
@@ -342,10 +350,8 @@ public class CashMachine {
 				else if (temp != KeyEvent.VK_BACK_SPACE && customerName.length() < 17) {
 					customerName += temp;
 				}
-				
-				customerName.toUpperCase();
 			}
-			else if (!customerNumberComplete) {
+			else if (!customerNumberComplete && temp != KeyEvent.VK_ENTER) {
 				if (temp == KeyEvent.VK_BACK_SPACE && customerNumber.length() > 0) {
 					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
 				}
@@ -353,11 +359,6 @@ public class CashMachine {
 					customerNumber += temp;
 				}
 			}
-			else {
-				this.loadCustomer();
-			}
-			
-			
 			break;
 		// screen with buttons to start order
 		case ORDER:
@@ -378,15 +379,21 @@ public class CashMachine {
 		}		
 	}
 	
-	private void loadCustomer() throws IOException {		
-		if(this.customer.load(this.customerName) && this.customerNumber.length()-1 == 10) {
-			this.transaction = new Transaction(this.customer);
-			this.state = State.ORDER;
-		}
-		else if(this.customerNumber.length()-1 == 10) {	
-			this.customer.create(this.customerName, this.customerNumber);
-			this.transaction = new Transaction(this.customer);
-			this.state = State.ORDER;
-		}
+	private void loadCustomer() throws IOException {	
+		if(this.customerNumber.length() == 10) {	
+			if(this.customer.load(this.customerName.toLowerCase())) {
+				this.transaction = new Transaction(this.customer);
+				this.state = State.ORDER;
+			}
+			else {
+				this.customer.create(this.customerName, this.customerNumber);
+				this.transaction = new Transaction(this.customer);
+				this.state = State.ORDER;
+			}
+			
+			System.out.println(true);
+		}	
+		
+		//&& this.customerName.contains(" ")
 	}
 }
