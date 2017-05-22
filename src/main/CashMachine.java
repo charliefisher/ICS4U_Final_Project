@@ -178,7 +178,7 @@ public class CashMachine {
 		}
 	}
 	
-	public void edit(){
+	public void edit(ProductButton editButton){
 		
 	}
 	
@@ -300,10 +300,20 @@ public class CashMachine {
 			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
 				this.state = State.StartSCREEN;
 			}
+			else{
+				for(int i = 0; i < this.productButtons.size(); i++){
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
+						this.state = State.EditBUTTON;
+						edit(this.productButtons.get(i));
+					}
+				}
+			}
 			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
-			
+			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
+				this.state = State.EditSELECT;
+			}
 			break;
 		}
 	}
