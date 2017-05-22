@@ -1,5 +1,6 @@
 Orange
 6.9
+<<<<<<< HEAD
 Banana
 10.5
  
@@ -37,4 +38,43 @@ Avocado
  
 0.0
  
+=======
+hello
+10.5
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+0.0
+null
+>>>>>>> 7ec1c56e2a3b58b847e1d4c4cad35f4b6c0b288d
 0.0
