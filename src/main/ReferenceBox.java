@@ -26,9 +26,8 @@ public class ReferenceBox extends JPanel {
 	
 	private ArrayList<ProductButton> tempProductInfo;
 	
-	private CashMachine infoAccess;
-	
 	public ReferenceBox() throws IOException, FontFormatException{
+		
 		
 		URL fileUrl;
 		

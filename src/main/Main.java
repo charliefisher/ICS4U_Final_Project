@@ -34,16 +34,7 @@ public class Main {
 			panel.addMouseListener(panel);
 			panel.addKeyListener(panel);	
 			panel.requestFocus();
-			
-			ReferenceBox refPanel = new ReferenceBox();
 		
-			ref.setSize(WINDOW_WIDTH/2, WINDOW_HEIGHT+22);
-			ref.setResizable(false);
-			ref.setLocationRelativeTo(panel);
-			// set GamePanel as the content pane
-			ref.setContentPane(refPanel);
-			// make the window visible to the user
-			ref.setVisible(true);
 			
 			while (true) {					
 				// get time before running our logic
@@ -52,9 +43,6 @@ public class Main {
 				// run our logic and paint the window
 				panel.run();
 				panel.repaint();
-				
-				refPanel.run();
-				refPanel.repaint();	
 				// figure out how long it took to run the code
 				long timeRunDifference = System.currentTimeMillis() - timeBeforeRun;
 
