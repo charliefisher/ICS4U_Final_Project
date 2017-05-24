@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -72,10 +71,5 @@ public class ReferenceBox extends JPanel {
 	
 	public void setProductButtons(ArrayList<ProductButton> newProductButtons) {
 		this.tempProductInfo = newProductButtons;
-	}
-	
-	public void run(){
-	
-	}
-	
+	}	
 }
