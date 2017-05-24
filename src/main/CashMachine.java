@@ -47,6 +47,7 @@ public class CashMachine {
 	private Transaction transaction;
 	
 	private BufferedImage highlightName, highlightNumber,highlightProductName,highlightProductPrice; // for two highlight fields in menus
+	private ReferenceBox refPanel = new ReferenceBox();
 	
 	public CashMachine() throws FontFormatException, IOException{
 		this.productButtonSettings = new File("src/main/product_button_settings");
@@ -104,6 +105,17 @@ public class CashMachine {
 		MCFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		
 		is.close();
+		
+		Main.ref.setSize(400, 822);
+		Main.ref.setResizable(false);
+		Main.ref.setLocationRelativeTo(null);
+		// set GamePanel as the content pane
+		Main.ref.setContentPane(refPanel);
+		// make the window visible to the user
+		Main.ref.setVisible(true);
+
+		refPanel.run();
+		refPanel.repaint();	
 	}
 	
 	public void configure() throws IOException{
@@ -230,6 +242,8 @@ public class CashMachine {
 	}
 	
 	public void run() throws IOException{
+		refPanel.run();
+		refPanel.repaint();
 		switch(this.state) {
 		case SetupNAME:
 			
