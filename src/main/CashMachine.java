@@ -242,9 +242,8 @@ public class CashMachine {
 			
 			break;
 		case OrderSUMMARY:
-			this.customer.write();
+			this.customer.write(transaction.getTransactionNum());
 			this.transaction.write();
-			System.out.println("WritingFromRun");
 			break;
 		case EditSELECT:
 			break;

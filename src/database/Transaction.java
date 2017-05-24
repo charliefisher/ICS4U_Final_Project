@@ -41,7 +41,7 @@ public class Transaction extends DatabaseElement{
 		
 		this.customer = customer;
 			
-		this.transactionNum++;
+		Transaction.transactionNum++;
 		this.registerClose();
 		
 		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -98,17 +98,17 @@ public class Transaction extends DatabaseElement{
 	@Override
 	public void write() throws IOException {
 			FileWriter wr = new FileWriter(this.transaction);
-			wr.write(customer.getUserName());
-			wr.write(this.date);
-			wr.write(new Integer(numProducts).toString());
+			wr.write(customer.getUserName() + "\n");
+			wr.write(this.date + "\n");
+			wr.write(new Integer(products.size()).toString() + "\n");
 			
 			for (int i = 0; i < numProducts; i++) {
-				wr.write(products.get(i));
+				wr.write(this.products.get(i) + "\n");
 			}
 			
-			wr.write(new Double(this.subtotal).toString());
-			wr.write(new Double(this.tax).toString());
-			wr.write(new Double(this.total).toString());
+			wr.write(new Double(Math.round(this.subtotal * 100.0) / 100.0).toString() + "\n");
+			wr.write(new Double(Math.round(this.tax * 100.0) / 100.0).toString() + "\n");
+			wr.write(new Double(Math.round(this.total * 100.0) / 100.0).toString());
 			
 			wr.close();
 	}
@@ -121,6 +121,8 @@ public class Transaction extends DatabaseElement{
 		this.subtotal += product.getPrice();
 		this.tax = subtotal * TAX_RATE;
 		this.total = subtotal + tax;
+		this.products.add(product.getName());
+		this.numProducts = this.products.size();
 	}
 	
 	public String getSubTotal(){
@@ -142,5 +144,9 @@ public class Transaction extends DatabaseElement{
 				+ "?Subtotal: $" + String.format("%.2f", this.subtotal) 
 				+ "?Tax: $" + String.format("%.2f", this.tax) 
 				+ "?Total: $" + String.format("%.2f", this.total) +"?"; //? used as reference to program when to draw new line
+	}
+	
+	public String getTransactionNum() {
+		return "T" + (Transaction.transactionNum - 1);
 	}
 }
