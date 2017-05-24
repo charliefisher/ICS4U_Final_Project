@@ -19,8 +19,9 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 	// fixes an error with JPanel
 	private static final long serialVersionUID = 1L;
 	
-	private static BufferedImage edit1, edit2, setup1, setup2, setup3, start, use2, use3, use4;
-								
+	private static BufferedImage edit1, edit2, setup1, start, use2, use3, use4;
+	
+	//edit 2 funcitons as the setup 2 state
 	
 	private CashMachine mc;
 
@@ -37,12 +38,6 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 		
 		fileURL = getClass().getResource("/Screens/SETUP1.png");
 		setup1 = ImageIO.read(fileURL);
-		
-		fileURL = getClass().getResource("/Screens/SETUP2.png");
-		setup2 = ImageIO.read(fileURL);
-		
-		fileURL = getClass().getResource("/Screens/setup3.png");
-		setup3 = ImageIO.read(fileURL);
 		
 		fileURL = getClass().getResource("/Screens/START.png");
 		start = ImageIO.read(fileURL);
