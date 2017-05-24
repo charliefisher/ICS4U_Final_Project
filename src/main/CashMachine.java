@@ -231,7 +231,8 @@ public class CashMachine {
 				g.drawImage(this.highlightProductPrice, 262, 515, null);
 			
 			g.drawString(this.productButtonName, 215, 321);
-			g.drawString(this.productButtonPrice, 215, 489);
+			g.drawString("$", 215, 489);
+			g.drawString(this.productButtonPrice, 240, 489);
 			
 			g.setColor(new Color(217,234,223));
 			g.setFont(CashMachine.MCFont.deriveFont(58f));
@@ -363,7 +364,8 @@ public class CashMachine {
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
 						this.productButtonIndex = i;
-						this.productButtonPrice = new Double(this.productButtons.get(this.productButtonIndex).getPrice()).toString();
+						this.productButtonPrice = String.format("%.2f",this.productButtons.get(this.productButtonIndex).getPrice() );
+						
 						if (!this.productButtons.get(this.productButtonIndex).getName().equals(UNDEFINED_BUTTON_NAME)) {
 							this.productButtonName = this.productButtons.get(this.productButtonIndex).getName();
 						}
