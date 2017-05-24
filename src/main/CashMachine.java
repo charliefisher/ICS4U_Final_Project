@@ -520,7 +520,7 @@ public class CashMachine {
 			this.productButtons.get(this.productButtonIndex).setName(UNDEFINED_BUTTON_NAME);
 		}
 		
-		if (!this.productButtonPrice.equals("")) {
+		if (!this.productButtonPrice.equals(null)) {
 			this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
 		}
 		else {
