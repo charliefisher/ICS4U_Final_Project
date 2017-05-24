@@ -215,8 +215,8 @@ public class CashMachine {
 			else
 				g.drawImage(this.highlightProductPrice, 262, 515, null);
 			
-			g.drawString(this.productButtonName, 215, 330);
-			g.drawString(this.productButtonPrice, 215, 500);
+			g.drawString(this.productButtonName, 215, 321);
+			g.drawString(this.productButtonPrice, 215, 489);
 			
 			g.setColor(new Color(217,234,223));
 			g.setFont(CashMachine.MCFont.deriveFont(58f));
