@@ -41,7 +41,7 @@ public class CashMachine {
 					productNameComplete = false, productPriceComplete = false;
 	private int productButtonIndex = 0;
 	
-	private static final String UNDEFINIED_BUTTON_NAME = "**********";
+	private static final String UNDEFINIED_BUTTON_NAME = "**********UnDeFiNeD**********";
 	
 	private Customer customer;
 	private Transaction transaction;
