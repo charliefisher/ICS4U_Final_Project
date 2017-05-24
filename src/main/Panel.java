@@ -65,14 +65,6 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 		case SetupNAME:
 			g.drawImage(setup1, 0, 0, null);
 			break;
-		// how many buttons
-		case SetupSIZE:
-			g.drawImage(setup2, 0, 0, null);
-			break;
-		// input button info
-		case SetupBUTTON:
-			g.drawImage(setup3, 0, 0, null);
-			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
 			g.drawImage(start, 0, 0, null);

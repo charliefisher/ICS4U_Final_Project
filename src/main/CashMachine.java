@@ -24,7 +24,7 @@ import database.Transaction;
 public class CashMachine {
 	
 	public static enum State {
-		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
+		SetupNAME, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
 	}
 	
 	
@@ -87,6 +87,7 @@ public class CashMachine {
 		}
 		
 		sc.close();
+		sc2.close();
 		
 		URL fileURL; // import two click overlays
 		fileURL = getClass().getResource("/Screens/CUSTOMER NAME.png");
@@ -151,14 +152,6 @@ public class CashMachine {
 //				g.drawImage(this.highlightNumber, 235, 524, null);
 			
 			g.drawString(this.companyName.toUpperCase(), 215, 330);
-			break;
-		// how many buttons
-		case SetupSIZE:
-	
-			break;
-		// input button info
-		case SetupBUTTON:
-		
 			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
@@ -241,12 +234,6 @@ public class CashMachine {
 		case SetupNAME:
 			
 			break;
-		case SetupSIZE:
-			
-			break;
-		case SetupBUTTON:
-			
-			break;
 		case StartORDER:
 			break;
 		case StartSCREEN:
@@ -288,14 +275,6 @@ public class CashMachine {
 		switch (this.state) {
 		// 
 		case SetupNAME:
-			
-			break;
-		// how many buttons
-		case SetupSIZE:
-			
-			break;
-		// input button info
-		case SetupBUTTON:
 			
 			break;
 		// select to open cash machine or edit the cash machine
@@ -411,14 +390,6 @@ public class CashMachine {
 				companyName += temp;
 			}
 			break;
-		// how many buttons
-		case SetupSIZE:
-			
-			break;
-		// input button info
-		case SetupBUTTON:
-			
-			break;
 		case StartORDER:
 			temp = e.getKeyChar();
 			
@@ -516,8 +487,6 @@ public class CashMachine {
 				this.state = State.ORDER;
 			}
 		}	
-		
-		//&& this.customerName.contains(" ")
 	}
 	
 	private void confirmButtonChanges() throws IOException {
