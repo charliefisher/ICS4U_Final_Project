@@ -35,7 +35,7 @@ public class CashMachine {
 
 	private State state;
 	private static Font MCFont;
-	private File productButtonSettings;
+	private File productButtonSettings, settings;
 	private ArrayList<ProductButton> productButtons = new ArrayList<ProductButton>();
 	
 	private String customerName = "", customerNumber = "", productButtonName, productButtonPrice, companyName = "";
@@ -49,37 +49,44 @@ public class CashMachine {
 	private BufferedImage highlightName, highlightNumber,highlightProductName,highlightProductPrice; // for two highlight fields in menus
 	
 	public CashMachine() throws FontFormatException, IOException{
-		this.productButtonSettings = new File("src/main/ProductButtonSettings");
+		this.productButtonSettings = new File("src/main/product_button_settings");
+		this.settings = new File("src/main/settings");
 		
-		Scanner sc = new Scanner(productButtonSettings);
+		this.customer = new Customer();
+		configure();
+		
+		CashMachine.editConfirmButton = new Button("Confirm Changes", 236, 610, 344, 77); // need to update cordinates
+		
+		CashMachine.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
+		CashMachine.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
+		CashMachine.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
+		CashMachine.startFinishButton = new Button("Finish", 656, 695, 116, 77); // need to update cordinates
+		CashMachine.startExitButton = new Button("Exit", 750, 12, 35, 32);
+		
+		CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); // need to update cordinates
+		CashMachine.startCustomerNumberBounds = new Button("Customer Number Bounds", 146, 450, 524, 120); // need to update cordinates
+		
+		CashMachine.editProductNameBounds = new Button("Product Name Bounds", 180, 270, 524, 117); // need to update cordinates
+		CashMachine.editProductPriceBounds = new Button("Product Number Bounds", 180, 433, 524, 117); // need to update cordinates
+		
+		
+		CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
+		CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
+		
+		Scanner sc = new Scanner(this.settings);
+		Scanner sc2 = new Scanner(this.productButtonSettings);
 	
-		if(sc.hasNextLine()) {
-			this.customer = new Customer();
-			
-			state = State.StartSCREEN;
-			configure();
-			
-			CashMachine.editConfirmButton = new Button("Confirm Changes", 236, 610, 344, 77); // need to update cordinates
-			
-			CashMachine.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
-			CashMachine.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
-			CashMachine.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
-			CashMachine.startFinishButton = new Button("Finish", 656, 695, 116, 77); // need to update cordinates
-			CashMachine.startExitButton = new Button("Exit", 750, 12, 35, 32);
-			
-			CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); // need to update cordinates
-			CashMachine.startCustomerNumberBounds = new Button("Customer Number Bounds", 146, 450, 524, 120); // need to update cordinates
-			
-			CashMachine.editProductNameBounds = new Button("Product Name Bounds", 180, 270, 524, 117); // need to update cordinates
-			CashMachine.editProductPriceBounds = new Button("Product Number Bounds", 180, 433, 524, 117); // need to update cordinates
-			
-			
-			CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
-			CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
+		if(sc.hasNextLine() && sc2.hasNextLine()) {	
+			state = State.StartSCREEN;	
+		}
+		else if (sc.hasNextLine()) {
+			state = State.EditSELECT;
 		}
 		else {
 			state = State.SetupNAME;
 		}
+		
+		sc.close();
 		
 		URL fileURL; // import two click overlays
 		fileURL = getClass().getResource("/Screens/CUSTOMER NAME.png");
@@ -95,8 +102,7 @@ public class CashMachine {
 		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		MCFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		
-		sc.close();
-
+		is.close();
 	}
 	
 	public void configure() throws IOException{
@@ -391,12 +397,11 @@ public class CashMachine {
 
 	public void keyTyped(KeyEvent e) throws IOException {			
 		switch (this.state) {
-		// 
 		case SetupNAME:
 			char temp = e.getKeyChar();
 		
 			if (temp == KeyEvent.VK_ENTER) {
-				this.state = State.SetupBUTTON;
+				this.confirmCompanyName();
 			}
 				
 			if (temp == KeyEvent.VK_BACK_SPACE && companyName.length() > 0) {
@@ -526,6 +531,13 @@ public class CashMachine {
 		this.productNameComplete = false;
 		this.productPriceComplete = false;
 		this.writeProductButtons();
+		this.state = State.EditSELECT;
+	}
+	
+	private void confirmCompanyName() throws IOException {
+		FileWriter wr = new FileWriter(this.settings);
+		wr.write(this.companyName);
+		wr.close();
 		this.state = State.EditSELECT;
 	}
 }
