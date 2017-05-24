@@ -26,22 +26,22 @@ public class CashMachine {
 	public static enum State {
 		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
 	}
+	
+	
+	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
+	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds;
+
+	private static final String UNDEFINIED_BUTTON_NAME = "*****UNDEFINED*****";
 
 	private State state;
 	private static Font MCFont;
 	private File productButtonSettings;
 	private ArrayList<ProductButton> productButtons = new ArrayList<ProductButton>();
 	
-	
-	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
-						  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds;
-	
-	private String customerName = "", customerNumber = "", productButtonName, productButtonPrice;
+	private String customerName = "", customerNumber = "", productButtonName, productButtonPrice, companyName = "";
 	private boolean customerNameComplete = false, customerNumberComplete = false, 
 					productNameComplete = false, productPriceComplete = false;
 	private int productButtonIndex = 0;
-	
-	private static final String UNDEFINIED_BUTTON_NAME = "**********UnDeFiNeD**********";
 	
 	private Customer customer;
 	private Transaction transaction;
@@ -79,7 +79,6 @@ public class CashMachine {
 		}
 		else {
 			state = State.SetupNAME;
-			
 		}
 		
 		URL fileURL; // import two click overlays
@@ -137,7 +136,15 @@ public class CashMachine {
 		switch (this.state) {
 		// company name
 		case SetupNAME:
-
+			g.setFont(CashMachine.MCFont.deriveFont(36f));
+			g.setColor(Color.WHITE);
+			
+//			if(!customerNameComplete)
+//				g.drawImage(this.highlightName, 250, 355, null);
+//			else
+//				g.drawImage(this.highlightNumber, 235, 524, null);
+			
+			g.drawString(this.companyName.toUpperCase(), 215, 330);
 			break;
 		// how many buttons
 		case SetupSIZE:
@@ -375,7 +382,7 @@ public class CashMachine {
 				this.productPriceComplete = false;
 			}
 			else if(CashMachine.editConfirmButton.clicked(e.getX(), e.getY())){
-				this.state = State.EditSELECT;
+				this.confirmButtonChanges();
 			}
 			break;
 		}
@@ -386,7 +393,18 @@ public class CashMachine {
 		switch (this.state) {
 		// 
 		case SetupNAME:
-			
+			char temp = e.getKeyChar();
+		
+			if (temp == KeyEvent.VK_ENTER) {
+				this.state = State.SetupSIZE;
+			}
+				
+			if (temp == KeyEvent.VK_BACK_SPACE && companyName.length() > 0) {
+				companyName = companyName.substring(0, companyName.length()-1);
+			}
+			else if (temp != KeyEvent.VK_BACK_SPACE && companyName.length() < 16) {
+				companyName += temp;
+			}
 			break;
 		// how many buttons
 		case SetupSIZE:
@@ -397,7 +415,7 @@ public class CashMachine {
 			
 			break;
 		case StartORDER:
-			char temp = e.getKeyChar();
+			temp = e.getKeyChar();
 			
 			if (temp == KeyEvent.VK_ENTER) {
 				if (!customerNameComplete) {
@@ -436,45 +454,42 @@ public class CashMachine {
 			break;
 		// click which product button you want to edit
 		case EditSELECT:
-			
+			if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+				this.state = State.StartSCREEN;
+			}
 			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
 			temp = e.getKeyChar();
 			
-			if (temp == KeyEvent.VK_ENTER) {
-				if (!productNameComplete) {
-					productNameComplete = true;
-				}
-				else {
-					if (!this.productButtonName.equals("")) {
-						this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
+			if (temp == KeyEvent.VK_ESCAPE) {
+				this.state = State.EditSELECT;
+			}
+			else {
+				if (temp == KeyEvent.VK_ENTER) {
+					if (!productNameComplete) {
+						productNameComplete = true;
 					}
 					else {
-						this.productButtons.get(this.productButtonIndex).setName(UNDEFINIED_BUTTON_NAME);
+						this.confirmButtonChanges();
 					}
-					this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
-					this.productNameComplete = false;
-					this.productPriceComplete = false;
-					this.writeProductButtons();
-					this.state = State.EditSELECT;
 				}
-			}
-			
-			if (!productNameComplete) {
-				if (temp == KeyEvent.VK_BACK_SPACE && productButtonName.length() > 0) {
-					productButtonName = productButtonName.substring(0, productButtonName.length()-1);
+				
+				if (!productNameComplete) {
+					if (temp == KeyEvent.VK_BACK_SPACE && productButtonName.length() > 0) {
+						productButtonName = productButtonName.substring(0, productButtonName.length()-1);
+					}
+					else if (temp != KeyEvent.VK_BACK_SPACE && productButtonName.length() < 16) {
+						productButtonName += temp;
+					}
 				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && productButtonName.length() < 16) {
-					productButtonName += temp;
-				}
-			}
-			else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
-				if (temp == KeyEvent.VK_BACK_SPACE && productButtonPrice.length() > 0) {
-					productButtonPrice = productButtonPrice.substring(0, productButtonPrice.length()-1);					
-				}
-				else if (temp != KeyEvent.VK_BACK_SPACE && productButtonPrice.length() < 16) {
-					productButtonPrice += temp;
+				else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
+					if (temp == KeyEvent.VK_BACK_SPACE && productButtonPrice.length() > 0) {
+						productButtonPrice = productButtonPrice.substring(0, productButtonPrice.length()-1);					
+					}
+					else if (temp != KeyEvent.VK_BACK_SPACE && productButtonPrice.length() < 16) {
+						productButtonPrice += temp;
+					}
 				}
 			}
 			break;
@@ -498,5 +513,19 @@ public class CashMachine {
 		}	
 		
 		//&& this.customerName.contains(" ")
+	}
+	
+	private void confirmButtonChanges() throws IOException {
+		if (!this.productButtonName.equals("")) {
+			this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
+		}
+		else {
+			this.productButtons.get(this.productButtonIndex).setName(UNDEFINIED_BUTTON_NAME);
+		}
+		this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+		this.productNameComplete = false;
+		this.productPriceComplete = false;
+		this.writeProductButtons();
+		this.state = State.EditSELECT;
 	}
 }
