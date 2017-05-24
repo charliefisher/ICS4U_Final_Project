@@ -522,7 +522,14 @@ public class CashMachine {
 		else {
 			this.productButtons.get(this.productButtonIndex).setName(UNDEFINED_BUTTON_NAME);
 		}
-		this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+		
+		if (!this.productButtonPrice.equals("")) {
+			this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+		}
+		else {
+			this.productButtons.get(this.productButtonIndex).setPrice(0.0);
+		}
+		
 		this.productNameComplete = false;
 		this.productPriceComplete = false;
 		this.writeProductButtons();
