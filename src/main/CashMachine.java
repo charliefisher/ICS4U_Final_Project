@@ -509,4 +509,8 @@ public class CashMachine {
 		wr.close();
 		this.state = State.EditSELECT;
 	}
+	
+	public ArrayList getProductList(){
+		return this.productButtons;
+	}
 }

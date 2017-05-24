@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 public class Main {
 		// declare and instantiate a JFrame
 		static JFrame window = new JFrame("My Checkout");
+		static JFrame ref = new JFrame("Reference Data");
+		
 		private static short WINDOW_WIDTH = 800, WINDOW_HEIGHT = 800;	
 		
 		public static void main(String[] args) throws IOException, InterruptedException, FontFormatException {
@@ -32,16 +34,27 @@ public class Main {
 			panel.addMouseListener(panel);
 			panel.addKeyListener(panel);	
 			panel.requestFocus();
-						
+			
+			Panel refPanel = new Panel();
+		
+			ref.setSize(WINDOW_WIDTH/2, WINDOW_HEIGHT);
+			ref.setResizable(false);
+			ref.setLocationRelativeTo(panel);
+			// set GamePanel as the content pane
+			ref.setContentPane(refPanel);
+			// make the window visible to the user
+			ref.setVisible(true);
 			
 			while (true) {					
 				// get time before running our logic
 				long timeBeforeRun = System.currentTimeMillis();
-					
+				
 				// run our logic and paint the window
 				panel.run();
 				panel.repaint();
 				
+				refPanel.run();
+				refPanel.repaint();	
 				// figure out how long it took to run the code
 				long timeRunDifference = System.currentTimeMillis() - timeBeforeRun;
 
