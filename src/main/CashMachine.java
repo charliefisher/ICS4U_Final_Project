@@ -375,6 +375,16 @@ public class CashMachine {
 				this.productPriceComplete = false;
 			}
 			else if(CashMachine.editConfirmButton.clicked(e.getX(), e.getY())){
+				if (!this.productButtonName.equals("")) {
+					this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
+				}
+				else {
+					this.productButtons.get(this.productButtonIndex).setName(" ");
+				}
+				this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
+				this.productNameComplete = false;
+				this.productPriceComplete = false;
+				this.writeProductButtons();
 				this.state = State.EditSELECT;
 			}
 			break;
