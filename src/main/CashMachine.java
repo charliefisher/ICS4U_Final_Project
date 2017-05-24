@@ -261,15 +261,12 @@ public class CashMachine {
 			
 			break;
 		case OrderSUMMARY:
-			
 			this.customer.write(transaction.getTransactionNum());
 			this.transaction.write();
 			break;
-		case EditSELECT:
-			
+		case EditSELECT:	
 			break;
 		case EditBUTTON:
-			
 			break;
 		}
 	}

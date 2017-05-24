@@ -54,10 +54,10 @@ public class ReferenceBox extends JPanel {
 					g.drawString("", 40, y);
 				}
 				
-				g.drawString("    $ ", 200, y);
-				
 				Double drawDouble = new Double(tempProductInfo.get(i).getPrice());
-				if (!drawDouble.toString().equals(ReferenceBox.UNDEFINED_BUTTON_NAME)) {
+				
+				if (!drawDouble.toString().equals("0.0")) {
+					g.drawString("    $ ", 200, y);
 					g.drawString(drawDouble.toString(), 250, y);
 				}
 				else {
