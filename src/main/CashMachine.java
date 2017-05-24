@@ -510,7 +510,7 @@ public class CashMachine {
 		this.state = State.EditSELECT;
 	}
 	
-	public ArrayList getProductList(){
+	public ArrayList<ProductButton> getProductList(){
 		return this.productButtons;
 	}
 }

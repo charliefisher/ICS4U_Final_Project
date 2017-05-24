@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -23,11 +24,12 @@ public class ReferenceBox extends JPanel {
 	
 	private static Font RefFont;
 	
-	private ArrayList<ProductButton> tempProductInfo = new ArrayList<ProductButton>();
+	private ArrayList<ProductButton> tempProductInfo;
 	
 	private CashMachine infoAccess;
 	
 	public ReferenceBox() throws IOException, FontFormatException{
+		
 		URL fileUrl;
 		
 		fileUrl = getClass().getResource("/Screens/reference.png");
@@ -39,20 +41,20 @@ public class ReferenceBox extends JPanel {
 		
 	}
 
-	public void paint(Graphics ge){
-		ge.drawImage(refScreen, 0, 0, null);
-		/*
+	public void paint(Graphics g){
+		g.drawImage(refScreen, 0, 0, null);
+		
 		g.setColor(new Color(217,234,223));
 		g.setFont(ReferenceBox.RefFont.deriveFont(12f));
 		
-		for(int i= 0, y = 56 ; i <20; i++, y+= 40){
+		for(int i= 0, y = 56 ; i < 20; i++, y+= 40){
 			g.drawString(tempProductInfo.get(i).getName(), 37, y);
 		}
-		*/
+		
 	}
 	
 	public void run(){
-		tempProductInfo = infoAccess.getProductList(); // update latest product list	
+	
 	}
 	
 }

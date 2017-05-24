@@ -35,9 +35,9 @@ public class Main {
 			panel.addKeyListener(panel);	
 			panel.requestFocus();
 			
-			Panel refPanel = new Panel();
+			ReferenceBox refPanel = new ReferenceBox();
 		
-			ref.setSize(WINDOW_WIDTH/2, WINDOW_HEIGHT);
+			ref.setSize(WINDOW_WIDTH/2, WINDOW_HEIGHT+22);
 			ref.setResizable(false);
 			ref.setLocationRelativeTo(panel);
 			// set GamePanel as the content pane
