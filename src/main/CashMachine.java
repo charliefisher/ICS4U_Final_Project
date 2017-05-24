@@ -24,7 +24,7 @@ import database.Transaction;
 public class CashMachine {
 	
 	public static enum State {
-		SetupNAME, SetupSIZE, SetupBUTTON, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
+		SetupNAME, StartSCREEN, StartORDER, ORDER, OrderSUMMARY, EditSELECT, EditBUTTON
 	}
 	
 	
@@ -146,15 +146,7 @@ public class CashMachine {
 			
 			g.drawString(this.companyName.toUpperCase(), 215, 330);
 			break;
-		// how many buttons
-		case SetupSIZE:
-	
-			break;
-		// input button info
-		case SetupBUTTON:
-		
-			break;
-		// select to open cash machine or edit the cash machine
+			// select to open cash machine or edit the cash machine
 		case StartSCREEN:
 		
 			break;
@@ -233,20 +225,12 @@ public class CashMachine {
 	public void run() throws IOException{
 		switch(this.state) {
 		case SetupNAME:
-			
-			break;
-		case SetupSIZE:
-			
-			break;
-		case SetupBUTTON:
-			
 			break;
 		case StartORDER:
 			break;
 		case StartSCREEN:
 			break;
 		case ORDER:
-			
 			break;
 		case OrderSUMMARY:
 			this.customer.write();
@@ -282,15 +266,6 @@ public class CashMachine {
 		switch (this.state) {
 		// 
 		case SetupNAME:
-			
-			break;
-		// how many buttons
-		case SetupSIZE:
-			
-			break;
-		// input button info
-		case SetupBUTTON:
-			
 			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
@@ -405,14 +380,6 @@ public class CashMachine {
 			else if (temp != KeyEvent.VK_BACK_SPACE && companyName.length() < 16) {
 				companyName += temp;
 			}
-			break;
-		// how many buttons
-		case SetupSIZE:
-			
-			break;
-		// input button info
-		case SetupBUTTON:
-			
 			break;
 		case StartORDER:
 			temp = e.getKeyChar();
