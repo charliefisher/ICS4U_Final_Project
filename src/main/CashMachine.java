@@ -83,16 +83,16 @@ public class CashMachine {
 		Scanner sc2 = new Scanner(this.productButtonSettings);
 	
 		if(sc.hasNextLine() && sc2.hasNextLine()) {	
+			this.companyName = sc.nextLine();
 			state = State.StartSCREEN;	
 		}
 		else if (sc.hasNextLine()) {
+			this.companyName = sc.nextLine();
 			state = State.EditSELECT;
 		}
 		else {
 			state = State.SetupNAME;
 		}
-		
-		this.companyName = sc.next();
 		
 		sc.close();
 		sc2.close();
@@ -281,10 +281,9 @@ public class CashMachine {
 	private void writeReceipt() throws IOException{
 		File dir = new File("src/main/");
 		dir.mkdirs();
-		File totalTransactions = new File(dir, this.companyName.toLowerCase() + "_global_recipt");
-		totalTransactions.createNewFile();
 		
-		System.out.println(this.companyName);
+		File totalTransactions = new File(dir, this.companyName.replace(" ", "").toLowerCase() + "_global_recipt");
+		totalTransactions.createNewFile();
 		
 		Scanner sc = new Scanner(totalTransactions);
 		FileWriter wr;
