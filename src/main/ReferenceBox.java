@@ -45,13 +45,23 @@ public class ReferenceBox extends JPanel {
 		g.setFont(ReferenceBox.RefFont.deriveFont(12f));
 		
 		try {
-			for(int i= 0, y = 56 ; i < 20; i++, y+= 40){
+			for(int i= 0, y = 56 ; i < 20; i++, y+= 39){
 				if (!tempProductInfo.get(i).getName().equals(ReferenceBox.UNDEFINED_BUTTON_NAME)) {
-					g.drawString(tempProductInfo.get(i).getName(), 37, y);
+					g.drawString(tempProductInfo.get(i).getName(), 40, y);
 				}
 				else {
-					g.drawString("", 37, y);
-				}	
+					g.drawString("", 40, y);
+				}
+				
+				g.drawString("    $ ", 200, y);
+				
+				Double drawDouble = new Double(tempProductInfo.get(i).getPrice());
+				if (!drawDouble.toString().equals(ReferenceBox.UNDEFINED_BUTTON_NAME)) {
+					g.drawString(drawDouble.toString(), 250, y);
+				}
+				else {
+					g.drawString("", 250, y);
+				}
 			}
 		}
 		catch(NullPointerException e) {

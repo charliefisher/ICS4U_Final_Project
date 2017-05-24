@@ -30,7 +30,7 @@ public class CashMachine {
 	
 	
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
-	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds;
+	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds, openReferenceScreen;
 
 	private static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";
 
@@ -77,6 +77,8 @@ public class CashMachine {
 		CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
 		CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
 		
+		CashMachine.openReferenceScreen = new Button("Reference Screen", 315, 64, 174, 58); // ref box
+		
 		Scanner sc = new Scanner(this.settings);
 		Scanner sc2 = new Scanner(this.productButtonSettings);
 	
@@ -113,10 +115,8 @@ public class CashMachine {
 		this.ref.setSize(400, 822);
 		this.ref.setResizable(false);
 		this.ref.setLocationRelativeTo(null);
-		// set GamePanel as the content pane
+		// set refPanel as the content pane
 		this.ref.setContentPane(refPanel);
-		// make the window visible to the user
-		this.ref.setVisible(true);
 		
 
 	}
@@ -249,20 +249,24 @@ public class CashMachine {
 		refPanel.repaint();
 		switch(this.state) {
 		case SetupNAME:
-			
+	
 			break;
 		case StartORDER:
+		
 			break;
 		case StartSCREEN:
+	
 			break;
 		case ORDER:
 			
 			break;
 		case OrderSUMMARY:
+			
 			this.customer.write(transaction.getTransactionNum());
 			this.transaction.write();
 			break;
 		case EditSELECT:
+			
 			break;
 		case EditBUTTON:
 			
@@ -329,6 +333,9 @@ public class CashMachine {
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
 				this.state = State.StartORDER;
 			}
+			else if(CashMachine.openReferenceScreen.clicked(e.getX(), e.getY())){
+				this.ref.setVisible(true);
+			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(UNDEFINED_BUTTON_NAME)) {
@@ -351,6 +358,9 @@ public class CashMachine {
 		case EditSELECT:
 			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
 				this.state = State.StartSCREEN;
+			}
+			else if(CashMachine.openReferenceScreen.clicked(e.getX(), e.getY())){
+				this.ref.setVisible(true);
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
