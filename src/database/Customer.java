@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Customer extends DatabaseElement{
@@ -12,13 +13,13 @@ public class Customer extends DatabaseElement{
 	private String userName;
 	
 	private File customer;
-	
 	private String phoneNum;
+	
+	private ArrayList <String> transactions = new ArrayList<String>();
 	
 	private static final String FILE_PATH = "src/database/customers/";
 	
 	public Customer() {
-		
 	}
 	
 	public Customer(String fileName) {
@@ -56,33 +57,45 @@ public class Customer extends DatabaseElement{
 	public void getInfo() throws FileNotFoundException {	
 		Scanner sc = new Scanner(this.customer);
 		
+		this.firstName = sc.next();
+		this.lastName = sc.next();
+		this.updateUserName();
+		this.phoneNum = sc.next();
+		this.formatPhoneNum();
+		
 		while(sc.hasNextLine()) {
-			this.firstName = sc.next();
-			this.lastName = sc.next();
-			this.updateUserName();
-			this.phoneNum = sc.next();
-			this.formatPhoneNum();
+			this.transactions.add(sc.next());
 		}
 		
 		sc.close();	
-		
-		System.out.println("Reading \t" + this.toString());
 	}
 	
 	@Override
-	public void write() throws IOException {		
+	public void write() throws IOException {
 		FileWriter wr = new FileWriter(this.customer);
-		
+
 		wr.write(this.firstName + "\n");
 		wr.write(this.lastName + "\n");
 		String phoneNum = this.phoneNum.substring(1, 4) + this.phoneNum.substring(6, 9) + this.phoneNum.substring(10); 
-		wr.write(phoneNum);
-	
-		wr.close();
+		wr.write(phoneNum + "\n");
 		
-		System.out.println("Writing \t" + this.toString());
+		for(int i = 0; i < this.transactions.size(); i++) {
+			wr.write(this.transactions.get(i) + "\n");
+		}
+		
+		wr.close();
 	}
 	
+	public void write(String transactionNum) throws IOException {		
+		this.write();
+		
+		FileWriter wr = new FileWriter(this.customer, true);
+		
+		wr.write(transactionNum);
+	
+		wr.close();
+	}
+ 	
 	private void formatPhoneNum() {
 		this.phoneNum = "(" + this.phoneNum.substring(0, 3) + ") " + this.phoneNum.substring(3, 6) + " " + this.phoneNum.substring(6);
 	}

@@ -90,8 +90,8 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 	}
 
 
-	public void run() {
-		
+	public void run() throws IOException {
+		this.mc.run();
 	}
 
 	@Override
