@@ -382,21 +382,7 @@ public class CashMachine {
 				this.productPriceComplete = false;
 			}
 			else if(CashMachine.editConfirmButton.clicked(e.getX(), e.getY())){
-<<<<<<< HEAD
 				this.confirmButtonChanges();
-=======
-				if (!this.productButtonName.equals("")) {
-					this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
-				}
-				else {
-					this.productButtons.get(this.productButtonIndex).setName(" ");
-				}
-				this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
-				this.productNameComplete = false;
-				this.productPriceComplete = false;
-				this.writeProductButtons();
-				this.state = State.EditSELECT;
->>>>>>> cacd0c6ea8713a87ca1e5f3eab433fddd7403475
 			}
 			break;
 		}
@@ -410,7 +396,7 @@ public class CashMachine {
 			char temp = e.getKeyChar();
 		
 			if (temp == KeyEvent.VK_ENTER) {
-				this.state = State.SetupSIZE;
+				this.state = State.SetupBUTTON;
 			}
 				
 			if (temp == KeyEvent.VK_BACK_SPACE && companyName.length() > 0) {
