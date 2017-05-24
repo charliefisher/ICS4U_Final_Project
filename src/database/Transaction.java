@@ -48,7 +48,7 @@ public class Transaction extends DatabaseElement{
 	}
 	
 	private void registerOpen() throws FileNotFoundException {
-		this.settings = new File("src/database/transactions/settings");
+		this.settings = new File("src/database/transactions/transaction_settings");
 		Scanner sc = new Scanner(this.settings);
 		Transaction.transactionNum = sc.nextInt();
 		sc.close();
