@@ -41,7 +41,7 @@ public class CashMachine {
 	
 	private String customerName = "", customerNumber = "", productButtonName, productButtonPrice, companyName = "";
 	private boolean customerNameComplete = false, customerNumberComplete = false, 
-					productNameComplete = false, productPriceComplete = false;
+					productNameComplete = false, productPriceComplete = false, writeToGlobalReciept = true;
 	private int productButtonIndex = 0;
 	
 	private Customer customer;
@@ -91,6 +91,8 @@ public class CashMachine {
 		else {
 			state = State.SetupNAME;
 		}
+		
+		this.companyName = sc.next();
 		
 		sc.close();
 		sc2.close();
@@ -264,6 +266,10 @@ public class CashMachine {
 		case OrderSUMMARY:
 			this.customer.write(transaction.getTransactionNum());
 			this.transaction.write();
+			if (this.writeToGlobalReciept) {
+				this.writeReceipt();
+				this.writeToGlobalReciept = false;
+			}
 			break;
 		case EditSELECT:	
 			break;
@@ -272,8 +278,34 @@ public class CashMachine {
 		}
 	}
 	
-	public String getReceipt(){ // idk what type we should make this method to return receipt
-		return" ";
+	private void writeReceipt() throws IOException{
+		File dir = new File("src/main/");
+		dir.mkdirs();
+		File totalTransactions = new File(dir, this.companyName.toLowerCase() + "_global_recipt");
+		totalTransactions.createNewFile();
+		
+		System.out.println(this.companyName);
+		
+		Scanner sc = new Scanner(totalTransactions);
+		FileWriter wr;
+		
+		if (sc.hasNextLine()) {
+			wr = new FileWriter(totalTransactions, true);
+		}
+		else {
+			wr = new FileWriter(totalTransactions);
+			wr.write(this.companyName);
+		}
+		
+		wr.write("\n\n" + this.transaction.getTransactionNum() + "\n");
+		wr.write(this.transaction.getDate() + "\n");
+		wr.write(this.transaction.getCustomer() + "\n");
+		wr.write(this.transaction.getSubtotal() + "\n");
+		wr.write(this.transaction.getTax() + "\n");
+		wr.write(this.transaction.getTotal());
+		
+		wr.close();
+		sc.close();
 	}
 	
 	public State getState(){
@@ -336,8 +368,8 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(UNDEFINED_BUTTON_NAME)) {
-						this.transaction.addToSubtotal(this.productButtons.get(i));
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && (!this.productButtons.get(i).getName().equals(UNDEFINED_BUTTON_NAME) || this.productButtons.get(i).getPrice() != 0.0)) {
+						this.transaction.addToSubtotal(this.productButtons.get(i), CashMachine.UNDEFINED_BUTTON_NAME);
 					}
 				}
 			}
@@ -346,10 +378,12 @@ public class CashMachine {
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
 				this.state = State.StartORDER;
+				this.writeToGlobalReciept = true;
 				// RESET CUSTOMER DATA HERE
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
 				this.state = State.StartSCREEN;
+				this.writeToGlobalReciept = true;
 			}
 			break;
 		// click which product button you want to edit

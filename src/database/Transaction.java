@@ -117,11 +117,17 @@ public class Transaction extends DatabaseElement{
 		return this.customer + " bought " + this.numProducts + " products on " + date;
 	}
 	
-	public void addToSubtotal(ProductButton product) throws IOException {
+	public void addToSubtotal(ProductButton product, String undefined) throws IOException {
 		this.subtotal += product.getPrice();
 		this.tax = subtotal * TAX_RATE;
 		this.total = subtotal + tax;
-		this.products.add(product.getName());
+		if (!product.getName().equals(undefined)) {
+			this.products.add(product.getName());
+		}
+		else {
+			this.products.add("Empty Name");
+		}
+
 		this.numProducts = this.products.size();
 	}
 	
@@ -140,13 +146,42 @@ public class Transaction extends DatabaseElement{
 		}
 		
 		return "Date: " + this.date 
-				+ "?Customer: " + this.customer.getFirstName().toUpperCase().charAt(0) + this.customer.getFirstName().substring(1).toLowerCase() + " " + temp 
-				+ "?Subtotal: $" + String.format("%.2f", this.subtotal) 
-				+ "?Tax: $" + String.format("%.2f", this.tax) 
-				+ "?Total: $" + String.format("%.2f", this.total) +"?"; //? used as reference to program when to draw new line
+				+ "?Customer: " + this.getCustomer() 
+				+ "?Subtotal: $" + this.getSubtotal()
+				+ "?Tax: $" + this.getTax()
+				+ "?Total: $" + this.getTotal() +"?"; //? used as reference to program when to draw new line
 	}
 	
 	public String getTransactionNum() {
 		return "T" + (Transaction.transactionNum - 1);
+	}
+	
+	public String getDate() {
+		return this.date;
+	}
+	
+	public String getCustomer() {
+		String temp;
+		
+		if (this.customer.getLastName().length() > 1) {
+			temp = this.customer.getLastName().toUpperCase().charAt(0) + this.customer.getLastName().substring(1).toLowerCase();
+		}
+		else {
+			temp = "";
+		}
+		
+		return this.customer.getFirstName().toUpperCase().charAt(0) + this.customer.getFirstName().substring(1).toLowerCase() + " " + temp;
+	}
+	
+	public String getSubtotal() {
+		return String.format("%.2f", this.subtotal) ;
+	}
+	
+	public String getTax() {
+		return String.format("%.2f", this.tax);
+	}
+	
+	public String getTotal() {
+		return String.format("%.2f", this.total);
 	}
 }
