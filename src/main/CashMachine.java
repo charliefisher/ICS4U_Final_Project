@@ -153,11 +153,7 @@ public class CashMachine {
 			
 			g.drawString(this.companyName.toUpperCase(), 215, 330);
 			break;
-<<<<<<< HEAD
 		// select to open cash machine or edit the cash machine
-=======
-			// select to open cash machine or edit the cash machine
->>>>>>> fd52730b7a6cbaba6cd9d5916e20b4af4f75af41
 		case StartSCREEN:
 		
 			break;
@@ -236,16 +232,14 @@ public class CashMachine {
 	public void run() throws IOException{
 		switch(this.state) {
 		case SetupNAME:
-<<<<<<< HEAD
 			
-=======
->>>>>>> fd52730b7a6cbaba6cd9d5916e20b4af4f75af41
 			break;
 		case StartORDER:
 			break;
 		case StartSCREEN:
 			break;
 		case ORDER:
+			
 			break;
 		case OrderSUMMARY:
 			this.customer.write();
@@ -281,10 +275,7 @@ public class CashMachine {
 		switch (this.state) {
 		// 
 		case SetupNAME:
-<<<<<<< HEAD
 			
-=======
->>>>>>> fd52730b7a6cbaba6cd9d5916e20b4af4f75af41
 			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
