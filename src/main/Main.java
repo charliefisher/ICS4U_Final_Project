@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 public class Main {
 		// declare and instantiate a JFrame
 		static JFrame window = new JFrame("My Checkout");
-		static JFrame ref = new JFrame("Reference Data");
 		
 		private static short WINDOW_WIDTH = 800, WINDOW_HEIGHT = 800;	
 		

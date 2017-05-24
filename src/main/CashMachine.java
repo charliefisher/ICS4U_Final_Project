@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
 import database.Customer;
 import database.Transaction;
@@ -31,7 +32,7 @@ public class CashMachine {
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
 	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds;
 
-	private static final String UNDEFINIED_BUTTON_NAME = "*****UNDEFINED*****";
+	private static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";
 
 	private State state;
 	private static Font MCFont;
@@ -47,7 +48,9 @@ public class CashMachine {
 	private Transaction transaction;
 	
 	private BufferedImage highlightName, highlightNumber,highlightProductName,highlightProductPrice; // for two highlight fields in menus
-	private ReferenceBox refPanel = new ReferenceBox();
+	private ReferenceBox refPanel;
+	
+	private JFrame ref = new JFrame("Reference Data");
 	
 	public CashMachine() throws FontFormatException, IOException{
 		this.productButtonSettings = new File("src/main/product_button_settings");
@@ -106,16 +109,16 @@ public class CashMachine {
 		
 		is.close();
 		
-		Main.ref.setSize(400, 822);
-		Main.ref.setResizable(false);
-		Main.ref.setLocationRelativeTo(null);
+		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME);	
+		this.ref.setSize(400, 822);
+		this.ref.setResizable(false);
+		this.ref.setLocationRelativeTo(null);
 		// set GamePanel as the content pane
-		Main.ref.setContentPane(refPanel);
+		this.ref.setContentPane(refPanel);
 		// make the window visible to the user
-		Main.ref.setVisible(true);
+		this.ref.setVisible(true);
+		
 
-		refPanel.run();
-		refPanel.repaint();	
 	}
 	
 	public void configure() throws IOException{
@@ -131,7 +134,7 @@ public class CashMachine {
 				productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
 			}
 			else {
-				productButtons.add(new ProductButton(UNDEFINIED_BUTTON_NAME, 0, xCord, yCord));
+				productButtons.add(new ProductButton(UNDEFINED_BUTTON_NAME, 0, xCord, yCord));
 			}
 			
 			System.out.println(productButtons.get(i).toString());
@@ -242,7 +245,7 @@ public class CashMachine {
 	}
 	
 	public void run() throws IOException{
-		refPanel.run();
+		refPanel.setProductButtons(this.productButtons);
 		refPanel.repaint();
 		switch(this.state) {
 		case SetupNAME:
@@ -328,7 +331,7 @@ public class CashMachine {
 			}
 			else{
 				for(int i = 0; i < this.productButtons.size(); i++){
-					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(UNDEFINIED_BUTTON_NAME)) {
+					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && !this.productButtons.get(i).getName().equals(UNDEFINED_BUTTON_NAME)) {
 						this.transaction.addToSubtotal(this.productButtons.get(i));
 					}
 				}
@@ -354,7 +357,7 @@ public class CashMachine {
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
 						this.productButtonIndex = i;
 						this.productButtonPrice = new Double(this.productButtons.get(this.productButtonIndex).getPrice()).toString();
-						if (!this.productButtons.get(this.productButtonIndex).getName().equals(UNDEFINIED_BUTTON_NAME)) {
+						if (!this.productButtons.get(this.productButtonIndex).getName().equals(UNDEFINED_BUTTON_NAME)) {
 							this.productButtonName = this.productButtons.get(this.productButtonIndex).getName();
 						}
 						else {
@@ -507,7 +510,7 @@ public class CashMachine {
 			this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
 		}
 		else {
-			this.productButtons.get(this.productButtonIndex).setName(UNDEFINIED_BUTTON_NAME);
+			this.productButtons.get(this.productButtonIndex).setName(UNDEFINED_BUTTON_NAME);
 		}
 		this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
 		this.productNameComplete = false;

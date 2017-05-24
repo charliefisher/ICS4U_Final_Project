@@ -16,9 +16,6 @@ import javax.swing.JPanel;
 
 public class ReferenceBox extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static BufferedImage refScreen;
 	
@@ -26,8 +23,10 @@ public class ReferenceBox extends JPanel {
 	
 	private ArrayList<ProductButton> tempProductInfo;
 	
-	public ReferenceBox() throws IOException, FontFormatException{
-		
+	private static String UNDEFINED_BUTTON_NAME;
+	
+	public ReferenceBox(String undefinedButtonName) throws IOException, FontFormatException{
+		ReferenceBox.UNDEFINED_BUTTON_NAME = undefinedButtonName;
 		
 		URL fileUrl;
 		
@@ -45,11 +44,24 @@ public class ReferenceBox extends JPanel {
 		
 		g.setColor(new Color(217,234,223));
 		g.setFont(ReferenceBox.RefFont.deriveFont(12f));
-//		
-//		for(int i= 0, y = 56 ; i < 20; i++, y+= 40){
-//			g.drawString(tempProductInfo.get(i).getName(), 37, y);
-//		}
 		
+		try {
+			for(int i= 0, y = 56 ; i < 20; i++, y+= 40){
+				if (!tempProductInfo.get(i).getName().equals(ReferenceBox.UNDEFINED_BUTTON_NAME)) {
+					g.drawString(tempProductInfo.get(i).getName(), 37, y);
+				}
+				else {
+					g.drawString("", 37, y);
+				}	
+			}
+		}
+		catch(NullPointerException e) {
+			
+		}
+	}
+	
+	public void setProductButtons(ArrayList<ProductButton> newProductButtons) {
+		this.tempProductInfo = newProductButtons;
 	}
 	
 	public void run(){
