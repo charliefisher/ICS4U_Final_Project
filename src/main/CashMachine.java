@@ -168,7 +168,7 @@ public class CashMachine {
 //			else
 //				g.drawImage(this.highlightNumber, 235, 524, null);
 			
-			g.drawString(this.companyName.toUpperCase(), 215, 330);
+			g.drawString(this.companyName.toUpperCase(), 220, 365);
 			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
