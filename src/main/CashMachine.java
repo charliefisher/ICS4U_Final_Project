@@ -29,7 +29,7 @@ public class CashMachine {
 	}
 	
 	
-	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton, setupNextButtonLow,
+	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton,
 	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds, openReferenceScreen;
 
 	private static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";
@@ -72,10 +72,8 @@ public class CashMachine {
 		
 		CashMachine.editProductNameBounds = new Button("Product Name Bounds", 180, 270, 524, 117); // need to update cordinates
 		CashMachine.editProductPriceBounds = new Button("Product Number Bounds", 180, 433, 524, 117); // need to update cordinates
-		
-		
-		CashMachine.setupNextButton = new Button("Next", 268, 401, 250, 100); // need to update cordinates
-		CashMachine.setupNextButtonLow = new Button("Next (Low)", 268, 401, 250, 100); // need to update cordinates
+			
+		CashMachine.setupNextButton = new Button("Next", 355, 482, 115, 75); // need to update cordinates
 		
 		CashMachine.openReferenceScreen = new Button("Reference Screen", 315, 64, 174, 58); // ref box
 		
@@ -324,7 +322,9 @@ public class CashMachine {
 		switch (this.state) {
 		// 
 		case SetupNAME:
-			
+			if(CashMachine.setupNextButton.clicked(e.getX(), e.getY())) {
+				this.confirmCompanyName();
+			}		
 			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
