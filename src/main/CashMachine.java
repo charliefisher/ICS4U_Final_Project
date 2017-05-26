@@ -160,17 +160,7 @@ public class CashMachine {
 		case SetupNAME:
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
-			
-//			if(!customerNameComplete)
-//				g.drawImage(this.highlightName, 250, 355, null);
-//			else
-//				g.drawImage(this.highlightNumber, 235, 524, null);
-			
 			g.drawString(this.companyName.toUpperCase(), 220, 365);
-			break;
-		// select to open cash machine or edit the cash machine
-		case StartSCREEN:
-		
 			break;
 		// input customer name and number
 		case StartORDER:
@@ -216,10 +206,6 @@ public class CashMachine {
 				temp = temp.substring(temp.indexOf("?")+1); //move on through string to next point of interest
 			}
 			break;
-		// click which product button you want to edit
-		case EditSELECT:
-			
-			break;
 		// change name and price of particular button selected
 		case EditBUTTON:
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
@@ -248,31 +234,13 @@ public class CashMachine {
 	public void run() throws IOException{
 		refPanel.setProductButtons(this.productButtons);
 		refPanel.repaint();
-		switch(this.state) {
-		case SetupNAME:
-	
-			break;
-		case StartORDER:
-		
-			break;
-		case StartSCREEN:
-	
-			break;
-		case ORDER:
-			
-			break;
-		case OrderSUMMARY:
+		if(this.state == state.OrderSUMMARY){
 			this.customer.write(transaction.getTransactionNum());
 			this.transaction.write();
 			if (this.writeToGlobalReciept) {
 				this.writeReceipt();
 				this.writeToGlobalReciept = false;
 			}
-			break;
-		case EditSELECT:	
-			break;
-		case EditBUTTON:
-			break;
 		}
 	}
 	
