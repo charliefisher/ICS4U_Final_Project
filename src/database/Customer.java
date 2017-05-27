@@ -117,6 +117,20 @@ public class Customer extends DatabaseElement {
 		// close the filewriter (finished writing)
 		wr.close();
 	}
+	
+	// update the values in the file to the instance variables of the customer, and draw the most recent transaction number
+	public void write(String transactionNum) throws IOException {
+		// write all of the instance variables
+		this.write();
+
+		// create a filewriter that appends to the customer file (rather than over writes it)
+		FileWriter wr = new FileWriter(this.customer, true);
+		// write the transaction number to the customer file
+		wr.write(transactionNum);
+		// close the writer (finished writing)
+		wr.close();
+	}
+
 
 	// add parenthesis around the customer's area code and add spaces to the phone number
 	private void formatPhoneNum() {

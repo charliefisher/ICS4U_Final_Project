@@ -51,7 +51,8 @@ public class ReferenceBox extends JPanel {
 		g.setColor(new Color(217,234,223));
 		g.setFont(ReferenceBox.RefFont.deriveFont(12f));
 		
-		try {
+		// check to make sure the buttons have been initialized
+		if (this.tempProductInfo != null) {
 			for(int i= 0, y = 56 ; i < 20; i++, y+= 39){ // cycle through buttons, draw at an increase y of 36 each time
 				if (!tempProductInfo.get(i).getName().equals(ReferenceBox.UNDEFINED_BUTTON_NAME)) {//has a name
 					g.drawString(tempProductInfo.get(i).getName(), 40, y);//draw name
@@ -75,9 +76,6 @@ public class ReferenceBox extends JPanel {
 					g.drawString("", 250, y); // 0 and undefinded, draw nothing
 				}
 			}
-		}
-		catch(NullPointerException e) {
-			e.printStackTrace();
 		}
 	}
 }
