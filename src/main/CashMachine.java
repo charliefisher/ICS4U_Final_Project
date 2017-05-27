@@ -248,16 +248,25 @@ public class CashMachine {
 		}
 	}
 	
+	// writes the company reciept (a file with all of the transcations listed)
 	private void writeReceipt() throws IOException{
+		// locates the correct directory for the universal receipt file
 		File dir = new File("src/main/");
+		// make the directory for the universal receipt file
 		dir.mkdirs();
 		
-		File totalTransactions = new File(dir, this.companyName.replace(" ", "").toLowerCase() + "_global_recipt");
+		// creates the file for the universal receipt
+		File totalTransactions = new File(dir, this.companyName.replace(" ", "").toLowerCase() + "_universal_recipt");
+		// creates a permanent file for the unviersal reciept
 		totalTransactions.createNewFile();
 		
+		// declares and instantiates a scanner that reads from the universal receipt
 		Scanner sc = new Scanner(totalTransactions);
+		// declares a filewriter
 		FileWriter wr;
 		
+		// if the file already has info (has already been created), then append to the bottom of the file
+		// else, the file has no info (was just created), then write the company name
 		if (sc.hasNextLine()) {
 			wr = new FileWriter(totalTransactions, true);
 		}
@@ -274,7 +283,9 @@ public class CashMachine {
 		wr.write(this.transaction.getTax() + "\n");
 		wr.write(this.transaction.getTotal());
 		
+		// close the filewriter (finished writing)
 		wr.close();
+		// close the scanner (finished reading)
 		sc.close();
 	}
 	
@@ -550,9 +561,5 @@ public class CashMachine {
 		wr.write(this.companyName);
 		wr.close();
 		this.state = State.EditSELECT;
-	}
-	
-	public ArrayList<ProductButton> getProductList(){
-		return this.productButtons;
 	}
 }
