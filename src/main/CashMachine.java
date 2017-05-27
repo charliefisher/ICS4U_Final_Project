@@ -516,10 +516,11 @@ public class CashMachine {
 		}		
 	}
 	
+	// called when the user confirms the customer
+	// called either my clicking on confirm or pressing enter
+	// switches state from StartORDER to ORDER
 	private void loadCustomer() throws IOException {	
-		System.out.println(customerName);
-		System.out.println(customerNumber);
-		
+		// check to make sure that the customer number is of length 10
 		if(this.customerNumber.length() == 10) {	
 			if(this.customer.load(this.customerName)) {
 				this.transaction = new Transaction(this.customer);
@@ -533,7 +534,12 @@ public class CashMachine {
 		}	
 	}
 	
+	// called when the user confirms changes to the button
+	// called either my clicking on confirm or pressing enter
+	// switches state from EditBUTTON to EditSELECT
 	private void confirmButtonChanges() throws IOException {
+		// if the button name is not blank (""), set the button name to the instance variable storing it
+		// else, set the button name to the UNDEFINED_BUTTON_NAME
 		if (!this.productButtonName.equals("")) {
 			this.productButtons.get(this.productButtonIndex).setName(this.productButtonName);
 		}
@@ -541,8 +547,8 @@ public class CashMachine {
 			this.productButtons.get(this.productButtonIndex).setName(UNDEFINED_BUTTON_NAME);
 		}
 		
-		System.out.println(this.productButtonPrice);
-		
+		// if the button price is not blank (""), set the button price to the instance variable storing it
+		// else, set product button price to 0
 		if (!this.productButtonPrice.equals("")) {
 			this.productButtons.get(this.productButtonIndex).setPrice(Double.parseDouble(this.productButtonPrice));
 		}
@@ -550,9 +556,12 @@ public class CashMachine {
 			this.productButtons.get(this.productButtonIndex).setPrice(0.0);
 		}
 		
+		// reset instance variables so that it can receive input again
 		this.productNameComplete = false;
 		this.productPriceComplete = false;
+		// write the changes to the product button file
 		this.writeProductButtons();
+		// change the state to EditSELECT
 		this.state = State.EditSELECT;
 	}
 	
