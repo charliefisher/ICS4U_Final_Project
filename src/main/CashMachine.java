@@ -32,7 +32,7 @@ public class CashMachine {
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton,
 	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds, openReferenceScreen;
 
-	private static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";
+	private static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";//string stored for underfined buttons
 
 	private State state;
 	private static Font MCFont;
@@ -48,7 +48,7 @@ public class CashMachine {
 	private Transaction transaction;
 	
 	private BufferedImage highlightName, highlightNumber,highlightProductName,highlightProductPrice; // for two highlight fields in menus
-	private ReferenceBox refPanel;
+	private ReferenceBox refPanel; //reference to the reference window code
 	
 	private JFrame ref = new JFrame("Reference Data");
 	
@@ -59,21 +59,22 @@ public class CashMachine {
 		this.customer = new Customer();
 		configure();
 		
-		CashMachine.editConfirmButton = new Button("Confirm Changes", 236, 610, 344, 77); // need to update cordinates
+		//initialize all buttons with correct coordinates
+		CashMachine.editConfirmButton = new Button("Confirm Changes", 236, 610, 344, 77); 
 		
 		CashMachine.startScreenOpenButton = new Button("Open", 268, 401, 250, 100);
 		CashMachine.startScreenEditButton = new Button("Edit", 268, 517, 250, 100);
-		CashMachine.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); // need to update cordinates
-		CashMachine.startFinishButton = new Button("Finish", 656, 695, 116, 77); // need to update cordinates
+		CashMachine.startReturnToStartButton = new Button("Start", 29, 695, 116, 77); 
+		CashMachine.startFinishButton = new Button("Finish", 656, 695, 116, 77); 
 		CashMachine.startExitButton = new Button("Exit", 750, 12, 35, 32);
 		
-		CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); // need to update cordinates
-		CashMachine.startCustomerNumberBounds = new Button("Customer Number Bounds", 146, 450, 524, 120); // need to update cordinates
+		CashMachine.startCustomerNameBounds = new Button("Customer Name Bounds", 146, 280, 524, 120); 
+		CashMachine.startCustomerNumberBounds = new Button("Customer Number Bounds", 146, 450, 524, 120); 
 		
-		CashMachine.editProductNameBounds = new Button("Product Name Bounds", 180, 270, 524, 117); // need to update cordinates
-		CashMachine.editProductPriceBounds = new Button("Product Number Bounds", 180, 433, 524, 117); // need to update cordinates
+		CashMachine.editProductNameBounds = new Button("Product Name Bounds", 180, 270, 524, 117); 
+		CashMachine.editProductPriceBounds = new Button("Product Number Bounds", 180, 433, 524, 117); 
 			
-		CashMachine.setupNextButton = new Button("Next", 355, 482, 115, 75); // need to update cordinates
+		CashMachine.setupNextButton = new Button("Next", 355, 482, 115, 75); 
 		
 		CashMachine.openReferenceScreen = new Button("Reference Screen", 315, 64, 174, 58); // ref box
 		
@@ -95,7 +96,7 @@ public class CashMachine {
 		sc.close();
 		sc2.close();
 		
-		URL fileURL; // import two click overlays
+		URL fileURL; // import overlays for editing customer data and product data
 		fileURL = getClass().getResource("/Screens/CUSTOMER NAME.png");
 		highlightName = ImageIO.read(fileURL);
 		fileURL = getClass().getResource("/Screens/CUSTOMER NUMBER.png");
@@ -105,17 +106,17 @@ public class CashMachine {
 		fileURL = getClass().getResource("/Screens/product price.png");
 		highlightProductPrice = ImageIO.read(fileURL);
 		
-		
+		//setup our input font we will draw
 		InputStream is = getClass().getResourceAsStream("/Screens/ROBO.ttf");
 		MCFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		
 		is.close();
 		
+		// initialize/setup the reference box
 		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME);	
 		this.ref.setSize(400, 822);
 		this.ref.setResizable(false);
 		this.ref.setLocationRelativeTo(null);
-		// set refPanel as the content pane
 		this.ref.setContentPane(refPanel);
 		
 
