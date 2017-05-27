@@ -363,7 +363,6 @@ public class CashMachine {
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) { 
 				this.state = State.StartORDER; // clicked start,go back to type in new customer order
-				this.customer = new Customer();
 				this.writeToGlobalReciept = true;
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
@@ -401,18 +400,18 @@ public class CashMachine {
 		// change name and price of particular button selected
 		case EditBUTTON:
 			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
-				this.state = State.EditSELECT;
+				this.state = State.EditSELECT; // click x, go back to selection menu
 			}
-			else if (CashMachine.editProductNameBounds.clicked(e.getX(), e.getY())) {
-				this.productNameComplete = false;
+			else if (CashMachine.editProductNameBounds.clicked(e.getX(), e.getY())) { //clicked on name selection
+				this.productNameComplete = false; // flip boolean for highlighting
 				this.productPriceComplete = true;
 			}
-			else if (CashMachine.editProductPriceBounds.clicked(e.getX(), e.getY())) {
-				this.productNameComplete = true;
+			else if (CashMachine.editProductPriceBounds.clicked(e.getX(), e.getY())) { //click on price selection
+				this.productNameComplete = true; // flip boolean for highlighting
 				this.productPriceComplete = false;
 			}
 			else if(CashMachine.editConfirmButton.clicked(e.getX(), e.getY())){
-				this.confirmButtonChanges();
+				this.confirmButtonChanges(); // confirm product button changes
 			}
 			break;
 		}
@@ -425,12 +424,13 @@ public class CashMachine {
 			char temp = e.getKeyChar();
 		
 			if (temp == KeyEvent.VK_ENTER) {
-				this.confirmCompanyName();
+				this.confirmCompanyName(); //confirm the company name entered
 			}
-				
+			// for deleting character	
 			if (temp == KeyEvent.VK_BACK_SPACE && companyName.length() > 0) {
 				companyName = companyName.substring(0, companyName.length()-1);
 			}
+			// adds key customer presses to company name
 			else if (temp != KeyEvent.VK_BACK_SPACE && companyName.length() < 16) {
 				companyName += temp;
 			}
@@ -440,15 +440,15 @@ public class CashMachine {
 			
 			if (temp == KeyEvent.VK_ENTER) {
 				if (!customerNameComplete) {
-					customerNameComplete = true;
+					customerNameComplete = true; //customer name is now set to complete
 				}
 				else {
-					this.loadCustomer();
+					this.loadCustomer(); // if customer name complete
 					break;
 				}
 			}
 			
-			if (!customerNameComplete) {
+			if (!customerNameComplete) { //input for name
 				if (temp == KeyEvent.VK_BACK_SPACE && customerName.length() > 0) {
 					customerName = customerName.substring(0, customerName.length()-1);
 				}
@@ -456,7 +456,7 @@ public class CashMachine {
 					customerName += temp;
 				}
 			}
-			else if (!customerNumberComplete && temp != KeyEvent.VK_ENTER) {
+			else if (!customerNumberComplete && temp != KeyEvent.VK_ENTER) { //look for input of number
 				if (temp == KeyEvent.VK_BACK_SPACE && customerNumber.length() > 0) {
 					customerNumber = customerNumber.substring(0, customerNumber.length()-1);
 				}
@@ -465,17 +465,9 @@ public class CashMachine {
 				}
 			}
 			break;
-		// screen with buttons to start order
-		case ORDER:
-			
-			break;
-		// screen showing total of order transaction
-		case OrderSUMMARY:
-			
-			break;
 		// click which product button you want to edit
 		case EditSELECT:
-			if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+			if (e.getKeyChar() == KeyEvent.VK_ESCAPE) { //hit esc to go back to start screen
 				this.state = State.StartSCREEN;
 			}
 			break;
@@ -483,20 +475,20 @@ public class CashMachine {
 		case EditBUTTON:
 			temp = e.getKeyChar();
 			
-			if (temp == KeyEvent.VK_ESCAPE) {
+			if (temp == KeyEvent.VK_ESCAPE) { // esc to go back to select menu
 				this.state = State.EditSELECT;
 			}
 			else {
 				if (temp == KeyEvent.VK_ENTER) {
 					if (!productNameComplete) {
-						productNameComplete = true;
+						productNameComplete = true; //product name now set to complete
 					}
 					else {
-						this.confirmButtonChanges();
+						this.confirmButtonChanges(); // confirm product
 					}
 				}
 				
-				if (!productNameComplete) {
+				if (!productNameComplete) { //look for product name input
 					if (temp == KeyEvent.VK_BACK_SPACE && productButtonName.length() > 0) {
 						productButtonName = productButtonName.substring(0, productButtonName.length()-1);
 					}
@@ -504,7 +496,7 @@ public class CashMachine {
 						productButtonName += temp;
 					}
 				}
-				else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) {
+				else if (!productPriceComplete && temp != KeyEvent.VK_ENTER) { // look for product number input
 					if (temp == KeyEvent.VK_BACK_SPACE && productButtonPrice.length() > 0) {
 						productButtonPrice = productButtonPrice.substring(0, productButtonPrice.length()-1);					
 					}
