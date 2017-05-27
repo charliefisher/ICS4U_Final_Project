@@ -525,6 +525,8 @@ public class CashMachine {
 	private void loadCustomer() throws IOException {	
 		// check to make sure that the customer number is of length 10
 		if(this.customerNumber.length() == 10) {	
+			// if the customer loads successfully, instantiate transaction and change the state to ORDER
+			// else, create a new customer, instantiate transaction and change the state to ORDER
 			if(this.customer.load(this.customerName)) {
 				this.transaction = new Transaction(this.customer);
 				this.state = State.ORDER;
