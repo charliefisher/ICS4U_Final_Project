@@ -181,10 +181,10 @@ public class CashMachine {
 			g.setColor(new Color(64,227,126));
 			
 			FontMetrics fm = g.getFontMetrics();
-			int widthOfValue = fm.stringWidth(transaction.getSubTotal()); // find length of sub total
+			int widthOfValue = fm.stringWidth(transaction.getSubtotal()); // find length of sub total
 			
 			//draw subtotal right justified
-			g.drawString(transaction.getSubTotal(), 780-widthOfValue, 46);
+			g.drawString(transaction.getSubtotal(), 780-widthOfValue, 46);
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:
