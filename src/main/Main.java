@@ -10,11 +10,13 @@ public class Main {
 		// declare and instantiate a JFrame
 		static JFrame window = new JFrame("My Checkout");
 		
+		// store the height and width of the JFrame
 		private static short WINDOW_WIDTH = 800, WINDOW_HEIGHT = 800;	
 		
 		public static void main(String[] args) throws IOException, InterruptedException, FontFormatException {
 			
-			// create a GamePanel (class that extends JPanel)
+			// create a Panel (class that extends JPanel) 
+			// handles the GUI and logic
 			Panel panel = new Panel();
 			
 			// configure JFrame (close, size, position, cursor)
