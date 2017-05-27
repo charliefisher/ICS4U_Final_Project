@@ -237,14 +237,8 @@ public class CashMachine {
 	}
 	
 	public void run() throws IOException{
-<<<<<<< HEAD
-//		refPanel.setProductButtons(this.productButtons);
-		refPanel.repaint();
-		if(this.state == State.OrderSUMMARY){
-=======
 		refPanel.repaint();// repaint updated reference panel
-		if(this.state == state.OrderSUMMARY){
->>>>>>> d5b9ac8ec4c1159bfa73864f382088f22225d77e
+		if(this.state == State.OrderSUMMARY){
 			this.customer.write(this.transaction.getTransactionNum());
 			this.transaction.write();
 			if (this.writeToGlobalReciept) {
