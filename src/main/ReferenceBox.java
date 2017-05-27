@@ -69,7 +69,7 @@ public class ReferenceBox extends JPanel {
 			}
 		}
 		catch(NullPointerException e) {
-			
+			e.printStackTrace();
 		}
 	}
 	
