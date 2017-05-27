@@ -321,18 +321,20 @@ public class CashMachine {
 			break;
 		// input customer name and number
 		case StartORDER:
-			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
+			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) { //clicked next
 				customerNameComplete = true;
 				customerNumberComplete = true;
-				this.loadCustomer();
+				this.loadCustomer(); //confirms the data (above) and loads customer 
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				this.state = State.StartSCREEN;
+				this.state = State.StartSCREEN; // clicked start goes back to main menu
 			}
+			//clicked into enter customer name, trip boolean to draw highlight
 			else if (CashMachine.startCustomerNameBounds.clicked(e.getX(), e.getY())) {
 				this.customerNameComplete = false;
 				this.customerNumberComplete = true;
 			}
+			//clicked into edit customer name box, trip boolean to highligh it
 			else if (CashMachine.startCustomerNumberBounds.clicked(e.getX(), e.getY())) {
 				this.customerNameComplete = true;
 				this.customerNumberComplete = false;
@@ -341,15 +343,15 @@ public class CashMachine {
 		// screen with buttons to start order
 		case ORDER:
 			if(CashMachine.startFinishButton.clicked(e.getX(), e.getY())) {
-				this.state = State.OrderSUMMARY;
+				this.state = State.OrderSUMMARY; //clicked finish, go to order summary
 			}
 			else if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				this.state = State.StartORDER;
+				this.state = State.StartORDER; // clicked start, go back to enter customer name
 			}
 			else if(CashMachine.openReferenceScreen.clicked(e.getX(), e.getY())){
-				this.ref.setVisible(true);
+				this.ref.setVisible(true); //clicked open reference screen, make it visible
 			}
-			else{
+			else{ //clicked any one of the product buttons on screen, add their price to subtotal
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY()) && (!this.productButtons.get(i).getName().equals(UNDEFINED_BUTTON_NAME) || this.productButtons.get(i).getPrice() != 0.0)) {
 						this.transaction.addToSubtotal(this.productButtons.get(i), CashMachine.UNDEFINED_BUTTON_NAME);
@@ -359,27 +361,28 @@ public class CashMachine {
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:
-			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) {
-				this.state = State.StartORDER;
+			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) { 
+				this.state = State.StartORDER; // clicked start,go back to type in new customer order
+				this.customer = new Customer();
 				this.writeToGlobalReciept = true;
-				// RESET CUSTOMER DATA HERE
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
-				this.state = State.StartSCREEN;
+				this.state = State.StartSCREEN; // clicked x go back to start screen
 				this.writeToGlobalReciept = true;
 			}
 			break;
 		// click which product button you want to edit
 		case EditSELECT:
 			if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
-				this.state = State.StartSCREEN;
+				this.state = State.StartSCREEN; //clicked x to go back to main menu
 			}
 			else if(CashMachine.openReferenceScreen.clicked(e.getX(), e.getY())){
-				this.ref.setVisible(true);
+				this.ref.setVisible(true); //open up reference box
 			}
-			else{
+			else{ // clicked a product button
 				for(int i = 0; i < this.productButtons.size(); i++){
 					if (this.productButtons.get(i).clicked(e.getX(), e.getY())) {
+						//loads info of button selected before switching screen
 						this.productButtonIndex = i;
 						this.productButtonPrice = String.format("%.2f",this.productButtons.get(this.productButtonIndex).getPrice() );
 						
@@ -389,7 +392,7 @@ public class CashMachine {
 						else {
 							this.productButtonName = "";
 						}
-						this.state = State.EditBUTTON;
+						this.state = State.EditBUTTON; // switch to button edit scren
 						edit(this.productButtons.get(i), i);
 					}
 				}
