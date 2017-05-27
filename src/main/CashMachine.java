@@ -299,11 +299,11 @@ public class CashMachine {
 			break;
 		// select to open cash machine or edit the cash machine
 		case StartSCREEN:
-			if(CashMachine.startScreenOpenButton.clicked(e.getX(), e.getY())) {
-				this.state = State.StartORDER;
+			if(CashMachine.startScreenOpenButton.clicked(e.getX(), e.getY())) { 
+				this.state = State.StartORDER; //clicked open go to customer name enter
 			}
 			else if (CashMachine.startScreenEditButton.clicked(e.getX(), e.getY())) {
-				this.state = State.EditSELECT;
+				this.state = State.EditSELECT; // go to select button to edit screen
 			}
 			break;
 		// input customer name and number
