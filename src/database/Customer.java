@@ -80,9 +80,18 @@ public class Customer extends DatabaseElement {
 		// declare and instantiate a scanner for the customers file
 		Scanner sc = new Scanner(this.customer);
 
-		// instantiate the customer's instance variables to the values in the customer's file and format all fields properly
+		// instantiate the customer's first name
 		this.firstName = sc.next();
-		this.lastName = sc.next();
+		// if the next line is blank (no last name), then instantiate the last name to "" (empty string)
+		// else, the customer has a last name, then instantiate the customer's last name to the name in the file
+		if (sc.nextLine().isEmpty()) {
+			this.lastName = "";
+		}
+		else {
+			this.lastName = sc.next();
+		}
+		
+		// instantiate instance variables to the values in the customer's file and format all fields properly
 		this.updateUserName();
 		this.phoneNum = sc.next();
 		this.formatPhoneNum();
