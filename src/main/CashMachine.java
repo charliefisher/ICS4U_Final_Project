@@ -363,10 +363,11 @@ public class CashMachine {
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) { 
 				this.state = State.StartORDER; // clicked start,go back to type in new customer order
+				this.customer = new Customer();
 				this.writeToGlobalReciept = true;
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
-				this.state = State.StartSCREEN;
+				this.state = State.StartSCREEN; // clicked x go back to start screen
 				this.writeToGlobalReciept = true;
 			}
 			break;
