@@ -111,7 +111,7 @@ public class CashMachine {
 		
 		is.close();
 		
-		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME);	
+		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME, this.productButtons);	
 		this.ref.setSize(400, 822);
 		this.ref.setResizable(false);
 		this.ref.setLocationRelativeTo(null);
@@ -232,7 +232,7 @@ public class CashMachine {
 	}
 	
 	public void run() throws IOException{
-		refPanel.setProductButtons(this.productButtons);
+//		refPanel.setProductButtons(this.productButtons);
 		refPanel.repaint();
 		if(this.state == state.OrderSUMMARY){
 			this.customer.addTransaction(this.transaction.getTransactionNum());

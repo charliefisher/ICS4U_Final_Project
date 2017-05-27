@@ -24,7 +24,7 @@ public class ReferenceBox extends JPanel {
 	
 	private static String UNDEFINED_BUTTON_NAME;
 	
-	public ReferenceBox(String undefinedButtonName) throws IOException, FontFormatException{
+	public ReferenceBox(String undefinedButtonName, ArrayList<ProductButton> newProductButtons) throws IOException, FontFormatException{
 		ReferenceBox.UNDEFINED_BUTTON_NAME = undefinedButtonName;
 		
 		URL fileUrl;
@@ -36,6 +36,7 @@ public class ReferenceBox extends JPanel {
 		RefFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		is.close();
 		
+		this.tempProductInfo = newProductButtons;
 	}
 
 	public void paint(Graphics g){
@@ -72,8 +73,4 @@ public class ReferenceBox extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	public void setProductButtons(ArrayList<ProductButton> newProductButtons) {
-		this.tempProductInfo = newProductButtons;
-	}	
 }
