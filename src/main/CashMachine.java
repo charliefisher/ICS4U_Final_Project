@@ -111,13 +111,9 @@ public class CashMachine {
 		MCFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		
 		is.close();
-		
-<<<<<<< HEAD
+
 		// initialize/setup the reference box
-		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME);	
-=======
 		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME, this.productButtons);	
->>>>>>> 72a17a0a805876751e4c4216adce8cab90d6f912
 		this.ref.setSize(400, 822);
 		this.ref.setResizable(false);
 		this.ref.setLocationRelativeTo(null);
