@@ -227,6 +227,8 @@ public class CashMachine {
 			g.setFont(CashMachine.MCFont.deriveFont(58f));
 			g.drawString("" +(this.productButtonIndex+1), 525, 205);
 			break;
+		default:
+			break;
 		}
 	}
 	
@@ -236,7 +238,7 @@ public class CashMachine {
 	
 	public void run() throws IOException{
 		refPanel.repaint();// repaint updated reference panel
-		if(this.state == state.OrderSUMMARY){
+		if(this.state == State.OrderSUMMARY){
 			this.customer.write(this.transaction.getTransactionNum());
 			this.transaction.write();
 			if (this.writeToGlobalReciept) {
@@ -497,6 +499,8 @@ public class CashMachine {
 					}
 				}
 			}
+			break;
+		default:
 			break;
 		}		
 	}
