@@ -556,10 +556,17 @@ public class CashMachine {
 		this.state = State.EditSELECT;
 	}
 	
+	// called when the user confirms the name of the company
+	// called either my clicking on confirm or pressing enter
+	// switches state from SetupNAME to EditSELECT
 	private void confirmCompanyName() throws IOException {
+		// declare and instantiate a filewriter for the settings file (where the company name is stored)
 		FileWriter wr = new FileWriter(this.settings);
+		// write the company name to the file
 		wr.write(this.companyName);
+		// close the filewriter (finished writing)
 		wr.close();
+		// switch state to EditSELECT
 		this.state = State.EditSELECT;
 	}
 }
