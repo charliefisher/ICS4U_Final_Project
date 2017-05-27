@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 // a customer is a database element (inherits properties such as reading and writing to a text file)
 public class Customer extends DatabaseElement {
-	// instance variables to store our customers information
+	// declare instance variables to store our customers information
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -20,6 +20,7 @@ public class Customer extends DatabaseElement {
 
 	// default file path for all cutomer files
 	private static final String FILE_PATH = "src/database/customers/";
+	// create a file for the customer
 	private File customer;
 
 	// default constructor
@@ -64,7 +65,7 @@ public class Customer extends DatabaseElement {
 		File dir = new File(FILE_PATH);
 		// make/locate the appropriate directory for the customer files
 		dir.mkdirs();
-		// instantiate the customer file
+		// instantiate the customer file to the customer's name
 		this.customer = new File(dir, userName);
 		// create  a permanent file for the new customer
 		customer.createNewFile();
@@ -76,7 +77,7 @@ public class Customer extends DatabaseElement {
 	// instantiate instance variables with the values in the customer's file
 	@Override
 	public void getInfo() throws FileNotFoundException {
-		// declare a scanner for the customers file
+		// declare and instantiate a scanner for the customers file
 		Scanner sc = new Scanner(this.customer);
 
 		// instantiate the customer's instance variables to the values in the customer's file and format all fields properly
