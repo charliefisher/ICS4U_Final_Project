@@ -25,7 +25,7 @@ public class ReferenceBox extends JPanel {
 	
 	private static String UNDEFINED_BUTTON_NAME; 
 	
-	public ReferenceBox(String undefinedButtonName) throws IOException, FontFormatException{
+	public ReferenceBox(String undefinedButtonName, ArrayList<ProductButton> newProductButtons) throws IOException, FontFormatException{
 		ReferenceBox.UNDEFINED_BUTTON_NAME = undefinedButtonName; //store the undefined button name from cashmachine
 		
 		URL fileUrl;//look up image
@@ -39,6 +39,8 @@ public class ReferenceBox extends JPanel {
 		RefFont = Font.createFont(Font.TRUETYPE_FONT, is);
 		is.close();
 		
+		// make tempProductInfo reference the ArrayList of product buttons in CashMachine
+		this.tempProductInfo = newProductButtons;
 	}
 	
 	//all drawing of data
@@ -78,9 +80,4 @@ public class ReferenceBox extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	//initialize 
-	public void setProductButtons(ArrayList<ProductButton> newProductButtons) {
-		this.tempProductInfo = newProductButtons;
-	}	
 }
