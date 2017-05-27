@@ -235,8 +235,7 @@ public class CashMachine {
 //		refPanel.setProductButtons(this.productButtons);
 		refPanel.repaint();
 		if(this.state == state.OrderSUMMARY){
-			this.customer.addTransaction(this.transaction.getTransactionNum());
-			this.customer.write();
+			this.customer.write(this.transaction.getTransactionNum());
 			this.transaction.write();
 			if (this.writeToGlobalReciept) {
 				this.writeReceipt();
