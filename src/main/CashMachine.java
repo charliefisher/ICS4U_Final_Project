@@ -112,12 +112,7 @@ public class CashMachine {
 		
 		is.close();
 		
-<<<<<<< HEAD
-		// initialize/setup the reference box
-		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME);	
-=======
 		this.refPanel = new ReferenceBox(CashMachine.UNDEFINED_BUTTON_NAME, this.productButtons);	
->>>>>>> 72a17a0a805876751e4c4216adce8cab90d6f912
 		this.ref.setSize(400, 822);
 		this.ref.setResizable(false);
 		this.ref.setLocationRelativeTo(null);
@@ -127,27 +122,27 @@ public class CashMachine {
 	}
 	
 	public void configure() throws IOException{
-		Scanner sc = new Scanner(this.productButtonSettings);
-		
+		Scanner sc = new Scanner(this.productButtonSettings);//will read the settings file
+		//sets up all product buttons based on coordinates (that are cycled through)
 		for(int i = 0, xCord = 82, yCord = 134; i < 20; i++, xCord += 127) {
 			if(i % 5 == 0 && i > 0) {
 				xCord = 82;
 				yCord += 128;
 			}
 			
-			if (sc.hasNextLine()) {
+			if (sc.hasNextLine()) { //setup product button that already has name
 				productButtons.add(new ProductButton(sc.next(), sc.nextDouble(), xCord, yCord));
 			}
-			else {
+			else { //setup blank product button
 				productButtons.add(new ProductButton(UNDEFINED_BUTTON_NAME, 0, xCord, yCord));
 			}
-			
-			System.out.println(productButtons.get(i).toString());
+	
 		}
 		
 		sc.close();
 	}
 	
+	//write name and price of 20 buttons to product_button_settings
 	private void writeProductButtons() throws IOException {
 		FileWriter wr = new FileWriter(this.productButtonSettings);
 		
@@ -163,20 +158,21 @@ public class CashMachine {
 		switch (this.state) {
 		// company name
 		case SetupNAME:
-			g.setFont(CashMachine.MCFont.deriveFont(36f));
+			g.setFont(CashMachine.MCFont.deriveFont(36f));//setup font and size
 			g.setColor(Color.WHITE);
-			g.drawString(this.companyName.toUpperCase(), 220, 365);
+			g.drawString(this.companyName.toUpperCase(), 220, 365); //draw company name
 			break;
 		// input customer name and number
 		case StartORDER:
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
 			
-			if(!customerNameComplete)
-				g.drawImage(this.highlightName, 250, 355, null);
+			if(!customerNameComplete) // if we are still editing customer name
+				g.drawImage(this.highlightName, 250, 355, null); //draw the white highlight overtop to indicate edit
 			else
-				g.drawImage(this.highlightNumber, 235, 524, null);
+				g.drawImage(this.highlightNumber, 235, 524, null); //highlight over number
 			
+			//draw customer name and number
 			g.drawString(this.customerName.toUpperCase(), 215, 330);
 			g.drawString(this.customerNumber, 215, 500);
 			break;
@@ -186,7 +182,7 @@ public class CashMachine {
 			g.setColor(new Color(64,227,126));
 			
 			FontMetrics fm = g.getFontMetrics();
-			int widthOfValue = fm.stringWidth(transaction.getSubtotal()); // find length of sub total
+			int widthOfValue = fm.stringWidth(transaction.getSubtotal()); // find pixel length of sub total value
 			
 			//draw subtotal right justified
 			g.drawString(transaction.getSubtotal(), 780-widthOfValue, 46);
@@ -195,8 +191,8 @@ public class CashMachine {
 		case OrderSUMMARY:
 			g.setFont(CashMachine.MCFont.deriveFont(30f));
 			g.setColor(new Color(21,134,65));
-			String temp = transaction.getOrderSummary();
-			for(int i = 0, y = 400; i < 5;i++, y+=40){
+			String temp = transaction.getOrderSummary(); // temp string containing all order sumamary date
+			for(int i = 0, y = 400; i < 5;i++, y+=40){ //draw 5 lines of date
 				
 				FontMetrics fm2 = g.getFontMetrics();
 				int lengthOfString = fm2.stringWidth(temp.substring(0,temp.indexOf("?")));
@@ -216,15 +212,16 @@ public class CashMachine {
 			g.setFont(CashMachine.MCFont.deriveFont(36f));
 			g.setColor(Color.WHITE);
 			
-			if(!productNameComplete)
-				g.drawImage(this.highlightProductName, 256, 346, null);
+			if(!productNameComplete) // if still editing product name
+				g.drawImage(this.highlightProductName, 256, 346, null); //draw highlight over product name
 			else
-				g.drawImage(this.highlightProductPrice, 262, 515, null);
+				g.drawImage(this.highlightProductPrice, 262, 515, null); //draw highlight over product price
 			
-			g.drawString(this.productButtonName, 215, 321);
+			g.drawString(this.productButtonName, 215, 321); //draw product button name
 			g.drawString("$", 215, 489);
-			g.drawString(this.productButtonPrice, 240, 489);
+			g.drawString(this.productButtonPrice, 240, 489); //draw the price
 			
+			//draw which button user is editing
 			g.setColor(new Color(217,234,223));
 			g.setFont(CashMachine.MCFont.deriveFont(58f));
 			g.drawString("" +(this.productButtonIndex+1), 525, 205);
@@ -237,8 +234,7 @@ public class CashMachine {
 	}
 	
 	public void run() throws IOException{
-//		refPanel.setProductButtons(this.productButtons);
-		refPanel.repaint();
+		refPanel.repaint();// repaint updated reference panel
 		if(this.state == state.OrderSUMMARY){
 			this.customer.addTransaction(this.transaction.getTransactionNum());
 			this.customer.write();
@@ -268,6 +264,7 @@ public class CashMachine {
 			wr.write(this.companyName);
 		}
 		
+		//write neccessary data, customer, prices, etc to receipt
 		wr.write("\n\n" + this.transaction.getTransactionNum() + "\n");
 		wr.write(this.transaction.getDate() + "\n");
 		wr.write(this.transaction.getCustomer() + "\n");
@@ -279,25 +276,25 @@ public class CashMachine {
 		sc.close();
 	}
 	
-	public State getState(){
+	public State getState(){ // return current state
 		return this.state;
 	}
 	
-	public void setState(State newState){
+	public void setState(State newState){ //set the state
 		this.state = newState;
 	}
 	
 	public static Font getMCFont() {
-		return CashMachine.MCFont;
+		return CashMachine.MCFont; //return our font
 	}
 
 	
 	public void mouseClicked(MouseEvent e) throws IOException {
 		switch (this.state) {
-		// 
+		// input company name
 		case SetupNAME:
 			if(CashMachine.setupNextButton.clicked(e.getX(), e.getY())) {
-				this.confirmCompanyName();
+				this.confirmCompanyName(); //clicked next, confirm company name
 			}		
 			break;
 		// select to open cash machine or edit the cash machine
