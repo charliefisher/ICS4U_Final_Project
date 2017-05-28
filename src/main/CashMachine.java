@@ -32,7 +32,7 @@ public class CashMachine {
 	private static Button editConfirmButton, startScreenOpenButton, startScreenEditButton, startReturnToStartButton, startFinishButton, setupNextButton,
 	  startExitButton, startCustomerNameBounds, startCustomerNumberBounds, editProductNameBounds, editProductPriceBounds, openReferenceScreen;
 
-	private static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";//string stored for underfined buttons
+	public static final String UNDEFINED_BUTTON_NAME = "*****UNDEFINED*****";//string stored for underfined buttons
 
 	private State state;
 	private static Font MCFont;
@@ -183,10 +183,10 @@ public class CashMachine {
 			g.setColor(new Color(64,227,126));
 			
 			FontMetrics fm = g.getFontMetrics();
-			int widthOfValue = fm.stringWidth(transaction.getSubtotal()); // find pixel length of sub total value
+			int widthOfValue = fm.stringWidth("$" + transaction.getSubtotal()); // find pixel length of sub total value
 			
 			//draw subtotal right justified
-			g.drawString(transaction.getSubtotal(), 780-widthOfValue, 46);
+			g.drawString("$" + transaction.getSubtotal(), 780-widthOfValue, 46);
 			break;
 		// screen showing total of order transaction
 		case OrderSUMMARY:
@@ -239,6 +239,8 @@ public class CashMachine {
 	public void run() throws IOException{
 		refPanel.repaint();// repaint updated reference panel
 		if(this.state == State.OrderSUMMARY){
+			// close the register (update the transaction number)
+			this.transaction.registerClose();
 			this.customer.write(this.transaction.getTransactionNum());
 			this.transaction.write();
 			if (this.writeToGlobalReciept) {
@@ -363,6 +365,11 @@ public class CashMachine {
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) { 
 				this.state = State.StartORDER; // clicked start,go back to type in new customer order
+				// reset input fields and the customer
+				this.customerName = "";
+				this.customerNumber = "";
+				this.customerNameComplete = false;
+				this.customerNumberComplete = false;
 				this.customer = new Customer();
 				this.writeToGlobalReciept = true;
 			}
