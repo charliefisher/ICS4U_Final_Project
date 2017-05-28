@@ -370,7 +370,10 @@ public class CashMachine {
 				this.customerNameComplete = false;
 				this.customerNumberComplete = false;
 				this.customer = new Customer();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3742bef6477e5b59ef644877f1c9c34d6d71314c
 				this.writeToGlobalReciept = true;
 				// clicked start,go back to type in new customer order
 				this.state = State.StartORDER; 

@@ -212,7 +212,7 @@ public class Transaction extends DatabaseElement {
 
 	// returns a string of the subtotal for the transaction with 2 decimal places	
 	public String getSubtotal() {
-		return "$" + String.format("%.2f", this.subtotal);
+		return String.format("%.2f", this.subtotal);
 	}
 
 	// returns a string of the tax for the transaction with 2 decimal places
