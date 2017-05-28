@@ -5,7 +5,7 @@ public class Button {
 	private String name = "";
 	protected int xCord, yCord;
 	protected int xSize, ySize;
-	
+
 	// default constructor
 	public Button() {
 	}
@@ -30,10 +30,12 @@ public class Button {
 		return this.name = name;
 	}
 
-	// returns true or false based on whether or not x and y are inside the button's bounds
+	// returns true or false based on whether or not x and y are inside the
+	// button's bounds
 	public boolean clicked(int x, int y) {
-		// if x greater than x min and less than x max and y is greater than y min and less than y max, return true 
-		//(the button is clicked)
+		// if x greater than x min and less than x max and y is greater than y
+		// min and less than y max, return true
+		// (the button is clicked)
 		// else, the button has not been clicked (return false)
 		if ((x > xCord && x < (xCord + xSize)) && (y > yCord && y < (yCord + ySize))) {
 			return true;

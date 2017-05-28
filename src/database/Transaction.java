@@ -23,22 +23,24 @@ public class Transaction extends DatabaseElement {
 	private double tax;
 	private double total;
 	private int numProducts;
-	
+
 	// store the list of products purchased in this transaction
 	private ArrayList<String> products = new ArrayList<String>();
-	
+
 	// declare a file for this transaction
 	private File transaction;
-	// declare a file that stores info about transactions (in general, not actual transaction data)
+	// declare a file that stores info about transactions (in general, not
+	// actual transaction data)
 	private File settings;
 
-	// declare a static instance variable that stores the transcation number (in the history of this My Checkout)
+	// declare a static instance variable that stores the transcation number (in
+	// the history of this My Checkout)
 	private static int transactionNum;
 
 	// default constructor
 	public Transaction() {
 	}
-	
+
 	public Transaction(Customer customer) throws IOException {
 		// "opens the register" (get transaction number)
 		this.registerOpen();
@@ -47,9 +49,10 @@ public class Transaction extends DatabaseElement {
 		File dir = new File("src/database/transactions/");
 		// make/locate the appropriate directory for the transaction files
 		dir.mkdirs();
-		// instantiate the transaction file to the name T and the transaction number (T1, T2, T3, ...)
+		// instantiate the transaction file to the name T and the transaction
+		// number (T1, T2, T3, ...)
 		this.transaction = new File(dir, "T" + Transaction.transactionNum);
-		// create  a permanent file for the transaction
+		// create a permanent file for the transaction
 		transaction.createNewFile();
 
 		// reference the customer
@@ -64,7 +67,8 @@ public class Transaction extends DatabaseElement {
 		this.settings = new File("src/database/transactions/transaction_settings");
 		// declare and instantiate a scanner for the settings file
 		Scanner sc = new Scanner(this.settings);
-		// instantiate the transaction number (must add one as the file stores the most recent transaction)
+		// instantiate the transaction number (must add one as the file stores
+		// the most recent transaction)
 		// transaction number has a value of 0 before the application is used
 		Transaction.transactionNum = sc.nextInt() + 1;
 		// close the scanner (finished reading)
@@ -81,7 +85,8 @@ public class Transaction extends DatabaseElement {
 	}
 
 	// load the transaction file
-	// is unused but will be implemented when the application allows you to access past transaction data 
+	// is unused but will be implemented when the application allows you to
+	// access past transaction data
 	// (other than through the physical text file)
 	@Override
 	public boolean load(String fileName) {
@@ -100,7 +105,8 @@ public class Transaction extends DatabaseElement {
 	}
 
 	// instantiate instance variables with the values in the transaction
-	// is unused but will be implemented when the application allows you to access past transaction data 
+	// is unused but will be implemented when the application allows you to
+	// access past transaction data
 	// (other than through the physical text file)
 	@Override
 	public void getInfo() throws FileNotFoundException {
@@ -125,10 +131,12 @@ public class Transaction extends DatabaseElement {
 		sc.close();
 	}
 
-	// update the values in the file to the instance variables of the current transaction
+	// update the values in the file to the instance variables of the current
+	// transaction
 	@Override
 	public void write() throws IOException {
-		// declare and instantiate a filewriter to write to the transaction's file
+		// declare and instantiate a filewriter to write to the transaction's
+		// file
 		FileWriter wr = new FileWriter(this.transaction);
 		// write the customers username (first and last name)
 		wr.write(customer.getUserName() + "\n");
@@ -150,7 +158,8 @@ public class Transaction extends DatabaseElement {
 		wr.close();
 	}
 
-	// return a string containing the customer bought X products on the date ____
+	// return a string containing the customer bought X products on the date
+	// ____
 	public String toString() {
 		return this.customer + " bought " + this.numProducts + " products on " + date;
 	}
@@ -164,18 +173,19 @@ public class Transaction extends DatabaseElement {
 		// updates the total for this transaction
 		this.total = subtotal + tax;
 		// if the product has a name, add the name to the list of products
-		// if the product does not have a name, add "Empty Name" to the list of products
+		// if the product does not have a name, add "Empty Name" to the list of
+		// products
 		if (!product.getName().equals(undefined)) {
 			this.products.add(product.getName());
 		} else {
 			this.products.add("Empty Name");
-		}	
+		}
 		// update the number of products to the size of the list of products
 		this.numProducts = this.products.size();
 	}
 
 	// returns a string with information about the order
-	public String getOrderSummary() {		
+	public String getOrderSummary() {
 		// return a string containing all of the info for the transaction
 		// ? is used as reference to program where to draw new line
 		return "Date: " + this.date + "?Customer: " + this.getCustomer() + "?Subtotal: $" + this.getSubtotal()
@@ -196,7 +206,8 @@ public class Transaction extends DatabaseElement {
 	public String getCustomer() {
 		String temp;
 
-		// if the customer has a last name (capitalize the first letter) and store the value in temp
+		// if the customer has a last name (capitalize the first letter) and
+		// store the value in temp
 		// if the customer has no last name store "" (blank string) in temp
 		if (!this.customer.getLastName().equals(Customer.EMPTY_LAST_NAME)) {
 			temp = this.customer.getLastName().toUpperCase().charAt(0)
@@ -205,12 +216,14 @@ public class Transaction extends DatabaseElement {
 			temp = "";
 		}
 
-		// retuns a string of the customers first and last name (with the first letter of each capitalized)
+		// retuns a string of the customers first and last name (with the first
+		// letter of each capitalized)
 		return this.customer.getFirstName().toUpperCase().charAt(0)
 				+ this.customer.getFirstName().substring(1).toLowerCase() + " " + temp;
 	}
 
-	// returns a string of the subtotal for the transaction with 2 decimal places	
+	// returns a string of the subtotal for the transaction with 2 decimal
+	// places
 	public String getSubtotal() {
 		return String.format("%.2f", this.subtotal);
 	}
