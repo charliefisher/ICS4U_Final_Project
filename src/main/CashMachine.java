@@ -365,15 +365,14 @@ public class CashMachine {
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) { 
 				this.state = State.StartORDER; // clicked start,go back to type in new customer order
-<<<<<<< HEAD
+
 				// reset input fields and the customer
 				this.customerName = "";
 				this.customerNumber = "";
 				this.customerNameComplete = false;
 				this.customerNumberComplete = false;
 				this.customer = new Customer();
-=======
->>>>>>> 44a640fe923dccb67d80caca7b628e0d7dab33e0
+
 				this.writeToGlobalReciept = true;
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
