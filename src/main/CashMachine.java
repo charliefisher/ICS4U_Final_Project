@@ -364,16 +364,24 @@ public class CashMachine {
 		// screen showing total of order transaction
 		case OrderSUMMARY:
 			if (CashMachine.startReturnToStartButton.clicked(e.getX(), e.getY())) { 
+<<<<<<< HEAD
 				this.state = State.StartORDER; // clicked start,go back to type in new customer order
 
+=======
+>>>>>>> 2ae2200d621728634e04b13f9d4fe926306cea0d
 				// reset input fields and the customer
 				this.customerName = "";
 				this.customerNumber = "";
 				this.customerNameComplete = false;
 				this.customerNumberComplete = false;
 				this.customer = new Customer();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ae2200d621728634e04b13f9d4fe926306cea0d
 				this.writeToGlobalReciept = true;
+				// clicked start,go back to type in new customer order
+				this.state = State.StartORDER; 
 			}
 			else if (CashMachine.startExitButton.clicked(e.getX(), e.getY())){
 				this.state = State.StartSCREEN; // clicked x go back to start screen
