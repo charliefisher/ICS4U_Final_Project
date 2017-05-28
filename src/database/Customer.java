@@ -166,7 +166,6 @@ public class Customer extends DatabaseElement {
 
 	// add parenthesis around the customer's area code and add spaces to the phone number
 	private void formatPhoneNum() {
-		System.out.println(this.phoneNum);
 		this.phoneNum = "(" + this.phoneNum.substring(0, 3) + ") " + this.phoneNum.substring(3, 6) + " "
 				+ this.phoneNum.substring(6);
 	}
