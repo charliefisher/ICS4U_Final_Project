@@ -12,12 +12,12 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
- 
+
 public final class Panel extends JPanel implements MouseListener, KeyListener {
 
 	// fixes an error with JPanel
 	private static final long serialVersionUID = 1L;
-	
+
 	// declares BufferedImages for each screen
 	private static BufferedImage edit1, edit2, setup1, start, use2, use3, use4;
 
@@ -28,30 +28,30 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 	public Panel() throws IOException, FontFormatException {
 		// instantiate the reference of CashMachine
 		this.mc = new CashMachine();
-		
+
 		// load of all of the screens and inititalize the BufferedImages
 		URL fileURL;
-		
+
 		fileURL = getClass().getResource("/Screens/EDIT1.png");
 		edit1 = ImageIO.read(fileURL);
-		
+
 		fileURL = getClass().getResource("/Screens/EDIT2.png");
 		edit2 = ImageIO.read(fileURL);
-		
+
 		fileURL = getClass().getResource("/Screens/SETUP1.png");
 		setup1 = ImageIO.read(fileURL);
-		
+
 		fileURL = getClass().getResource("/Screens/START.png");
 		start = ImageIO.read(fileURL);
-		
+
 		fileURL = getClass().getResource("/Screens/use2.png");
 		use2 = ImageIO.read(fileURL);
-		
+
 		fileURL = getClass().getResource("/Screens/USE3.png");
 		use3 = ImageIO.read(fileURL);
-		
+
 		fileURL = getClass().getResource("/Screens/use4.png");
-		use4 = ImageIO.read(fileURL);	
+		use4 = ImageIO.read(fileURL);
 	}
 
 	// handles the graphics
@@ -87,16 +87,16 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 			g.drawImage(edit2, 0, 0, null);
 			break;
 		}
-		
+
 		// calls the paint(Graphics g) method of CashMachine
-		// Panel handles the screen drawing and CashMachine handles the drawing of strings and other GUI features
+		// Panel handles the screen drawing and CashMachine handles the drawing
+		// of strings and other GUI features
 		this.mc.paint(g);
 	}
 
-
 	// is called 60 times a second by the main class
 	public void run() throws IOException {
-		//calls the run method for CashMachine
+		// calls the run method for CashMachine
 		this.mc.run();
 	}
 
@@ -110,7 +110,7 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	// is called whenever a key is typed
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -122,34 +122,40 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 		}
 	}
 
-
 	// UNUSED METHODS
-	// JPanel makes you implement MouseListener and KeyListener in order to get mouse and keyboard input
+	// JPanel makes you implement MouseListener and KeyListener in order to get
+	// mouse and keyboard input
 	// Cannot just use specific motion events
-	// in other class the do not extend JPanel, you can use listener methods on their own
+	// in other class the do not extend JPanel, you can use listener methods on
+	// their own
 	// other classes only use the required event handlers
 	@Override
 	public void mousePressed(MouseEvent e) {
 
 	}
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
 	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
 	}
+
 	@Override
 	public void mouseExited(MouseEvent e) {
 
 	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 	}
 }

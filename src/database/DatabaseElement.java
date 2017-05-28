@@ -10,10 +10,14 @@ public abstract class DatabaseElement {
 	public DatabaseElement() {
 	}
 
-	// tries to load a file and returns a boolean based on whether or not the file exists
+	// tries to load a file and returns a boolean based on whether or not the
+	// file exists
 	public abstract boolean load(String fileName);
+
 	// instantiates instance variables from reading the database file
 	public abstract void getInfo() throws FileNotFoundException;
-	// writes all instance variables to the file (updates changes in the database)
+
+	// writes all instance variables to the file (updates changes in the
+	// database)
 	public abstract void write() throws IOException;
 }

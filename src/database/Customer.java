@@ -15,7 +15,7 @@ public class Customer extends DatabaseElement {
 	private String lastName;
 	private String userName;
 	private String phoneNum;
-	
+
 	// store the list of transactions that the customer has taken part in
 	private ArrayList<String> transactions = new ArrayList<String>();
 
@@ -29,7 +29,8 @@ public class Customer extends DatabaseElement {
 	public Customer() {
 	}
 
-	// the customer will automatically load the customer's information from the necessary file
+	// the customer will automatically load the customer's information from the
+	// necessary file
 	public Customer(String fileName) {
 		this.load(fileName);
 	}
@@ -39,7 +40,7 @@ public class Customer extends DatabaseElement {
 	public boolean load(String customerName) {
 		// remove the space from the customer's name and store their name
 		this.formatCustomerName(customerName);
-		
+
 		try {
 			// load the customer file
 			this.customer = new File(FILE_PATH + this.userName);
@@ -60,7 +61,8 @@ public class Customer extends DatabaseElement {
 		this.formatCustomerName(customerName);
 		// store the customer's phone number
 		this.phoneNum = phoneNum;
-		// format the customer's phone number (add parenthesis around the area code and add spaces)
+		// format the customer's phone number (add parenthesis around the area
+		// code and add spaces)
 		this.formatPhoneNum();
 
 		// declare the file path to the directory for the customer files
@@ -69,7 +71,7 @@ public class Customer extends DatabaseElement {
 		dir.mkdirs();
 		// instantiate the customer file to the customer's name
 		this.customer = new File(dir, userName);
-		// create  a permanent file for the new customer
+		// create a permanent file for the new customer
 		customer.createNewFile();
 
 		// write all local instance variables to the customer's file
@@ -84,23 +86,25 @@ public class Customer extends DatabaseElement {
 
 		// instantiate the customer's first name
 		this.firstName = sc.next();
-		// if the next line is blank (no last name), then instantiate the last name to "" (empty string)
-		// else, the customer has a last name, then instantiate the customer's last name to the name in the file
+		// if the next line is blank (no last name), then instantiate the last
+		// name to "" (empty string)
+		// else, the customer has a last name, then instantiate the customer's
+		// last name to the name in the file
 		String temp = sc.next();
 		if (temp.equals(Customer.EMPTY_LAST_NAME)) {
 			this.lastName = Customer.EMPTY_LAST_NAME;
-		}
-		else {
+		} else {
 			this.lastName = temp;
 		}
-		
-		// instantiate instance variables to the values in the customer's file and format all fields properly
+
+		// instantiate instance variables to the values in the customer's file
+		// and format all fields properly
 		this.updateUserName();
 		this.phoneNum = sc.next();
 		this.formatPhoneNum();
-		
+
 		// remove all existing transactions from list
-		while(this.transactions.size() > 0) {
+		while (this.transactions.size() > 0) {
 			this.transactions.remove(0);
 		}
 
@@ -123,25 +127,25 @@ public class Customer extends DatabaseElement {
 		// write the customers first and last name (seperate lines)
 		br.write(this.firstName + "\n");
 		br.write(this.lastName + "\n");
-		// write the customers phone number (remove the parenthesis around the area code and spaces)
-		// only write a new line if the customer has transactions (BufferedReader does not allow preceding "\n")
+		// write the customers phone number (remove the parenthesis around the
+		// area code and spaces)
+		// only write a new line if the customer has transactions
+		// (BufferedReader does not allow preceding "\n")
 		String phoneNum = this.phoneNum.substring(1, 4) + this.phoneNum.substring(6, 9) + this.phoneNum.substring(10);
-		
-		if(this.transactions.size() == 0) {
+
+		if (this.transactions.size() == 0) {
 			br.write(phoneNum);
-		}
-		else {
+		} else {
 			br.write(phoneNum + "\n");
 		}
 
 		// write all of the transaction numbers
 		for (int i = 0; i < this.transactions.size(); i++) {
 			// if this last transaction, do not write an enter
-			//else, write an enter
-			if (i == this.transactions.size()-1) {
+			// else, write an enter
+			if (i == this.transactions.size() - 1) {
 				br.write(this.transactions.get(i));
-			}
-			else {
+			} else {
 				br.write(this.transactions.get(i) + "\n");
 			}
 		}
@@ -149,13 +153,15 @@ public class Customer extends DatabaseElement {
 		// close the filewriter (finished writing)
 		br.close();
 	}
-	
-	// update the values in the file to the instance variables of the customer, and draw the most recent transaction number
+
+	// update the values in the file to the instance variables of the customer,
+	// and draw the most recent transaction number
 	public void write(String transactionNum) throws IOException {
 		// write all of the instance variables
 		this.write();
-		
-		// create a filewriter that appends to the customer file (rather than over writes it)
+
+		// create a filewriter that appends to the customer file (rather than
+		// over writes it)
 		FileWriter wr = new FileWriter(this.customer, true);
 		// write the transaction number to the customer file
 		wr.write("\n" + transactionNum);
@@ -163,8 +169,8 @@ public class Customer extends DatabaseElement {
 		wr.close();
 	}
 
-
-	// add parenthesis around the customer's area code and add spaces to the phone number
+	// add parenthesis around the customer's area code and add spaces to the
+	// phone number
 	private void formatPhoneNum() {
 		this.phoneNum = "(" + this.phoneNum.substring(0, 3) + ") " + this.phoneNum.substring(3, 6) + " "
 				+ this.phoneNum.substring(6);
@@ -172,8 +178,10 @@ public class Customer extends DatabaseElement {
 
 	// remove spaces from the customer name
 	private void formatCustomerName(String customerName) {
-		// if the customer has a first and last name, separate them and instantiate the respective instance variable
-		// if the customer only has a first name, declare the last name to "" (blank string)
+		// if the customer has a first and last name, separate them and
+		// instantiate the respective instance variable
+		// if the customer only has a first name, declare the last name to ""
+		// (blank string)
 		if (customerName.contains(" ")) {
 			this.firstName = customerName.substring(0, customerName.indexOf(" ")).toLowerCase();
 			this.lastName = customerName.substring(customerName.indexOf(" ") + 1).toLowerCase();
@@ -186,14 +194,16 @@ public class Customer extends DatabaseElement {
 		this.updateUserName();
 	}
 
-	// returns a string containing the first and last name of the customer and their phone number
+	// returns a string containing the first and last name of the customer and
+	// their phone number
 	@Override
 	public String toString() {
 		return this.firstName + " " + this.lastName + " " + this.phoneNum;
 	}
 
 	// updates the first name of the customer to a new name
-	// does not have implementation but will be used when the application has a screen to edit customer's files
+	// does not have implementation but will be used when the application has a
+	// screen to edit customer's files
 	public void changeFirstName(String newName) throws IOException {
 		// update the customer's first name instance variable
 		this.firstName = newName;
@@ -204,7 +214,8 @@ public class Customer extends DatabaseElement {
 	}
 
 	// updates the last name of the customer to a new name
-	// does not have implementation but will be used when the application has a screen to edit customer's files
+	// does not have implementation but will be used when the application has a
+	// screen to edit customer's files
 	public void changeLastName(String newName) throws IOException {
 		// update the customer's last name instance variable
 		this.lastName = newName;
@@ -216,12 +227,12 @@ public class Customer extends DatabaseElement {
 
 	// updates the customer's user name
 	private void updateUserName() {
-		// if the customer has a first and last name update their username to be the concatenation of their first and last name (in lower case)
+		// if the customer has a first and last name update their username to be
+		// the concatenation of their first and last name (in lower case)
 		// else, make their username their first name
-		if(!this.lastName.equals(Customer.EMPTY_LAST_NAME)) {
+		if (!this.lastName.equals(Customer.EMPTY_LAST_NAME)) {
 			this.userName = (this.firstName + this.lastName).toLowerCase();
-		}
-		else {
+		} else {
 			this.userName = this.firstName.toLowerCase();
 		}
 	}
@@ -240,9 +251,9 @@ public class Customer extends DatabaseElement {
 	public String getLastName() {
 		return this.lastName;
 	}
-	
+
 	// add a new transaction to the list of the customer's transactions
 	public void addTransaction(String transactionNum) {
-		this.transactions.add(transactionNum);	
+		this.transactions.add(transactionNum);
 	}
 }
