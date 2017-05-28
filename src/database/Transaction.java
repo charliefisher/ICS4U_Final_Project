@@ -55,9 +55,6 @@ public class Transaction extends DatabaseElement {
 		// reference the customer
 		this.customer = customer;
 
-		// close the register (update the transaction number)
-		this.registerClose();
-
 		// instantiate the date to the current date
 		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	}
@@ -74,7 +71,7 @@ public class Transaction extends DatabaseElement {
 		sc.close();
 	}
 
-	private void registerClose() throws IOException {
+	public void registerClose() throws IOException {
 		// declare and instantiate a file writer for the settings file
 		FileWriter wr = new FileWriter(this.settings);
 		// write the updated transaction number to the settings file
@@ -201,7 +198,7 @@ public class Transaction extends DatabaseElement {
 
 		// if the customer has a last name (capitalize the first letter) and store the value in temp
 		// if the customer has no last name store "" (blank string) in temp
-		if (this.customer.getLastName().length() > 1) {
+		if (!this.customer.getLastName().equals(Customer.EMPTY_LAST_NAME)) {
 			temp = this.customer.getLastName().toUpperCase().charAt(0)
 					+ this.customer.getLastName().substring(1).toLowerCase();
 		} else {
@@ -215,7 +212,11 @@ public class Transaction extends DatabaseElement {
 
 	// returns a string of the subtotal for the transaction with 2 decimal places	
 	public String getSubtotal() {
+<<<<<<< HEAD
 		return "$" + String.format("%.2f", this.subtotal);
+=======
+		return String.format("%.2f", this.subtotal);
+>>>>>>> f99c51830d7d34396d353912b85f80ca5e3cab4f
 	}
 
 	// returns a string of the tax for the transaction with 2 decimal places
