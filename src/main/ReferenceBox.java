@@ -14,10 +14,13 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class ReferenceBox extends JPanel {
+	
+	// added to improve readability
+	// allows the user to see what product and the specific price are stored at each button location
 
 	private static final long serialVersionUID = 1L;
 
-	private static BufferedImage refScreen; // background img for window
+	private static BufferedImage refScreen; // background image for window
 
 	private static Font RefFont; // identifier for font
 
@@ -47,6 +50,7 @@ public class ReferenceBox extends JPanel {
 		this.tempProductInfo = newProductButtons;
 	}
 
+	// added to draw the name and price of each button
 	// all drawing of data
 	public void paint(Graphics g) {
 		g.drawImage(refScreen, 0, 0, null); // draw our background image for

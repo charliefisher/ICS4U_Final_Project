@@ -158,12 +158,13 @@ public class Transaction extends DatabaseElement {
 		wr.close();
 	}
 
+	// added for debugging purposes
 	// return a string containing the customer bought X products on the date
-	// ____
 	public String toString() {
 		return this.customer + " bought " + this.numProducts + " products on " + date;
 	}
 
+	// has the same functionality as the specificied sum(double price)
 	// adds a product to the transaction
 	public void addToSubtotal(ProductButton product, String undefined) throws IOException {
 		// adds the price of the product to the subtotal
@@ -184,6 +185,7 @@ public class Transaction extends DatabaseElement {
 		this.numProducts = this.products.size();
 	}
 
+	// has the same functionality as the specificied getReciept()
 	// returns a string with information about the order
 	public String getOrderSummary() {
 		// return a string containing all of the info for the transaction
@@ -192,17 +194,17 @@ public class Transaction extends DatabaseElement {
 				+ "?Tax: $" + this.getTax() + "?Total: $" + this.getTotal() + "?";
 	}
 
-	// returns a string of the transaction number (T1, T2, T3, ...)
+	// added to access the transaction number (T1, T2, T3, ...)
 	public String getTransactionNum() {
 		return "T" + Transaction.transactionNum;
 	}
 
-	// returns a string of the date of purchase
+	// added to access a string of the date of purchase
 	public String getDate() {
 		return this.date;
 	}
 
-	// returns the first and last name
+	// added to access the first and last name of the customer
 	public String getCustomer() {
 		String temp;
 
@@ -222,17 +224,20 @@ public class Transaction extends DatabaseElement {
 				+ this.customer.getFirstName().substring(1).toLowerCase() + " " + temp;
 	}
 
+	// added to access the formatted subtotal
 	// returns a string of the subtotal for the transaction with 2 decimal
 	// places
 	public String getSubtotal() {
 		return String.format("%.2f", this.subtotal);
 	}
 
+	// added to access the formatted tax
 	// returns a string of the tax for the transaction with 2 decimal places
 	public String getTax() {
 		return String.format("%.2f", this.tax);
 	}
 
+	// added to access the formatted total
 	// returns a string of the total for the transaction with 2 decimal places
 	public String getTotal() {
 		return String.format("%.2f", this.total);

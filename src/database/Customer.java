@@ -176,6 +176,7 @@ public class Customer extends DatabaseElement {
 				+ this.phoneNum.substring(6);
 	}
 
+	// added a helper method to remove the space from customer name that is passed in
 	// remove spaces from the customer name
 	private void formatCustomerName(String customerName) {
 		// if the customer has a first and last name, separate them and
@@ -194,6 +195,7 @@ public class Customer extends DatabaseElement {
 		this.updateUserName();
 	}
 
+	// added to assist debugging
 	// returns a string containing the first and last name of the customer and
 	// their phone number
 	@Override
@@ -201,6 +203,7 @@ public class Customer extends DatabaseElement {
 		return this.firstName + " " + this.lastName + " " + this.phoneNum;
 	}
 
+	// added in order to mutate the customer's first name
 	// updates the first name of the customer to a new name
 	// does not have implementation but will be used when the application has a
 	// screen to edit customer's files
@@ -213,6 +216,7 @@ public class Customer extends DatabaseElement {
 		this.updateUserName();
 	}
 
+	// added in order to mutate the customer's last name
 	// updates the last name of the customer to a new name
 	// does not have implementation but will be used when the application has a
 	// screen to edit customer's files
@@ -225,6 +229,7 @@ public class Customer extends DatabaseElement {
 		this.updateUserName();
 	}
 
+	// added in order to mutate the customer's phone number
 	// updates the customer's user name
 	private void updateUserName() {
 		// if the customer has a first and last name update their username to be
@@ -252,6 +257,7 @@ public class Customer extends DatabaseElement {
 		return this.lastName;
 	}
 
+	// added in order to add a transaction to the customer's list of transactions
 	// add a new transaction to the list of the customer's transactions
 	public void addTransaction(String transactionNum) {
 		this.transactions.add(transactionNum);

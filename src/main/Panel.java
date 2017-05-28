@@ -94,6 +94,7 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 		this.mc.paint(g);
 	}
 
+	// added to call the application logic inside CashMachine
 	// is called 60 times a second by the main class
 	public void run() throws IOException {
 		// calls the run method for CashMachine
@@ -111,6 +112,7 @@ public final class Panel extends JPanel implements MouseListener, KeyListener {
 		}
 	}
 
+	// added the key listener methods in order to receive keyboard input
 	// is called whenever a key is typed
 	@Override
 	public void keyTyped(KeyEvent e) {

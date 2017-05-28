@@ -147,6 +147,7 @@ public class CashMachine {
 		sc.close();
 	}
 
+	// added to improve cleanliness of code
 	// write name and price of 20 buttons to product_button_settings
 	private void writeProductButtons() throws IOException {
 		FileWriter wr = new FileWriter(this.productButtonSettings);
@@ -254,8 +255,8 @@ public class CashMachine {
 		}
 	}
 
+	// unused as button editing is handled by keyTyped, mouseClicked, and confirmButtonEditChanges
 	public void edit(ProductButton editButton, int buttonNumber) {
-
 	}
 
 	public void run() throws IOException {
@@ -272,6 +273,7 @@ public class CashMachine {
 		}
 	}
 
+	// added to write the company reciept to a text file
 	// writes the company reciept (a file with all of the transcations listed)
 	private void writeReceipt() throws IOException {
 		// locates the correct directory for the universal receipt file
@@ -319,10 +321,12 @@ public class CashMachine {
 		return this.state;
 	}
 
+	// added to mutate the state
 	public void setState(State newState) { // set the state
 		this.state = newState;
 	}
 
+	// added to access the application font
 	public static Font getMCFont() {
 		return CashMachine.MCFont; // return our font
 	}
@@ -460,6 +464,7 @@ public class CashMachine {
 		}
 	}
 
+	// added to recieve keyboard input
 	public void keyTyped(KeyEvent e) throws IOException {
 		switch (this.state) {
 		case SetupNAME:
@@ -551,6 +556,7 @@ public class CashMachine {
 		}
 	}
 
+	// helper method added to load the customer (as it is called from both mouseClicked and keyTyped)
 	// called when the user confirms the customer
 	// called either my clicking on confirm or pressing enter
 	// switches state from StartORDER to ORDER
@@ -572,6 +578,7 @@ public class CashMachine {
 		}
 	}
 
+	// helper method added to confirm button changes (as it is called from both mouseClicked and keyTyped)
 	// called when the user confirms changes to the button
 	// called either my clicking on confirm or pressing enter
 	// switches state from EditBUTTON to EditSELECT
@@ -603,6 +610,7 @@ public class CashMachine {
 		this.state = State.EditSELECT;
 	}
 
+	// helper method added to confirm the company name (as it is called from both mouseClicked and keyTyped)
 	// called when the user confirms the name of the company
 	// called either my clicking on confirm or pressing enter
 	// switches state from SetupNAME to EditSELECT
