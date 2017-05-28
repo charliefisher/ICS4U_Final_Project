@@ -1,0 +1,62 @@
+**Step By Step Process of Using MyCheckout**
+
+1) First Time Open: Enter a company name to be used with cash machine (Hit enter or click on screen button)
+
+2) Edit Selection Screen: - Select into any button to go into edit button screen
+	- EditButton: - Enter product name and price
+	- limited to 16 characters
+											  - Click x on screen or esc to get back into edit select screen
+	- Note: - Empty name and non zero price & non-empty name and zero price are both permissible
+	- Click access reference box to see current stored values for buttons				  		  
+	- Click x on screen or hit esc to exit into main menu
+
+3) Main Menu: - Click OPEN to start order
+	- Click EDIT to go back to edit selection screen (Look at #2 above)
+			  
+4) Enter Customer Info: - Enter customer name
+	- Can be only first name or first name *space* last name
+	- limited to 16 characters
+	- Enter customer number
+	- Must be a 10 digit number
+	- Click next or press enter to move on to start ordering items
+	- Click back to go back to main menu
+
+5) Ordering/Transaction: - Click buttons to add to a running sub-total (top right corner)
+	- Click open reference box button to see what products and prices are stored at which location
+	- Click start to go back to enter customer name and number screen
+	- Can be used to restart the order for same customer (If wrong product was added)
+	- Click finish to end transaction and go to order summary screen
+
+6) Order Summary: - Prints out important details to screen (Date, Customer, Subtotal, Tax, Total)
+	- Click start to begin new order (See #4)
+	- Click x to return to main menu (See #3)
+
+----- Filing System -----
+This data is provided for easy accounting for business processes
+
+*Note right click project folder and refresh to get most up to date data*
+
+To access the files of all previous customers go to database.customers
+	- Click into any customer file
+	- File contains: - First name (First line)
+			 - Last name (Second line)
+				- Note: if no last name is provided this field shows up as "**********EMPTY**********"
+			 - Customer number (Third line)
+			 - Prints which transaction receipts are associated to that customer
+
+Transaction Files: - The receipts of all transactions that go through machine
+	- accessed at database.transactions
+	- Click into transaction (Below, in order, is content of transaction file)
+			 - Prints customer first and last name on first line
+			 - Date of transaction
+			 - # of products for transaction
+			 - Prints names of products in order (Multiple orders of same product will be repeated)
+			 - Prints subtotal for order
+			 - Printed tax for order
+			 - Printed total for order
+
+Company Master Receipt File: - Running file that contains all transaction files for company in one document	
+			 - Contained in main package
+			 - Labeled with the company name
+			 - Contains: -Company name at top
+			 - all transaction data info in blocks of text
