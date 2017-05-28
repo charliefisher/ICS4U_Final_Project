@@ -147,7 +147,7 @@ public class Transaction extends DatabaseElement {
 
 		// write all of the products purchased
 		for (int i = 0; i < numProducts; i++) {
-			wr.write(this.products.get(i) + "\n");
+			wr.write(this.products.get(i).toLowerCase() + "\n");
 		}
 		// write the cost of the transaction (subtotal, tax, total)
 		wr.write(new Double(Math.round(this.subtotal * 100.0) / 100.0).toString() + "\n");

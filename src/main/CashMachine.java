@@ -282,24 +282,22 @@ public class CashMachine {
 		dir.mkdirs();
 
 		// creates the file for the universal receipt
-		File totalTransactions = new File(dir, this.companyName.replace(" ", "").toLowerCase() + "_universal_recipt");
-		// creates a permanent file for the unviersal reciept
+		String fileName = this.companyName.replace(" ", "").toLowerCase() + "_universal_recipt";
+		File totalTransactions = new File(dir, fileName);
+		// creates a permanent file for the universal receipt
 		totalTransactions.createNewFile();
 
 		// declares and instantiates a scanner that reads from the universal
 		// receipt
 		Scanner sc = new Scanner(totalTransactions);
 		// declares a filewriter
-		FileWriter wr;
+		FileWriter wr = new FileWriter(totalTransactions, true);
 
 		// if the file already has info (has already been created), then append
 		// to the bottom of the file
 		// else, the file has no info (was just created), then write the company
 		// name
-		if (sc.hasNextLine()) {
-			wr = new FileWriter(totalTransactions, true);
-		} else {
-			wr = new FileWriter(totalTransactions);
+		if (!sc.hasNextLine()) {
 			wr.write(this.companyName);
 		}
 

@@ -60,3 +60,10 @@ Company Master Receipt File: - Running file that contains all transaction files 
 			 - Labeled with the company name
 			 - Contains: -Company name at top
 			 - all transaction data info in blocks of text
+			 
+----- Notes -----
+On the first run through the program creates a separate universal transaction receipt and on the second run through 
+(re opening of the application) it will create a new universal receipt that will remain for the rest of time
+
+This was implemented so that the company can test the application (with false information) on the first run of 
+the application (subsequent runs use a different universal receipt)
